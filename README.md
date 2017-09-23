@@ -1,12 +1,39 @@
-# wri
+# WRI
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.16.0.
+This project is the front-end part in AnuglarJS v1.6.6. of the app Web Research Integration
 
-## Build & development
+# Pre-req.
+- NodeJS
+- Grunt
+- Bower
+- Google Chrome (lol)
 
-Run `grunt` for building and `grunt serve` for preview.
+# Download
 
-## Testing
+First you must git clone the project:
 
-Running `grunt test` will run the unit tests with karma.
+```shell
+git clone https://github.com/WebResearchIntegration/WRI-front.git
+```
+
+# Install
+Now you must execute both commands to install all deps of the project:
+
+```shell
+npm install
+```
+
+And:
+
+```shell
+bower install
+```
+
+# Run
+Now that all dep are installed, you can launch your app with:
+
+```shell
+grunt serve
+```
+
+Be sure to connect the back end application for API calls.
