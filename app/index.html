@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Web Research Interface</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -11,6 +11,8 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="bower_components/material-design-lite/material.min.css">
+    <link rel="stylesheet" href="bower_components/material-design-icons/iconfont/material-icons.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
@@ -20,35 +22,8 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-
-            <a class="navbar-brand" href="#/">wri</a>
-          </div>
-
-          <div class="collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
+    
     <div ng-view=""></div>
-    </div>
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
-    </div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -71,13 +46,15 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/material-design-lite/material.min.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/restangular/dist/restangular.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
         <!-- endbuild -->
 </body>
 </html>
