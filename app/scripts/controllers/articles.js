@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name wriApp.controller:ArticlesCtrl
+ * @name wriApp.controller:articlesCtrl
  * @description
- * # ArticlesCtrl
+ * # articlesCtrl
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('ArticlesCtrl', function ($scope, articleService) {
+    .controller('articlesCtrl', function ($scope, articleService) {
         
         // var promise = articleService.getArticles();
         // promise.then(function (data){
