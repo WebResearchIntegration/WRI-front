@@ -9,10 +9,30 @@
 angular.module('wriApp')
   .directive('elementViewer', function () {
     return {
-      template: '<div></div>',
       restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        element.text('this is the elementViewer directive');
+      templateUrl: '/views/directives/element-viewer/element-viewer.html',
+      scope: {
+        type: '@',
+        element: '='
+      },
+      controller: function($scope) {
+        // [PARAMETERS]
+        var types = ["article", "author"];
+
+        // [PUBLIC METHODS]
+        $scope.availableType = function(elementType){
+          for (var i = 0; i < types.length; i++){
+            if (elementType.toLowerCase() == types[i].toLowerCase()){
+              return true;
+            }
+          }
+          return false;
+        };
+      },
+      link: function(scope, element, attrs) {
+        // Code to write
+
+        // Watcher on scope.element
       }
     };
   });
