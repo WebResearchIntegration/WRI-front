@@ -20,11 +20,35 @@ angular.module('wriApp')
       score: 443,
       conference: "City Of Disneyland",
       date: Date.now(),
-      authors_ids: [4, 21, 18],
+      authors_ids: [
+        { 
+          id: 4,
+          name: "Igor"
+        }, 
+        { 
+          id: 21,
+          name: "Griechka"
+        }, 
+        { 
+          id: 12,
+          name: "Merlin"
+        }],
       keywords: ["#disney", "#duck", "#gold"],
+      problematic: "What will happened to Donald Duck?",
+      solution: "He becames rich",
       abstract: "Donald Duck discover some gold",
-      description: "Donald Duck was relaxing when a golden meteor dropped off in his garden ...",
-      references_ids: [],
+      references_ids: [        { 
+        id: 34,
+        name: "Donald Duck in the Forest"
+      }, 
+      { 
+        id: 16,
+        name: "Donald Duck is dead"
+      }, 
+      { 
+        id: 9,
+        name: "Donald Duck GlobeTrotter"
+      }],
       notes_ids: [12, 34, 56]
     };
 
