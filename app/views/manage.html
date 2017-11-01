@@ -1,0 +1,31 @@
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" style="margin-top:  70px">
+
+    <!-- NAVIGATIONS -->
+    <div class="mdl-tabs__tab-bar">
+        <a href="#articles-panel" class="mdl-tabs__tab is-active">Articles</a>
+        <a href="#authors-panel" class="mdl-tabs__tab">Authors</a>
+        <a href="#notes-panel" class="mdl-tabs__tab">Notes</a>
+        <a href="#questions-panel" class="mdl-tabs__tab">Questions</a>
+    </div>
+
+    <!-- ARTICLES -->
+    <div class="mdl-tabs__panel is-active" id="articles-panel" ng-controller="articlesCtrl">
+        <div ng-include="'views/listItem.html'" class="wrap-item" ></div>
+    </div> 
+
+    <!-- AUTHORS -->
+    <div class="mdl-tabs__panel" id="authors-panel" ng-controller="authorsCtrl">
+        <div ng-include="'views/listItem.html'" class="wrap-item" ></div>
+    </div> 
+    
+    <!-- NOTES -->
+    <div class="mdl-tabs__panel" id="notes-panel" ng-controller="notesCtrl">
+        <div ng-include="'views/listItem.html'" class="wrap-item" ></div>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div class="mdl-tabs__panel" id="questions-panel" ng-controller="questionsCtrl">
+        <div ng-include="'views/listItem.html'" class="wrap-item" ></div>
+    </div>    
+
+</div>

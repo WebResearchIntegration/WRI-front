@@ -2,32 +2,32 @@
 
 /**
  * @ngdoc function
- * @name wriApp.controller:articlesCtrl
+ * @name wriApp.controller:questionsCtrl
  * @description
- * # articlesCtrl
+ * # questionsCtrl
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('articlesCtrl', function ($scope) {
+    .controller('questionsCtrl', function ($scope) {
         
         $scope.listItems = [
             {
-                'name' : 'Article X'
+                'name' : 'Question X'
             },
             {
-                'name' : 'Article X'
+                'name' : 'Question X'
             },
             {
-                'name' : 'Article X'
+                'name' : 'Question X'
             },
             {
-                'name' : 'Article X'
+                'name' : 'Question X'
             },
             {
-                'name' : 'Article X'
+                'name' : 'Question X'
             },
             {
-                'name' : 'Article X'
+                'name' : 'Question X'
             },
             
         ];
