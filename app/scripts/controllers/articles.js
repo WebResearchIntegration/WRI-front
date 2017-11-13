@@ -12,8 +12,9 @@ angular.module('wriApp')
         
         var ctrl = this;
         ctrl.showModale;
-        Restangular.one('article').get().then(function(articles) {
-            ctrl.articles = articles.articles;
+        Restangular.all('article').getList().then(function(articles) {
+            console.log(articles);
+            ctrl.articles = articles;
         });
         
 
