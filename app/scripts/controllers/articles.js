@@ -10,7 +10,10 @@
 angular.module('wriApp')
     .controller('articlesCtrl', function ($scope) {
         
-        $scope.listItems = [
+        var ctrl = this;
+        ctrl.showModale;
+
+        ctrl.articles = [
             {
                 'name' : 'Article X'
             },
@@ -28,7 +31,17 @@ angular.module('wriApp')
             },
             {
                 'name' : 'Article X'
-            },
+            }
             
         ];
+
+        ctrl.addModale = function(name){
+            ctrl.showModale = true;
+        }
+
+        ctrl.addArticle = function(name){
+            ctrl.articles.push({'name' : 'null'})
+            console.log(ctrl.articles );
+        }
+
     });

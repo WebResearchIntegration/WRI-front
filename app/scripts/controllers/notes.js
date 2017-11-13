@@ -10,7 +10,9 @@
 angular.module('wriApp')
     .controller('notesCtrl', function ($scope) {
         
-        $scope.listItems = [
+        var ctrl = this;
+
+        ctrl.notes = [
             {
                 'name' : 'Note X'
             },

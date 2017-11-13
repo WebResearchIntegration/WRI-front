@@ -10,7 +10,9 @@
 angular.module('wriApp')
     .controller('questionsCtrl', function ($scope) {
         
-        $scope.listItems = [
+        var ctrl = this;
+
+        ctrl.questions = [
             {
                 'name' : 'Question X'
             },

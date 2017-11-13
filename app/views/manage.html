@@ -6,23 +6,15 @@
     </div>
 
     <!-- ARTICLES -->
-    <div class="" ng-show="manageCtrl.manageTab.articles === true" id="articles-panel" ng-controller="articlesCtrl">
-        <div ng-include="'views/listItem.html'" class="wrap-item" ></div>
-    </div> 
+    <div ng-show="manageCtrl.manageTab.articles === true" ng-include="'views/articles.html'" class="wrap-item" ng-controller="articlesCtrl as articlesCtrl"></div>
 
     <!-- AUTHORS -->
-    <div class="" ng-show="manageCtrl.manageTab.authors === true" id="authors-panel" ng-controller="authorsCtrl">
-        <div ng-include="'views/listItem.html'" class="wrap-item" ></div>
-    </div> 
+     <div ng-show="manageCtrl.manageTab.authors === true" ng-include="'views/authors.html'" class="wrap-item" ng-controller="authorsCtrl as authorsCtrl"></div>
     
     <!-- NOTES -->
-    <div class="" ng-show="manageCtrl.manageTab.notes === true" id="notes-panel" ng-controller="notesCtrl">
-        <div ng-include="'views/listItem.html'" class="wrap-item" ></div>
-    </div>
+     <div ng-show="manageCtrl.manageTab.notes === true" ng-include="'views/notes.html'" class="wrap-item" ng-controller="notesCtrl as notesCtrl"></div>
 
     <!-- QUESTIONS -->
-    <div class="" ng-show="manageCtrl.manageTab.questions === true" id="questions-panel" ng-controller="questionsCtrl">
-        <div ng-include="'views/listItem.html'" class="wrap-item" ></div>
-    </div>    
+     <div ng-show="manageCtrl.manageTab.questions === true" ng-include="'views/questions.html'" class="wrap-item" ng-controller="questionsCtrl as questCtrl"></div>   
 
 </div>

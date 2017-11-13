@@ -2,17 +2,15 @@
 
 /**
  * @ngdoc function
- * @name wriApp.controller:authorsCtrl
+ * @name wriApp.controller:listItemCtrl
  * @description
- * # authorsCtrl
+ * # listItemCtrl
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('authorsCtrl', function ($scope) {
+    .controller('listItemCtrl', function ($scope) {
         
-        var ctrl = this;
-
-        ctrl.authors = [
+        $scope.listItems = [
             {
                 'name' : 'Author X'
             },
