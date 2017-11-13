@@ -16,19 +16,7 @@ angular.module('wriApp')
             },
             {
                 'name' : 'Author X'
-            },
-            {
-                'name' : 'Author X'
-            },
-            {
-                'name' : 'Author X'
-            },
-            {
-                'name' : 'Author X'
-            },
-            {
-                'name' : 'Author X'
-            },
+            }
             
         ];
     });
