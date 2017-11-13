@@ -8,6 +8,8 @@
  * Service in the wriApp.
  */
 angular.module('wriApp')
-  .service('questions', function () {
+  .service('questionsService', function () {
     var service = this;
+
+    return service;
   });
