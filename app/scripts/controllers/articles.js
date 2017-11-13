@@ -8,32 +8,14 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('articlesCtrl', function ($scope) {
+    .controller('articlesCtrl', function ($scope, Restangular) {
         
         var ctrl = this;
         ctrl.showModale;
-
-        ctrl.articles = [
-            {
-                'name' : 'Article X'
-            },
-            {
-                'name' : 'Article X'
-            },
-            {
-                'name' : 'Article X'
-            },
-            {
-                'name' : 'Article X'
-            },
-            {
-                'name' : 'Article X'
-            },
-            {
-                'name' : 'Article X'
-            }
-            
-        ];
+        Restangular.one('article').get().then(function(articles) {
+            ctrl.articles = articles.articles;
+        });
+        
 
         ctrl.addModale = function(name){
             ctrl.showModale = true;
