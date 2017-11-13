@@ -1,0 +1,20 @@
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" style="margin-top: 70px" ng-controller="manageCtrl as manageCtrl">
+
+    <!-- NAVIGATIONS -->
+    <div class="mdl-tabs__tab-bar">
+        <a href="" class="mdl-tabs__tab" ng-repeat="(key, data) in manageCtrl.manageTab" ng-click="manageCtrl.showCategory(key)">{{key}}</a>
+    </div>
+
+    <!-- ARTICLES -->
+    <div ng-show="manageCtrl.manageTab.articles === true" ng-include="'views/articles.html'" class="wrap-item" ng-controller="articlesCtrl as articlesCtrl"></div>
+
+    <!-- AUTHORS -->
+     <div ng-show="manageCtrl.manageTab.authors === true" ng-include="'views/authors.html'" class="wrap-item" ng-controller="authorsCtrl as authorsCtrl"></div>
+    
+    <!-- NOTES -->
+     <div ng-show="manageCtrl.manageTab.notes === true" ng-include="'views/notes.html'" class="wrap-item" ng-controller="notesCtrl as notesCtrl"></div>
+
+    <!-- QUESTIONS -->
+     <div ng-show="manageCtrl.manageTab.questions === true" ng-include="'views/questions.html'" class="wrap-item" ng-controller="questionsCtrl as questCtrl"></div>   
+
+</div>

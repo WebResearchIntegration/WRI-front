@@ -1,5 +1,5 @@
-<div ng-include="'views/listArticles.html'"></div>     
+<div class="item" ng-repeat="article in articlesCtrl.articles">{{article.name}}</div>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article">
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="articlesCtrl.addModale()">
     <i class="material-icons">add</i>
 </button>

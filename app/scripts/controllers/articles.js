@@ -8,10 +8,40 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('articlesCtrl', function ($scope, articleService) {
+    .controller('articlesCtrl', function ($scope) {
         
-        // var promise = articleService.getArticles();
-        // promise.then(function (data){
-        //     $scope.articles = data;
-        // })
+        var ctrl = this;
+        ctrl.showModale;
+
+        ctrl.articles = [
+            {
+                'name' : 'Article X'
+            },
+            {
+                'name' : 'Article X'
+            },
+            {
+                'name' : 'Article X'
+            },
+            {
+                'name' : 'Article X'
+            },
+            {
+                'name' : 'Article X'
+            },
+            {
+                'name' : 'Article X'
+            }
+            
+        ];
+
+        ctrl.addModale = function(name){
+            ctrl.showModale = true;
+        }
+
+        ctrl.addArticle = function(name){
+            ctrl.articles.push({'name' : 'null'})
+            console.log(ctrl.articles );
+        }
+
     });
