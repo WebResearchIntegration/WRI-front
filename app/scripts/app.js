@@ -15,9 +15,10 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'restangular'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, RestangularProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/manage.html',
@@ -32,4 +33,9 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
+      // [RESTANGuLAR CONFIG: START]
+      RestangularProvider.setBaseUrl('http://localhost:8888/api/');
+
+      // [RESTANGuLAR CONFIG: END]
   });

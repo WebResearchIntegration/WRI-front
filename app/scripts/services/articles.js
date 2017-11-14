@@ -1,13 +1,51 @@
 angular.module('wriApp')
-    .service('articleService', function ($http, $q) {
-        var deffered = $q.defer();
+    .service('articleService', [ 'Restangular', function (Restangular) {
+        var service = this;
 
-        // $http.get('API').then(function (data) {
-        //     deffered.resolve(data);
-        // });
+        /**
+         * Will get all articles from the database.
+         * @param NoParam
+         */
+        service.getAll = function() {
+            return Restangular.all('article').getList();
+        };
 
-        // getArticles = function(){
-        //     return deffered.promise;
-        // }
+        /**
+         * Will get an article by it's id.
+         * This method is async so you'll be able to use the then() method.
+         */
+        service.getById =  function(id) {
+            return Restangular.one('article', id).get();
+        };
 
-    });
+        /**
+         * Will update one article by ID.
+         * This method is async yopu'll be able to use the then( method on it.)
+         */
+        service.updateById = function(id, newArticle) {
+            return service.getById(id).then(function(article) {
+                article = newArticle;
+                article.save();
+            });
+        }
+
+        /**
+         * Will create an article inside the database.
+         * 
+        */
+        service.create = function (article) {
+            // ADD OBJECT CONTROL
+            return Restangular.service('article').post(article);
+        }
+
+        /**
+         * Will delete an article by the giving id.
+         */
+        service.delete = function(id) {
+            return service.getById(id).then(function(article) {
+                article.delete();
+            });
+        }
+
+        return service;
+    }]);
