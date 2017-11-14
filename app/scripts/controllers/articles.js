@@ -8,12 +8,12 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('articlesCtrl', function ($scope, Restangular) {
+    .controller('articlesCtrl', function ($scope, articleService) {
         
         var ctrl = this;
         ctrl.showModale;
-        Restangular.all('article').getList().then(function(articles) {
-            console.log(articles);
+
+        articleService.getAll().then(function(articles) {
             ctrl.articles = articles;
         });
         
