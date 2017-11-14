@@ -25,8 +25,8 @@ angular.module('wriApp')
         }
 
         ctrl.addArticle = function(name){
-            ctrl.articles.push({'name' : 'null'})
-            console.log(ctrl.articles );
+            ctrl.articles.push({'name' : 'null'});
+            console.log(ctrl.articles);
         }
 
         

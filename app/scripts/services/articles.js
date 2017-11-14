@@ -20,14 +20,17 @@ angular.module('wriApp')
          * 
          */
         service.updateById = function(id, newArticle) {
-            
+            return service.getById(id).then(function(article) {
+                article = newArticle;
+                article.save();
+            });
         }
-        
+
         /**
          * 
         */
         service.create = function (article) {
-            
+            return Restangular.all('article').post('article', article);
         }
 
         /**
