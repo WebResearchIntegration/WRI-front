@@ -8,7 +8,7 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('articlesCtrl', function ($scope, articleService) {
+    .controller('articlesCtrl', function ($scope, Articles) {
         
         var ctrl = this;
         ctrl.showModale;

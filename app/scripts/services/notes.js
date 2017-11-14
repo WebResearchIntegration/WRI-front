@@ -8,7 +8,7 @@
  * Service in the wriApp.
  */
 angular.module('wriApp')
-  .service('notesService', function () {
+  .service('Notes', function () {
     var service = this;
 
     /**

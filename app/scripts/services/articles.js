@@ -1,5 +1,5 @@
 angular.module('wriApp')
-    .service('articleService', [ 'Restangular', function (Restangular) {
+    .service('Articles', [ 'Restangular', function (Restangular) {
         var service = this;
 
         /**
