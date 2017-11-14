@@ -13,14 +13,21 @@ angular.module('wriApp')
          * 
          */
         service.getById =  function(id) {
-
+            return Restangular.one('article', id).get();
         };
 
         /**
          * 
          */
-        service.updateById = function(id) {
-
+        service.updateById = function(id, newArticle) {
+            
+        }
+        
+        /**
+         * 
+        */
+        service.create = function (article) {
+            
         }
 
         /**

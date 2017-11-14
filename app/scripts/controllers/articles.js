@@ -13,10 +13,12 @@ angular.module('wriApp')
         var ctrl = this;
         ctrl.showModale;
 
-        articleService.getAll().then(function(articles) {
-            ctrl.articles = articles;
-        });
-        
+        (ctrl.init = function() {
+            // Will load the data directly from the database
+            articleService.getAll().then(function(articles) {
+                ctrl.articles = articles;
+            });
+        })();
 
         ctrl.addModale = function(name){
             ctrl.showModale = true;
@@ -27,4 +29,5 @@ angular.module('wriApp')
             console.log(ctrl.articles );
         }
 
+        
     });
