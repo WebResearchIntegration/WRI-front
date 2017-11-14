@@ -39,7 +39,7 @@ angular.module('wriApp')
         }
 
         /**
-         * 
+         * Will delete an article by the giving id.
          */
         service.delete = function(id) {
             return service.getById(id).then(function(article) {
