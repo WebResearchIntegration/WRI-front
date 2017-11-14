@@ -15,7 +15,7 @@ angular.module('wriApp')
      * 
      */
     service.getAll = function () {
-      return Restangular.all('article').getList();
+      return Restangular.all('question').getList();
     };
 
     /**
