@@ -17,6 +17,7 @@ angular.module('wriApp')
             // Will load the data directly from the database
             articleService.getAll().then(function(articles) {
                 ctrl.articles = articles;
+                console.log(articles);
             });
         })();
 
@@ -25,9 +26,11 @@ angular.module('wriApp')
         }
 
         ctrl.addArticle = function(name){
-            ctrl.articles.push({'name' : 'null'});
-            console.log(ctrl.articles);
+            var promptToUser = prompt("What is the name of your article ?");
+            articleService.create({'name': promptToUser}).then(function(element){
+                console.log(element);
+                ctrl.init();
+            });
         }
-
         
     });
