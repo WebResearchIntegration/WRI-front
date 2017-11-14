@@ -18,7 +18,7 @@ angular.module('wriApp')
       return Restangular.all('author').getList();
     };
 
-    /**
+    /** 
      * 
      */
     service.getById = function (id) {

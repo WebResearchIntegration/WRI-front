@@ -1,5 +1,9 @@
-<div class="item" ng-repeat="article in articlesCtrl.articles">{{article.name}}</div>
+<div class="item" ng-repeat="article in articlesCtrl.articles">{{article.name}} with id: {{article.id}}</div>
 
 <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="articlesCtrl.addArticle()">
     <i class="material-icons">add</i>
+</button>
+
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="articlesCtrl.deleteArticle()">
+    <i class="material-icons">warning</i>
 </button>

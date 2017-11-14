@@ -33,4 +33,9 @@ angular.module('wriApp')
             });
         }
         
+        ctrl.deleteArticle = function() {
+            articleService.delete(29).then(function(el){
+                ctrl.init();
+            });
+        }
     });

@@ -20,7 +20,7 @@ angular.module('wriApp')
 
         /**
          * Will update one article by ID.
-         * This method is async yopu'll be able to use the then( method on it.)
+         * This method is async you'll be able to use the then( method on it.)
          */
         service.updateById = function(id, newArticle) {
             return service.getById(id).then(function(article) {
@@ -43,7 +43,8 @@ angular.module('wriApp')
          */
         service.delete = function(id) {
             return service.getById(id).then(function(article) {
-                article.delete();
+                console.log(article);
+                article.remove();
             });
         }
 
