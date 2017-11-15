@@ -7,3 +7,11 @@
         height: auto !important;
     }
 }
+
+.fixed-nav {
+    position: fixed;
+    width: 100%;
+    z-index: 98;
+    background: white;
+    margin-top: -40px;
+}
