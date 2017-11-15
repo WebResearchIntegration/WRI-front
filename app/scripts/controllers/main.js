@@ -19,7 +19,7 @@ angular.module('wriApp')
       title: "Donald Duck and the Golden Rain",
       score: 443,
       conference: "City Of Disneyland",
-      date: Date.now(),
+      date: 2016,
       authors_ids: [
         { 
           id: 4,

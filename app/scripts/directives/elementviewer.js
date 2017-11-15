@@ -28,6 +28,11 @@ angular.module('wriApp')
           }
           return false;
         };
+
+        $scope.toggleStatus = function(status){
+          $scope.element.status[status] = !$scope.element.status[status];
+          // don't forget to update element with back
+        };
       },
       link: function(scope, element, attrs) {
         // Code to write

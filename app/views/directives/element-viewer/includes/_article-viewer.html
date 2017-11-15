@@ -1,24 +1,31 @@
-<header>
-    <h2>Title</h2>
-    <div>
-        <div>
-            <span>Conference</span>
-            <span>Year</span>
+<header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+        <span class="mdl-layout__title">{{element.title}}</span>
+    </div>
+    <div class="mdl-layout__header-row">
+        <div class="article-infos">
+                <div class="article-publication-details">
+                    <span>{{element.conference}}</span>
+                    <span>{{element.date}}</span>
+                </div>
+                <div class="article-score"><i class="material-icons">star</i>{{element.score}}</div>
         </div>
-        <div>score</div>
     </div>
-    <div>
-        <ul>
-            <li>saved</li>
-            <li>printed</li>
-            <li>read</li>
+    <div class="mdl-layout__header-row mdl-color--primary-dark interactive-row">
+        <div class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button">
+            <i class="material-icons">edit</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </div>
+        <ul class="article-viewer__status-list">
+            <li class="mdl-button" ng-class="{'status-checked': element.status.saved}" ng-click="toggleStatus('saved')">Saved</li>
+            <li class="mdl-button" ng-class="{'status-checked': element.status.read}" ng-click="toggleStatus('read')">Read</li>
+            <li class="mdl-button" ng-class="{'status-checked': element.status.printed}" ng-click="toggleStatus('printed')">Printed</li>
         </ul>
-        <div>edit_button</div>
     </div>
-    
-    
 </header>
-<section>
+<section class="mdl-layout__content">
     <div>
         <p>Problematic</p>
         <p>Solution</p>
