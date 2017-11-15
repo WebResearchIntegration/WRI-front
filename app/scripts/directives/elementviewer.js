@@ -15,7 +15,7 @@ angular.module('wriApp')
         type: '@',
         element: '='
       },
-      controller: function($scope) {
+      controller: function($scope, Articles) {
         // [PARAMETERS]
         var types = ["article", "author"];
 
@@ -33,6 +33,10 @@ angular.module('wriApp')
           $scope.element.status[status] = !$scope.element.status[status];
           // don't forget to update element with back
         };
+
+        $scope.getArticle = function(id) {
+          console.log('hey')
+        }
       },
       link: function(scope, element, attrs) {
         // Code to write

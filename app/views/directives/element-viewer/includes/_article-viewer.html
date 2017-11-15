@@ -110,7 +110,7 @@
             <ul class="article__references__list">
                 <li class="article__references__list__reference" ng-repeat="reference in element.references">
                     <span class="mdl-chip" ng-click="loadArticle(reference)">
-                        <span class="mdl-chip__text">{{reference.title}}</span>
+                        <span class="mdl-chip__text">{{getArticle(reference)}}</span>
                     </span>
                 </li>
             </ul>
