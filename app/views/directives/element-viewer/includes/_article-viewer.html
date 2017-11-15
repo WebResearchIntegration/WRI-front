@@ -19,6 +19,20 @@
             </span>
         </div>
         <ul class="article-viewer__status-list">
+            <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': element.status.saved}" ng-click="toggleStatus('saved')">
+                <span class="mdl-chip__contact"><i class="material-icons">check</i></span>
+                <span class="mdl-chip__text">Saved</span>
+            </li>
+            <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': element.status.read}" ng-click="toggleStatus('read')">
+                <span class="mdl-chip__contact"><i class="material-icons">remove_red_eye</i></span>
+                <span class="mdl-chip__text">Read</span>
+            </li>
+            <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': element.status.printed}" ng-click="toggleStatus('printed')">
+                <span class="mdl-chip__contact"><i class="material-icons">print</i></span>
+                <span class="mdl-chip__text">Printed</span>
+            </li>
+        </ul>
+        <ul class="article-viewer__status-list" style="display: none">
             <li class="mdl-button" ng-class="{'status-checked': element.status.saved}" ng-click="toggleStatus('saved')">Saved</li>
             <li class="mdl-button" ng-class="{'status-checked': element.status.read}" ng-click="toggleStatus('read')">Read</li>
             <li class="mdl-button" ng-class="{'status-checked': element.status.printed}" ng-click="toggleStatus('printed')">Printed</li>
