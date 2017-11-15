@@ -74,12 +74,19 @@
             </ul>
         </div>
     </section>
-    <section>
-        <ul>
-            <li>Keywoard 1</li>
-            <li>Keywoard 2</li>
-            <li>Keywoard 3</li>
-        </ul>
+    <section class="article__keywords">
+        <div class="article__keywords__inside">
+            <div class="article__keywords__title">
+                <span>Keywords</span>
+            </div>
+            <ul class="article__keywords__list">
+                <li class="article__keywords__list__keyword" ng-repeat="keyword in element.keywords">
+                    <span class="mdl-chip" ng-click="applyKeyboardFilter(keyword)">
+                        <span class="mdl-chip__text">#{{keyword}}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
     </section>
     <section>
         <ul>

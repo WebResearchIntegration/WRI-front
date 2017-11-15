@@ -166,5 +166,24 @@ element-viewer {
                 }
             }
         }
+        
+        .article__keywords {
+
+            .article__keywords__title {
+                margin-left: 15px;
+                font-size: 1.3em;
+            }
+
+            .article__keywords__list {
+                list-style: none;
+
+                .article__keywords__list__keyword {
+                    display: inline-block;
+                    margin: 5px;
+
+                    cursor: pointer;
+                }
+            }
+        }
     }
 }

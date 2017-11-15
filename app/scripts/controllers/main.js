@@ -45,7 +45,7 @@ angular.module('wriApp')
           id: 12,
           name: "Merlin"
         }],
-      keywords: ["#disney", "#duck", "#gold"],
+      keywords: ["disney", "duck", "gold"],
       problematic: "What will happened to Donald Duck?",
       solution: "He becames rich",
       abstract: "Donald Duck discover some gold",
