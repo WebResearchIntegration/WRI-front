@@ -13,11 +13,9 @@ angular.module('wriApp')
         var ctrl = this;
         $scope.selectedElementType = "article";
         $scope.selectedElement = {
-            status : {
-              saved: false,
-              printed: false,
-              read: false
-            },
+            isSaved: true,
+            isPrinted: true,
+            isRead: false,
             title: "Donald Duck and the Golden Rain",
             score: 443,
             conference: "City Of Disneyland",
@@ -105,5 +103,9 @@ angular.module('wriApp')
             Articles.delete(29).then(function(el){
                 ctrl.init();
             });
+        }
+
+        ctrl.sendArticle = function() {
+          alert("yoo");
         }
     });
