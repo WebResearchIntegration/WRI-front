@@ -49,17 +49,18 @@ angular.module('wriApp')
       problematic: "What will happened to Donald Duck?",
       solution: "He becames rich",
       abstract: "Donald Duck discover some gold",
-      references_ids: [        { 
+      references: [        
+      { 
         id: 34,
-        name: "Donald Duck in the Forest"
+        title: "Donald Duck in the Forest"
       }, 
       { 
         id: 16,
-        name: "Donald Duck is dead"
+        title: "Donald Duck is dead"
       }, 
       { 
         id: 9,
-        name: "Donald Duck GlobeTrotter"
+        title: "Donald Duck GlobeTrotter"
       }],
       notes_ids: [12, 34, 56]
     };

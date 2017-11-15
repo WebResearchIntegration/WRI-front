@@ -90,13 +90,17 @@ element-viewer {
         padding-top: 40px;
 
         section {
-            border-bottom: 1px solid rgb(195, 195, 195);
             padding: 10px 20px;
+            
+            &:not(:last-child){
+                border-bottom: 1px solid rgb(195, 195, 195);
+                margin-bottom: 20px;
+            }
         }
 
-        .article__main-informations {
+        .article__main-informations__category {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
 
             &:before {
                 content: '';
@@ -182,6 +186,29 @@ element-viewer {
                     margin: 5px;
 
                     cursor: pointer;
+                }
+            }
+        }
+
+        .article__references {
+
+            .article__references__title {
+                margin-left: 15px;
+                font-size: 1.3em;
+            }
+
+            .article__references__list {
+                list-style: none;
+
+                .article__references__list__reference {
+                    display: block;
+                    margin: 5px 0;
+
+                    cursor: pointer;
+
+                    .mdl-chip {
+                        border-radius: initial;
+                    }
                 }
             }
         }

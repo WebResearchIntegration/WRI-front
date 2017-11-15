@@ -27,7 +27,7 @@
 </header>
 <main class="mdl-layout__content">
     <section class="article__main-informations">
-        <div class="article__main-informations --article-problematic">
+        <div class="article__main-informations__category --article-problematic">
             <div class="article__main-informations__inside">
                 <div class="article__main-informations__title">
                     <span>Problematic</span>
@@ -37,7 +37,7 @@
                 </p>
             </div>
         </div>
-        <div class="article__main-informations --article-solution">
+        <div class="article__main-informations__category --article-solution">
             <div class="article__main-informations__inside">
                 <div class="article__main-informations__title">
                     <span>Solution</span>
@@ -47,7 +47,7 @@
                 </p>
             </div>
         </div>
-        <div class="article__main-informations --article-abstract">
+        <div class="article__main-informations__category --article-abstract">
             <div class="article__main-informations__inside">
                 <div class="article__main-informations__title">
                     <span>Abstract</span>
@@ -88,13 +88,20 @@
             </ul>
         </div>
     </section>
-    <section>
-        <ul>
-            <li>Reference 1</li>
-            <li>Reference 2</li>
-            <li>Reference 3</li>
-        </ul>
-    </section>
+    <section class="article__references">
+            <div class="article__references__inside">
+                <div class="article__references__title">
+                    <span>References</span>
+                </div>
+                <ul class="article__references__list">
+                    <li class="article__references__list__reference" ng-repeat="reference in element.references">
+                        <span class="mdl-chip" ng-click="loadArticle(reference)">
+                            <span class="mdl-chip__text">{{reference.title}}</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </section>
     <section>
         <article>Note 1</article>
         <article>Note 2</article>
