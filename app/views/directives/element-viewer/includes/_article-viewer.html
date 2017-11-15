@@ -103,22 +103,37 @@
         </div>
     </section>
     <section class="article__references">
-            <div class="article__references__inside">
-                <div class="article__references__title">
-                    <span>References</span>
-                </div>
-                <ul class="article__references__list">
-                    <li class="article__references__list__reference" ng-repeat="reference in element.references">
-                        <span class="mdl-chip" ng-click="loadArticle(reference)">
-                            <span class="mdl-chip__text">{{reference.title}}</span>
-                        </span>
-                    </li>
-                </ul>
+        <div class="article__references__inside">
+            <div class="article__references__title">
+                <span>References</span>
             </div>
-        </section>
-    <section>
-        <article>Note 1</article>
-        <article>Note 2</article>
+            <ul class="article__references__list">
+                <li class="article__references__list__reference" ng-repeat="reference in element.references">
+                    <span class="mdl-chip" ng-click="loadArticle(reference)">
+                        <span class="mdl-chip__text">{{reference.title}}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section  class="article__notes">
+        <div class="article__notes__inside">
+            <div class="article__notes__title">
+                <span>Notes</span>
+            </div>
+            <ul class="article__notes__list">
+                <article ng-repeat="note in element.notes" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
+                    <div class="mdl-card__supporting-text">
+                        {{note.content}}
+                    </div>
+                </article>
+            </ul>
+            <div class="article__notes__action">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="createNoteFor(element.id)">
+                    Add a note
+                </button>
+            </div>
+        </div>
     </section>
 </main>
 <footer>

@@ -62,7 +62,19 @@ angular.module('wriApp')
         id: 9,
         title: "Donald Duck GlobeTrotter"
       }],
-      notes_ids: [12, 34, 56]
+      notes: [
+        {
+          id: 12,
+          content: "Ceci est plutot sympatique pour se divertir"
+        },
+        {
+          id: 33,
+          content: "Je viens de le relire et c'est toujours excellent"
+        },
+        {
+          id: 87,
+          content: "Est-ce qu'ils en ont fait un dessin animé ?"
+        }]
     };
 
     $scope.selectedElementType = "article";
