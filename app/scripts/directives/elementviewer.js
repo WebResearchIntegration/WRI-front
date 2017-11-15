@@ -34,8 +34,8 @@ angular.module('wriApp')
           // don't forget to update element with back
         };
 
-        $scope.getArticle = function(id) {
-          console.log('hey')
+        $scope.isArray = function(elementToAnalyze) {
+          return Array.isArray(elementToAnalyze);
         }
       },
       link: function(scope, element, attrs) {

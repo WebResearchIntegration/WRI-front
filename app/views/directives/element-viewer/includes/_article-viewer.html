@@ -108,10 +108,15 @@
                 <span>References</span>
             </div>
             <ul class="article__references__list">
-                <li class="article__references__list__reference" ng-repeat="reference in element.references">
+                <li class="article__references__list__reference" ng-if="isArray(element.references)" ng-repeat="reference in element.references">
                     <span class="mdl-chip" ng-click="loadArticle(reference)">
-                        <span class="mdl-chip__text">{{getArticle(reference)}}</span>
+                        <span class="mdl-chip__text">{{reference.name}}</span>
                     </span>
+                </li>
+                <li class="article__references__list__reference" ng-if="!isArray(element.references)">
+                        <span class="mdl-chip" ng-click="loadArticle(reference)">
+                            <span class="mdl-chip__text">{{element.references.name}}</span>
+                        </span>
                 </li>
             </ul>
         </div>
@@ -122,10 +127,15 @@
                 <span>Notes</span>
             </div>
             <ul class="article__notes__list">
-                <article ng-repeat="note in element.notes" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
+                <article ng-if="isArray(element.notes)" ng-repeat="note in element.notes" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
                     <div class="mdl-card__supporting-text">
-                        {{note.content}}
+                        {{note.text}}
                     </div>
+                </article>
+                <article ng-if="!isArray(element.notes)" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
+                        <div class="mdl-card__supporting-text">
+                            {{element.notes.text}}
+                        </div>
                 </article>
             </ul>
             <div class="article__notes__action">
