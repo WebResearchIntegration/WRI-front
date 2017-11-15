@@ -1,0 +1,141 @@
+<header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+        <span class="mdl-layout__title">{{element.title}}</span>
+    </div>
+    <div class="mdl-layout__header-row">
+        <div class="article-infos">
+                <div class="article-publication-details">
+                    <span>{{element.conference}}</span>
+                    <span>{{element.date}}</span>
+                </div>
+                <div class="article-score"><i class="material-icons">star</i>{{element.score}}</div>
+        </div>
+    </div>
+    <div class="mdl-layout__header-row mdl-color--primary-dark interactive-row">
+        <div class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button">
+            <i class="material-icons">edit</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </div>
+        <ul class="article-viewer__status-list">
+            <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': element.status.saved}" ng-click="toggleStatus('saved')">
+                <span class="mdl-chip__contact"><i class="material-icons">check</i></span>
+                <span class="mdl-chip__text">Saved</span>
+            </li>
+            <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': element.status.read}" ng-click="toggleStatus('read')">
+                <span class="mdl-chip__contact"><i class="material-icons">remove_red_eye</i></span>
+                <span class="mdl-chip__text">Read</span>
+            </li>
+            <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': element.status.printed}" ng-click="toggleStatus('printed')">
+                <span class="mdl-chip__contact"><i class="material-icons">print</i></span>
+                <span class="mdl-chip__text">Printed</span>
+            </li>
+        </ul>
+        <ul class="article-viewer__status-list" style="display: none">
+            <li class="mdl-button" ng-class="{'status-checked': element.status.saved}" ng-click="toggleStatus('saved')">Saved</li>
+            <li class="mdl-button" ng-class="{'status-checked': element.status.read}" ng-click="toggleStatus('read')">Read</li>
+            <li class="mdl-button" ng-class="{'status-checked': element.status.printed}" ng-click="toggleStatus('printed')">Printed</li>
+        </ul>
+    </div>
+</header>
+<main class="mdl-layout__content">
+    <section class="article__main-informations">
+        <div class="article__main-informations__category mdl-shadow--4dp --article-problematic">
+            <div class="article__main-informations__inside">
+                <div class="article__main-informations__title">
+                    <span>Problematic</span>
+                </div>
+                <p class="article__main-informations__value">
+                    {{element.problematic}}
+                </p>
+            </div>
+        </div>
+        <div class="article__main-informations__category mdl-shadow--4dp --article-solution">
+            <div class="article__main-informations__inside">
+                <div class="article__main-informations__title">
+                    <span>Solution</span>
+                </div>
+                <p class="article__main-informations__value">
+                    {{element.solution}}
+                </p>
+            </div>
+        </div>
+        <div class="article__main-informations__category mdl-shadow--4dp --article-abstract">
+            <div class="article__main-informations__inside">
+                <div class="article__main-informations__title">
+                    <span>Abstract</span>
+                </div>
+                <p class="article__main-informations__value">
+                    {{element.abstract}}
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="article__authors">
+        <div class="article__authors__inside">
+            <div class="article__authors__title">
+                <span>Authors</span>
+            </div>
+            <ul class="article__authors__list">
+                <li class="article__authors__list__author" ng-repeat="author in element.authors">
+                    <span class="mdl-chip mdl-chip--contact" ng-click="openAuthorProfile(author.id)">
+                        <img ng-if="author.imageUrl" class="mdl-chip__contact" src="{{author.imageUrl.small}}"></img>
+                        <span ng-if="!author.imageUrl" class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{author.name | limitTo: 1}}</span>
+                        <span class="mdl-chip__text">{{author.name}}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="article__keywords">
+        <div class="article__keywords__inside">
+            <div class="article__keywords__title">
+                <span>Keywords</span>
+            </div>
+            <ul class="article__keywords__list">
+                <li class="article__keywords__list__keyword" ng-repeat="keyword in element.keywords">
+                    <span class="mdl-chip" ng-click="applyKeyboardFilter(keyword)">
+                        <span class="mdl-chip__text">#{{keyword}}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="article__references">
+        <div class="article__references__inside">
+            <div class="article__references__title">
+                <span>References</span>
+            </div>
+            <ul class="article__references__list">
+                <li class="article__references__list__reference" ng-repeat="reference in element.references">
+                    <span class="mdl-chip" ng-click="loadArticle(reference)">
+                        <span class="mdl-chip__text">{{reference.title}}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section  class="article__notes">
+        <div class="article__notes__inside">
+            <div class="article__notes__title">
+                <span>Notes</span>
+            </div>
+            <ul class="article__notes__list">
+                <article ng-repeat="note in element.notes" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
+                    <div class="mdl-card__supporting-text">
+                        {{note.content}}
+                    </div>
+                </article>
+            </ul>
+            <div class="article__notes__action">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="createNoteFor(element.id)">
+                    Add a note
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+<footer>
+    <div></div>
+</footer>

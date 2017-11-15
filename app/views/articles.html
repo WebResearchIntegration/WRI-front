@@ -1,5 +1,17 @@
-<div class="item" ng-repeat="article in articlesCtrl.articles">{{article.name}} with id: {{article.id}}</div>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--3-col"></div>            
+    <div class="mdl-cell mdl-cell--5-col">
+        <div class="item" ng-repeat="article in articlesCtrl.articles">{{article.name}} with id: {{article.id}}</div>
+            
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="articlesCtrl.addArticle()">
+            <i class="material-icons">add</i>
+        </button>
+    </div>
+    <div class="mdl-cell mdl-cell--4-col">
+        <div class="article-viewer">
+            <element-viewer type="{{selectedElementType}}" element="selectedElement"></element-viewer>
+        </div>
+    </div>
+</div>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="articlesCtrl.addArticle()">
-    <i class="material-icons">add</i>
-</button>
+

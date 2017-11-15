@@ -1,6 +1,10 @@
 // bower:scss
 // endbower
 
+// [DIRECTIVES : begin]
+@import "directives/_element-viewer.scss";
+// [DIRECTIVES : end]
+
 body {
   padding: 0;
 }
@@ -18,17 +22,12 @@ body {
     padding: 0;
 }
 
-.wrap-item {
-    width: 30%;
-    margin: auto;
-}
 
 .add-article {
     display: flex;
     margin-top: 30px;
 }
 
-header {
-    position: fixed;
-    top:0;
+.mdl-layout__container {
+    position:relative;
 }
