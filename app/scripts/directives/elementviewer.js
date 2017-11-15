@@ -13,7 +13,8 @@ angular.module('wriApp')
       templateUrl: '/views/directives/element-viewer/element-viewer.html',
       scope: {
         type: '@',
-        element: '='
+        element: '=',
+        isViewerOpen:'='
       },
       controller: function($scope, Articles) {
         // [PARAMETERS]
@@ -37,6 +38,15 @@ angular.module('wriApp')
         $scope.isArray = function(elementToAnalyze) {
           return Array.isArray(elementToAnalyze);
         }
+
+        $scope.$watch('isViewerOpen', function(old) {
+          console.log(old)
+        })
+
+        $scope.closePanel =  function() {
+          $scope.$emit('closeViewer');
+        }
+
       },
       link: function(scope, element, attrs) {
         // Code to write
