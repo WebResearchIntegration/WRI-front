@@ -94,7 +94,7 @@ element-viewer {
             padding: 10px 20px;
         }
 
-        .article__main-informations__bloc {
+        .article__main-informations {
             position: relative;
             margin-bottom: 20px;
 
@@ -117,17 +117,17 @@ element-viewer {
                 background: none;
             }
 
-            .article__main-informations__bloc__inside {
+            .article__main-informations__inside {
                 padding: 15px;
 
-                .article__main-informations__bloc__title {
+                .article__main-informations__title {
                     font-size: 1.3em;
                 }
-                .article__main-informations__bloc__value {
+
+                .article__main-informations__value {
                     margin: 0;
                     padding-left: 15px;
                     margin-top: 10px;
-                    
                 }
             }
             @each $category, $color in (problematic: #b11e1e, solution: #109510, abstract: #3374c8) {
@@ -141,13 +141,30 @@ element-viewer {
                         border-bottom: 1px solid $color;
                     }
 
-                    .article__main-informations__bloc__title {
+                    .article__main-informations__title {
                         color: $color;
                     }
                 }
             }
         }
 
-        
+        .article__authors {
+
+            .article__authors__title {
+                margin-left: 15px;
+                font-size: 1.3em;
+            }
+            
+            .article__authors__list {
+                list-style: none;
+
+                .article__authors__list__author {
+                    display: inline-block;
+                    margin: 5px;
+
+                    cursor: pointer;
+                }
+            }
+        }
     }
 }

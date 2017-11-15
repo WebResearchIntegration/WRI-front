@@ -27,43 +27,52 @@
 </header>
 <main class="mdl-layout__content">
     <section class="article__main-informations">
-        <div class="article__main-informations__bloc --article-problematic">
-            <div class="article__main-informations__bloc__inside">
-                <div class="article__main-informations__bloc__title">
+        <div class="article__main-informations --article-problematic">
+            <div class="article__main-informations__inside">
+                <div class="article__main-informations__title">
                     <span>Problematic</span>
                 </div>
-                <p class="article__main-informations__bloc__value">
+                <p class="article__main-informations__value">
                     {{element.problematic}}
                 </p>
             </div>
         </div>
-        <div class="article__main-informations__bloc --article-solution">
-            <div class="article__main-informations__bloc__inside">
-                <div class="article__main-informations__bloc__title">
+        <div class="article__main-informations --article-solution">
+            <div class="article__main-informations__inside">
+                <div class="article__main-informations__title">
                     <span>Solution</span>
                 </div>
-                <p class="article__main-informations__bloc__value">
+                <p class="article__main-informations__value">
                     {{element.solution}}
                 </p>
             </div>
         </div>
-        <div class="article__main-informations__bloc --article-abstract">
-            <div class="article__main-informations__bloc__inside">
-                <div class="article__main-informations__bloc__title">
+        <div class="article__main-informations --article-abstract">
+            <div class="article__main-informations__inside">
+                <div class="article__main-informations__title">
                     <span>Abstract</span>
                 </div>
-                <p class="article__main-informations__bloc__value">
+                <p class="article__main-informations__value">
                     {{element.abstract}}
                 </p>
             </div>
         </div>
     </section>
-    <section>
-        <ul>
-            <li>Author 1</li>
-            <li>Author 2</li>
-            <li>Author 3</li>
-        </ul>
+    <section class="article__authors">
+        <div class="article__authors__inside">
+            <div class="article__authors__title">
+                <span>Authors</span>
+            </div>
+            <ul class="article__authors__list">
+                <li class="article__authors__list__author" ng-repeat="author in element.authors">
+                    <span class="mdl-chip mdl-chip--contact" ng-click="openAuthorProfile(author.id)">
+                        <img ng-if="author.imageUrl" class="mdl-chip__contact" src="{{author.imageUrl.small}}"></img>
+                        <span ng-if="!author.imageUrl" class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{author.name | limitTo: 1}}</span>
+                        <span class="mdl-chip__text">{{author.name}}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
     </section>
     <section>
         <ul>

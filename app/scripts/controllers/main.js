@@ -20,10 +20,22 @@ angular.module('wriApp')
       score: 443,
       conference: "City Of Disneyland",
       date: 2016,
-      authors_ids: [
+      authors: [
         { 
           id: 4,
           name: "Igor"
+        }, 
+        { 
+          id: 21,
+          name: "Griechka"
+        }, 
+        { 
+          id: 211,
+          name: "Bernadette Fingus"
+        }, 
+        { 
+          id: 45,
+          name: "M. Krieffman"
         }, 
         { 
           id: 21,
