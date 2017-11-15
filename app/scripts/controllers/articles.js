@@ -105,7 +105,8 @@ angular.module('wriApp')
             });
         }
 
-        ctrl.sendArticle = function() {
-          alert("yoo");
+        ctrl.sendArticle = function(article) {
+          console.log(article);
+          $scope.selectedElement = article;
         }
     });
