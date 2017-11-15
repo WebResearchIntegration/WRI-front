@@ -25,38 +25,65 @@
         </ul>
     </div>
 </header>
-<section class="mdl-layout__content">
-    <div>
-        <p>Problematic</p>
-        <p>Solution</p>
-        <p>Abstract</p>
-    </div>
-    <div>
+<main class="mdl-layout__content">
+    <section class="article__main-informations">
+        <div class="article__main-informations__bloc --article-problematic">
+            <div class="article__main-informations__bloc__inside">
+                <div class="article__main-informations__bloc__title">
+                    <span>Problematic</span>
+                </div>
+                <p class="article__main-informations__bloc__value">
+                    {{element.problematic}}
+                </p>
+            </div>
+        </div>
+        <div class="article__main-informations__bloc --article-solution">
+            <div class="article__main-informations__bloc__inside">
+                <div class="article__main-informations__bloc__title">
+                    <span>Solution</span>
+                </div>
+                <p class="article__main-informations__bloc__value">
+                    {{element.solution}}
+                </p>
+            </div>
+        </div>
+        <div class="article__main-informations__bloc --article-abstract">
+            <div class="article__main-informations__bloc__inside">
+                <div class="article__main-informations__bloc__title">
+                    <span>Abstract</span>
+                </div>
+                <p class="article__main-informations__bloc__value">
+                    {{element.abstract}}
+                </p>
+            </div>
+        </div>
+    </section>
+    <section>
         <ul>
             <li>Author 1</li>
             <li>Author 2</li>
             <li>Author 3</li>
         </ul>
-    </div>
-    <div>
+    </section>
+    <section>
         <ul>
             <li>Keywoard 1</li>
             <li>Keywoard 2</li>
             <li>Keywoard 3</li>
         </ul>
-    </div>
-    <div>
+    </section>
+    <section>
         <ul>
             <li>Reference 1</li>
             <li>Reference 2</li>
             <li>Reference 3</li>
         </ul>
-    </div>
+    </section>
     <section>
         <article>Note 1</article>
         <article>Note 2</article>
     </section>
-</section>
+</main>
 <footer>
     <div></div>
 </footer>

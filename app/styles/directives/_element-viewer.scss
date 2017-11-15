@@ -85,4 +85,69 @@ element-viewer {
             }
         }
     }
+
+    .mdl-layout__content {
+        padding-top: 40px;
+
+        section {
+            border-bottom: 1px solid rgb(195, 195, 195);
+            padding: 10px 20px;
+        }
+
+        .article__main-informations__bloc {
+            position: relative;
+            margin-bottom: 20px;
+
+            &:before {
+                content: '';
+                display:block;
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                background: none;
+            }
+            &:after {
+                content: '';
+                display:block;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                width: 25px;
+                height: 25px;
+                background: none;
+            }
+
+            .article__main-informations__bloc__inside {
+                padding: 15px;
+
+                .article__main-informations__bloc__title {
+                    font-size: 1.3em;
+                }
+                .article__main-informations__bloc__value {
+                    margin: 0;
+                    padding-left: 15px;
+                    margin-top: 10px;
+                    
+                }
+            }
+            @each $category, $color in (problematic: #b11e1e, solution: #109510, abstract: #3374c8) {
+                &.--article-#{$category} {
+                    &:before {
+                        border-left: 1px solid $color;
+                        border-top: 1px solid $color;
+                    }
+                    &:after {
+                        border-right: 1px solid $color;
+                        border-bottom: 1px solid $color;
+                    }
+
+                    .article__main-informations__bloc__title {
+                        color: $color;
+                    }
+                }
+            }
+        }
+
+        
+    }
 }
