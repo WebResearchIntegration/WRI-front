@@ -64,7 +64,7 @@ body {
     bottom: 10px;
     left: 10px;
     z-index: 99;
-    height: 200px;
+    height: 100px;
     width: 300px;
     background: white;
     overflow: auto;
@@ -72,15 +72,25 @@ body {
     
     .list-panel {
         overflow-y: auto;
-        height: 120px;
+        height: 80px;
     }
 
     .actions {
         position: absolute;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+        align-items: center;
         bottom: 0;
-        height: 80px;
+        height: 60px;
         width: 100%;
-        background: white;
+        background: #313231;
+        color: grey;
+        
+        & i:hover {
+            color:white;
+            cursor: pointer;
+        }
     }
 }
 

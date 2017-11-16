@@ -69,6 +69,17 @@ angular.module('wriApp')
             });
         }
 
+        ctrl.saveReferences = function() {
+            if(!Array.isArray($scope.selectedElement.references)) {
+                $scope.articlesList.push($scope.selectedElement.references);
+                $scope.selectedElement.references = $scope.articlesList;
+                ctrl.disableModeSelectionArticle();
+            } else {
+                $scope.selectedElement.references = $scope.selectedElement.references.concat($scope.articlesList);
+                ctrl.disableModeSelectionArticle();
+            }
+        }
+
         $rootScope.$on('closeViewer', function() {
           $scope.viewerOpen = true;
         });
