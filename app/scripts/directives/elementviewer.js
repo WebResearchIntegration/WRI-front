@@ -47,6 +47,10 @@ angular.module('wriApp')
           $scope.$emit('closeViewer');
         }
 
+        $scope.sendEnableReferenceEdition = function() {
+          $scope.$emit('enableReferenceModeOn');
+        }
+
       },
       link: function(scope, element, attrs) {
         // Code to write

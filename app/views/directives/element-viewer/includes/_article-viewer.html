@@ -39,7 +39,7 @@
         </ul>
     </div>
 </header>
-<main class="mdl-layout__content">
+<main class="mdl-layout__content content-wri-app-background">
     <section class="article__main-informations">
         <div class="article__main-informations__category mdl-shadow--4dp --article-problematic">
             <div class="article__main-informations__inside">
@@ -118,6 +118,12 @@
                             <span class="mdl-chip__text">{{element.references.name}}</span>
                         </span>
                 </li>
+                <div class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" ng-click="sendEnableReferenceEdition()">
+                    <i class="material-icons">add</i>
+                    <span class="mdl-button__ripple-container">
+                        <span class="mdl-ripple"></span>
+                    </span>
+                </div>
             </ul>
         </div>
     </section>

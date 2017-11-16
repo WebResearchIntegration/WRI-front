@@ -73,7 +73,7 @@ angular.module('wriApp')
           $scope.viewerOpen = true;
         });
 
-        $rootScope.$on('disabledSelectionMode', function() {
-            $scope.isModeSelectionArticleOn = false;
-          });
+        $rootScope.$on('enableReferenceModeOn', function() {
+            $scope.isModeSelectionArticleOn = true;
+        });
     });
