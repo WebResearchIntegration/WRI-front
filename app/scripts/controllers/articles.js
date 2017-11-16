@@ -11,14 +11,20 @@ angular.module('wriApp')
     .controller('articlesCtrl', function ($scope, Articles, $rootScope) {
         
         var ctrl = this;
+        
+        // [DECLARED $scope VARIABLES]
         $scope.selectedElementType = "article";
         $scope.selectedElement = null;
         $scope.viewerOpen = true;
         $scope.isModeSelectionArticleOn = false;
         $scope.articlesList = [];
+        // [END DECLARED $scope VARIABLES]
 
         ctrl.showModale;
 
+        /**
+         * 
+         */
         (ctrl.init = function() {
             // Will load the data directly from the database
             Articles.getAll().then(function(articles) {
@@ -27,10 +33,16 @@ angular.module('wriApp')
             });
         })();
 
+        /**
+         * 
+         */
         ctrl.addModale = function(name){
             ctrl.showModale = true;
         }
 
+        /**
+         * 
+         */
         ctrl.addArticle = function(name){
             var promptToUser = prompt("What is the name of your article ?");
             Articles.create({'name': promptToUser}).then(function(element){
@@ -39,12 +51,18 @@ angular.module('wriApp')
             });
         }
         
+        /**
+         * 
+         */
         ctrl.deleteArticle = function() {
             Articles.delete(29).then(function(el){
                 ctrl.init();
             });
         }
 
+        /**
+         * 
+         */
         ctrl.sendArticle = function(article) {
             if($scope.isModeSelectionArticleOn) {
                 article.isSelectedForReference = true;
@@ -57,10 +75,16 @@ angular.module('wriApp')
             }
         }
 
+        /**
+         * 
+         */
         ctrl.enableModeSelectionArticle = function() {
             $scope.isModeSelectionArticleOn = true;
         }
 
+        /**
+         * 
+         */
         ctrl.disableModeSelectionArticle = function() {
             $scope.isModeSelectionArticleOn = false;
             $scope.articlesList = [];
@@ -69,6 +93,9 @@ angular.module('wriApp')
             });
         }
 
+        /**
+         * 
+         */
         ctrl.saveReferences = function() {
             if(!Array.isArray($scope.selectedElement.references)) {
                 $scope.articlesList.push($scope.selectedElement.references);
@@ -82,10 +109,16 @@ angular.module('wriApp')
             }
         }
 
+        /**
+         * 
+         */
         $rootScope.$on('closeViewer', function() {
           $scope.viewerOpen = true;
         });
 
+        /**
+         * 
+         */
         $rootScope.$on('enableReferenceModeOn', function() {
             $scope.isModeSelectionArticleOn = true;
         });
