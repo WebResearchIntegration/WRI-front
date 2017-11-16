@@ -30,23 +30,38 @@ angular.module('wriApp')
           return false;
         };
 
+        /**
+         * 
+         */
         $scope.toggleStatus = function(status){
           $scope.element.status[status] = !$scope.element.status[status];
           // don't forget to update element with back
         };
 
+        /**
+         * 
+         */
         $scope.isArray = function(elementToAnalyze) {
           return Array.isArray(elementToAnalyze);
         }
 
+        /**
+         * 
+         */
         $scope.$watch('isViewerOpen', function(old) {
           console.log(old)
         })
 
+        /**
+         * 
+         */
         $scope.closePanel =  function() {
           $scope.$emit('closeViewer');
         }
 
+        /**
+         * 
+         */
         $scope.sendEnableReferenceEdition = function() {
           $scope.$emit('enableReferenceModeOn');
         }
