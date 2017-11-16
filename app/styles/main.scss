@@ -17,6 +17,26 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &.selected-mode-item {
+        border: 1px solid grey;
+        transition:.7s;
+    }
+
+    &.selected-item {
+        border: 1px solid blue;
+    }
+}
+
+.footer--wri {
+    position:fixed;
+    background: white;
+    bottom: 0;
+    width: 100%;
+}
+
+.selected-mode-background {
+    background: #c5c5c5;
 }
 
 .mdl-grid {

@@ -14,6 +14,8 @@ angular.module('wriApp')
         $scope.selectedElementType = "article";
         $scope.selectedElement = null;
         $scope.viewerOpen = true;
+        $scope.isModeSelectionArticleOn = false;
+        $scope.articlesList = [];
 
         ctrl.showModale;
 
@@ -44,12 +46,34 @@ angular.module('wriApp')
         }
 
         ctrl.sendArticle = function(article) {
-          $scope.selectedElement = article;
-          $scope.viewerOpen = false;
-          console.log($scope.selectedElement);
+            if($scope.isModeSelectionArticleOn) {
+                article.isSelectedForReference = true;
+                $scope.articlesList.push(article);
+                console.log($scope.articlesList)
+            } else {
+                $scope.selectedElement = article;
+                $scope.viewerOpen = false;
+                console.log($scope.selectedElement);
+            }
+        }
+
+        ctrl.enableModeSelectionArticle = function() {
+            $scope.isModeSelectionArticleOn = true;
+        }
+
+        ctrl.disableModeSelectionArticle = function() {
+            $scope.isModeSelectionArticleOn = false;
+            $scope.articlesList = [];
+            ctrl.articles.forEach(element => {
+                delete element.isSelectedForReference;
+            });
         }
 
         $rootScope.$on('closeViewer', function() {
           $scope.viewerOpen = true;
-        })
+        });
+
+        $rootScope.$on('disabledSelectionMode', function() {
+            $scope.isModeSelectionArticleOn = false;
+          });
     });

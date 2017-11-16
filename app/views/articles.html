@@ -1,11 +1,32 @@
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div>            
+<div class="mdl-grid" ng-class="{'selected-mode-background': isModeSelectionArticleOn}">
+    <div class="mdl-cell mdl-cell--3-col">
+        <div ng-if="!isModeSelectionArticleOn"></div>
+        <div ng-if="isModeSelectionArticleOn">
+            <div ng-repeat="article in articlesList">
+                <span class="mdl-chip mdl-chip--contact">
+                    <span ng-if="!author.imageUrl" class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{article.name | limitTo: 1}}</span>
+                    <span class="mdl-chip__text">{{article.name}}</span>
+                </span>
+                <br>
+            </div>
+            <br>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="">
+                    Add a note
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="articlesCtrl.disableModeSelectionArticle()">
+                    Cancel
+            </button>
+        </div>
+    </div>            
     <div class="mdl-cell mdl-cell--5-col">
-        <div class="item" ng-repeat="article in articlesCtrl.articles" ng-click="articlesCtrl.sendArticle(article)">{{article.name}} with id: {{article.id}}</div>
+        <div class="item" ng-class="{'selected-mode-item': isModeSelectionArticleOn, 'selected-item': article.isSelectedForReference}" ng-repeat="article in articlesCtrl.articles" ng-click="articlesCtrl.sendArticle(article)">{{article.name}} with id: {{article.id}}</div>
             
         <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="articlesCtrl.addArticle()">
             <i class="material-icons">add</i>
         </button>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="articlesCtrl.enableModeSelectionArticle()">
+                <i class="material-icons">add</i>
+            </button>
     </div>
     <div class="mdl-cell mdl-cell--4-col">
         <div class="article-viewer">
@@ -13,5 +34,4 @@
         </div>
     </div>
 </div>
-
 
