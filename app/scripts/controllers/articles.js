@@ -106,12 +106,16 @@ angular.module('wriApp')
             if(!Array.isArray($scope.selectedElement.references)) {
                 $scope.articlesList.push($scope.selectedElement.references);
                 $scope.selectedElement.references = $scope.articlesList;
-                //TODO CALLBACK FOR BACK END UPDATE
                 ctrl.disableModeSelectionArticle();
+                Articles.updateById($scope.selectedElement.id, $scope.selectedElement, function(updatedArticle) {
+                    ctrl.init();
+                });
             } else {
                 $scope.selectedElement.references = $scope.selectedElement.references.concat($scope.articlesList);
-                //TODO CALLBACK FOR BACK END UPDATE
                 ctrl.disableModeSelectionArticle();
+                Articles.updateById($scope.selectedElement.id, $scope.selectedElement, function(updatedArticle) {
+                    ctrl.init();
+                });
             }
         }
 
