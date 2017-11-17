@@ -23,7 +23,8 @@ angular.module('wriApp')
         ctrl.showModale;
 
         /**
-         * 
+         * Init method on load of the controller.
+         * Will load all articles from the database.
          */
         (ctrl.init = function() {
             // Will load the data directly from the database
@@ -34,14 +35,15 @@ angular.module('wriApp')
         })();
 
         /**
-         * 
+         * Show modale by turning the controller value to true.
          */
         ctrl.addModale = function(name){
             ctrl.showModale = true;
         }
 
         /**
-         * 
+         * Create an article inside the list and refresh the list of articles.
+         * @param {String} name the name of the created article
          */
         ctrl.addArticle = function(name){
             var promptToUser = prompt("What is the name of your article ?");
@@ -52,16 +54,20 @@ angular.module('wriApp')
         }
         
         /**
-         * 
+         * Will delete an article by giving the right id.
+         * @param {Number} id the correponsding of the database.
          */
-        ctrl.deleteArticle = function() {
+        ctrl.deleteArticle = function(id) {
             Articles.delete(29).then(function(el){
                 ctrl.init();
             });
         }
 
         /**
-         * 
+         * Two cases are available for this method.
+         * Will send the article to the directive.
+         * Send the article to the list of selected elements if selection mode is on.
+         * @param {Article} article article from the array got from the database.
          */
         ctrl.sendArticle = function(article) {
             if($scope.isModeSelectionArticleOn) {
@@ -76,14 +82,14 @@ angular.module('wriApp')
         }
 
         /**
-         * 
+         * Will enable the selection article reference mode on.
          */
         ctrl.enableModeSelectionArticle = function() {
             $scope.isModeSelectionArticleOn = true;
         }
 
         /**
-         * 
+         * will disable the selection article reference mode on.
          */
         ctrl.disableModeSelectionArticle = function() {
             $scope.isModeSelectionArticleOn = false;
@@ -94,7 +100,7 @@ angular.module('wriApp')
         }
 
         /**
-         * 
+         * Will save references and send it to the back end side of the applciation.
          */
         ctrl.saveReferences = function() {
             if(!Array.isArray($scope.selectedElement.references)) {
@@ -110,14 +116,18 @@ angular.module('wriApp')
         }
 
         /**
-         * 
+         * Will listen an event from children.
+         * When triggered will open the viewer.
+         * @event closeViewer
          */
         $rootScope.$on('closeViewer', function() {
           $scope.viewerOpen = true;
         });
 
         /**
-         * 
+         * Will listen an event from children.
+         * When triggered will enable the reference mode on.
+         * @event enableReferenceModeOn
          */
         $rootScope.$on('enableReferenceModeOn', function() {
             $scope.isModeSelectionArticleOn = true;
