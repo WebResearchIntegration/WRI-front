@@ -48,6 +48,9 @@ angular.module('wriApp')
           return Array.isArray(elementToAnalyze);
         }
 
+        $scope.createNoteFor = function() {
+          
+        }
         /**
          * Will watch the value to know if the viewer is open.
          */
