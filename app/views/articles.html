@@ -3,7 +3,13 @@
     </div>
     <div class="mdl-cell mdl-cell--5-col">
         <div class="item" ng-class="{'selected-mode-item': isModeSelectionArticleOn, 'selected-item': article.isSelectedForReference}"
-            ng-repeat="article in articlesCtrl.articles" ng-click="articlesCtrl.sendArticle(article)">{{article.name}} with id: {{article.id}}</div>
+            ng-repeat="article in articlesCtrl.articles" ng-click="articlesCtrl.sendArticle(article)">
+            <span>{{article.name}} with id: {{article.id}}</span>
+            <div class="validator" ng-class="{'selected-item-validator': article.isSelectedForReference, 'selected-item-validator-disabled': !article.isSelectedForReference}" ng-if="isModeSelectionArticleOn">
+                <i class="material-icons" ng-if="article.isSelectedForReference">done</i>
+                <i class="material-icons" ng-if="!article.isSelectedForReference">add</i>
+            </div>
+        </div>
 
         <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="articlesCtrl.addArticle()">
             <i class="material-icons">add</i>
@@ -17,13 +23,6 @@
 </div>
 <div class="selection-panel" ng-if="isModeSelectionArticleOn">
     <div>
-      <!--  <div ng-repeat="article in articlesList">
-            <span class="mdl-chip mdl-chip--contact">
-                <span ng-if="!author.imageUrl" class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{article.name | limitTo: 1}}</span>
-                <span class="mdl-chip__text">{{article.name}}</span>
-            </span>
-            <br>
-        </div>        -->
         <span class="mdl-chip mdl-chip--contact">
             <span ng-if="!author.imageUrl" class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{articlesList.length}}</span>
             <span class="mdl-chip__text">References added</span>
