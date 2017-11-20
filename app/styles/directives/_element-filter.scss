@@ -1,0 +1,23 @@
+element-filter {
+
+    .mdl-textfield {
+        display: flex;
+        flex-direction: column;
+        height: 80vh;
+        justify-content: space-around;
+
+        .orderBy {
+            width: 50%;
+        }
+
+        .reset--wri {
+            display:flex;
+            justify-content: center;
+
+            .mdl-button {
+                position: inherit;
+            }
+        }
+    }
+    
+}

@@ -18,9 +18,12 @@ angular.module('wriApp')
         $scope.viewerOpen = true;
         $scope.isModeSelectionArticleOn = false;
         $scope.articlesList = [];
+        $scope.filter = {};
+        $scope.order;
         // [END DECLARED $scope VARIABLES]
 
         ctrl.showModale;
+        
 
         /**
          * Init method on load of the controller.
@@ -136,4 +139,19 @@ angular.module('wriApp')
         $rootScope.$on('enableReferenceModeOn', function() {
             $scope.isModeSelectionArticleOn = true;
         });
+
+        $rootScope.$on('sendFilters', function(event, data) {
+            if(data === 'reset'){
+                $scope.filter = {}    
+                $scope.order = {};
+            } else {
+                $scope.filter = data;
+            }
+        });
+
+        $rootScope.$on('sendOrderBy', function(event, data) {
+            $scope.order = data;
+        });
+
+
     });
