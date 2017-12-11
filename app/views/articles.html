@@ -1,7 +1,7 @@
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col">
+<div class="mdl-grid --wri_full-height">
+    <div class="wri_manage-filter mdl-cell wri_grid__col-3">
     </div>
-    <div class="mdl-cell mdl-cell--5-col">
+    <div class="wri_manage-select mdl-cell wri_grid__col-5 --wri_scrollY-area">
         <div class="item" ng-class="{'selected-mode-item': isModeSelectionArticleOn, 'selected-item': article.isSelectedForReference}"
             ng-repeat="article in articlesCtrl.articles" ng-click="articlesCtrl.sendArticle(article)">
             <span>{{article.name}} with id: {{article.id}}</span>
@@ -11,13 +11,13 @@
             </div>
         </div>
 
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="articlesCtrl.addArticle()">
+        <button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="articlesCtrl.addArticle()">
             <i class="material-icons">add</i>
         </button>
     </div>
-    <div class="mdl-cell mdl-cell--4-col">
-        <div class="article-viewer">
-            <element-viewer type="{{selectedElementType}}" ng-hide="viewerOpen" element="selectedElement" isViewerOpen="openViewer"></element-viewer>
+    <div class="wri_manage-viewer mdl-cell wri_grid__col-4">
+        <div class="article-viewer --wri_full-height">
+            <element-viewer class="--wri_full-height" type="{{selectedElementType}}" ng-hide="viewerOpen" element="selectedElement" isViewerOpen="openViewer"></element-viewer>
         </div>
     </div>
 </div>
