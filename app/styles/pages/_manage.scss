@@ -1,0 +1,29 @@
+.wri_manage {
+    height: calc(100% - #{$header-height});
+
+    .content-layout {
+        overflow: hidden;
+        height: calc(100% - #{$tabs-navigator-height});
+
+        .mdl-cell {
+            margin:0;
+        }
+
+        .wri_manage-filter {
+           
+        }
+        .wri_manage-select {
+            position: relative;
+            padding: 0 10px;
+
+            .wri_manage-select__add-btn {
+                position: fixed;
+                right: calc(33% + 40px);
+                bottom: 25px;
+            }
+        }
+        .wri_manage-viewer {
+            
+        }
+    }
+}

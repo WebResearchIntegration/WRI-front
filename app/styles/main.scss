@@ -1,19 +1,15 @@
 // bower:scss
 // endbower
 
-// [DIRECTIVES : begin]
-@import "directives/_element-viewer.scss";
-@import "header.scss";
-// [DIRECTIVES : end]
-
-body {
-  padding: 0;
-}
+// // [DIRECTIVES : begin]
+// @import "directives/_element-viewer.scss";
+// @import "header.scss";
+// // [DIRECTIVES : end]
 
 .item {
     height: 50px;
     background: #eee;
-    margin-top: 15px;
+    margin: 15px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,33 +56,12 @@ body {
     }
 }
 
-.footer--wri {
-    position:fixed;
-    background: white;
-    bottom: 0;
-    width: 100%;
-}
-
 .selected-mode-background {
     background: white;
 }
 
-.mdl-grid {
-    padding: 0;
-}
-
-
-.add-article {
-    display: flex;
-    margin-top: 30px;
-}
-
 .mdl-layout__container {
     position:relative;
-}
-
-.content-layout {
-    margin-top: 100px;
 }
 
 .selection-panel {
@@ -126,6 +101,13 @@ body {
     }
 }
 
-.content-wri-app-background {
-    background: white;
-}
+@import "_variables.scss";
+@import "globals/_main-rules.scss";
+@import "globals/_global-classes.scss";
+@import "globals/_grid-structure.scss";
+
+// @import "_header.scss";
+
+@import "pages/_manage.scss";
+
+@import "directives/_element-viewer.scss";

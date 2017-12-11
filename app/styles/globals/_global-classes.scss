@@ -1,0 +1,8 @@
+.--wri_full-height {
+    height: 100%;
+}
+
+.--wri_scrollY-area {
+    @extend .--wri_full-height;
+    overflow-y: scroll;
+}
