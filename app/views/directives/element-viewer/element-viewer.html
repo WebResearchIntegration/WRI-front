@@ -1,4 +1,2 @@
-<div>
-    <div ng-if="availableType(type)" ng-include="'/views/directives/element-viewer/includes/_'+type+'-viewer.html'" class="mdl-layout mdl-js-layout mdl-layout--fixed-header"></div>
-    <div ng-if="!availableType(type)">Vous ne pouvez pas afficher de {{type}} dans ce viewer</div>
-</div>
+<div ng-if="availableType(type)" ng-include="'/views/directives/element-viewer/includes/_'+type+'-viewer.html'" class="mdl-layout mdl-js-layout mdl-layout--fixed-header"></div>
+<div ng-if="!availableType(type)">Vous ne pouvez pas afficher de {{type}} dans ce viewer</div>
