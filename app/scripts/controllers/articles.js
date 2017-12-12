@@ -15,7 +15,7 @@ angular.module('wriApp')
         // [DECLARED $scope VARIABLES]
         $scope.selectedElementType = "article";
         $scope.selectedElement = null;
-        $scope.viewerOpen = true;
+        $scope.viewerClosed = true;
         $scope.isModeSelectionArticleOn = false;
         $scope.articlesList = [];
         // [END DECLARED $scope VARIABLES]
@@ -76,7 +76,7 @@ angular.module('wriApp')
                 console.log($scope.articlesList)
             } else {
                 $scope.selectedElement = article;
-                $scope.viewerOpen = false;
+                $scope.viewerClosed = false;
                 console.log($scope.selectedElement);
             }
         }
@@ -125,7 +125,7 @@ angular.module('wriApp')
          * @event closeViewer
          */
         $rootScope.$on('closeViewer', function() {
-          $scope.viewerOpen = true;
+          $scope.viewerClosed = true;
         });
 
         /**
