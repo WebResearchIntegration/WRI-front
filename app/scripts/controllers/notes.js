@@ -33,4 +33,8 @@ angular.module('wriApp')
             },
             
         ];
+
+        ctrl.test = function(){
+            console.log('test' );
+        }
     });

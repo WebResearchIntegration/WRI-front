@@ -16,9 +16,10 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'restangular'
+    'restangular',
+    'textAngular'
   ])
-  .config(function ($routeProvider, RestangularProvider) {
+  .config(function ($routeProvider, RestangularProvider, $provide) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/manage.html',
@@ -38,4 +39,16 @@ angular
       RestangularProvider.setBaseUrl('http://localhost:8888/api/');
 
       // [RESTANGuLAR CONFIG: END]
+
+      // ADD MATH FORMULA BUTTON TO NOTE EDITOR
+      $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function(taRegisterTool, taOptions){
+        taRegisterTool('mathForm', {
+          iconclass: "fa fa-superscript",
+        });
+        // add the button to the default toolbar definition
+        taOptions.toolbar[3].unshift('mathForm');
+        return taOptions;
+      }]);
+
+
   });
