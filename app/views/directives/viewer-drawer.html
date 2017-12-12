@@ -1,0 +1,4 @@
+<div class="--wri_full-height" ng-if="availableType(type)">
+    <article-viewer ng-if="type.toLowerCase() == 'article'" article="element"></article-viewer>
+</div>
+<div class="--wri_full-height" ng-if="!availableType(type)">Vous ne pouvez pas afficher de {{type}} dans ce viewer</div>

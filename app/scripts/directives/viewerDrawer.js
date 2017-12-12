@@ -2,15 +2,15 @@
 
 /**
  * @ngdoc directive
- * @name wriApp.directive:elementViewer
+ * @name wriApp.directive:viewerDrawer
  * @description
- * # elementViewer
+ * # viewerDrawer
  */
 angular.module('wriApp')
-  .directive('elementViewer', function () {
+  .directive('viewerDrawer', function () {
     return {
       restrict: 'E',
-      templateUrl: '/views/directives/element-viewer/element-viewer.html',
+      templateUrl: '/views/directives/viewer-drawer.html',
       scope: {
         type: '@',
         element: '=',
