@@ -4,5 +4,5 @@
 
 .--wri_scrollY-area {
     @extend .--wri_full-height;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
