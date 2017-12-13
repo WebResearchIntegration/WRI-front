@@ -1,10 +1,10 @@
 <div class="col-lg-6 col-lg-offset-3">
-    <text-angular-toolbar name="colourRed" ng-click="notesCtrl.test()"></text-angular-toolbar>
+    <text-angular-toolbar name="mathsForm""></text-angular-toolbar>
 
+    <text-angular ta-target-toolbars='mathsForm' ng-model="notesCtrl.noteEdit.content"></text-angular>
+    <button ng-click="notesCtrl.saveNote(notesCtrl.noteEdit)">SAVE NOTE</button>
 
-    <text-angular ta-target-toolbars='colourRed' ng-model="noteEdit"></text-angular>
-
-    <div class="item" ng-repeat="note in notesCtrl.notes">{{note.name}}</div>
+    <div class="item" ng-click="notesCtrl.editNote(note)" ng-repeat="note in notesCtrl.notes">{{note.name}}</div>
 
     <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article">
         <i class="material-icons">add</i>

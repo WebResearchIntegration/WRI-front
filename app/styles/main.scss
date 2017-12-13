@@ -130,3 +130,13 @@ body {
 .content-wri-app-background {
     background: white;
 }
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 770px;
+    height: 80vh;
+}
+
+.ngdialog.ngdialog-theme-default {
+    padding-bottom: 160px;
+    padding-top: 64px;
+}
