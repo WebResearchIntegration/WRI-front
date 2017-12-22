@@ -73,12 +73,17 @@ function articleViewerCtrl($rootScope, $scope) {
       
       // Authors
       if(!_.isArray(ctrl.article.authors)){
-        transformIntoArr(ctrl.article.authors, true);
+        transformIntoArr("authors", true);
       }
       
       // References
       if(!_.isArray(ctrl.article.references)){
-        transformIntoArr(ctrl.article.references, true);
+        transformIntoArr("references", true);
+      }
+
+      // Notes 
+      if(!_.isArray(ctrl.article.notes)){
+        transformIntoArr("notes", true);
       }
     }
     
@@ -133,15 +138,15 @@ function articleViewerCtrl($rootScope, $scope) {
     function transformIntoArr(property, onlyObject) {
       onlyObject = onlyObject || false;
       var returnArr = [];
-      if (!_.isEmpty(property)){
-        if (onlyObject && _.isObject(property)){
-          returnArr.push(property);
+      if (!_.isEmpty(ctrl.article[property])){
+        if (onlyObject && _.isObject(ctrl.article[property])){
+          returnArr.push(ctrl.article[property]);
         }
         else if (!onlyObject){
-          returnArr.push(property);
+          returnArr.push(ctrl.article[property]);
         }
       }
-      property = returnArr;
+      ctrl.article[property] = returnArr;
     }
   // [PRIVATE FUNCTIONS : end]
 
