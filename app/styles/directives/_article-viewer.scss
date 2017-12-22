@@ -263,6 +263,14 @@ article-viewer {
 
                     .mdl-chip {
                         border-radius: initial;
+                        max-width: calc(100% - 12px);
+
+                        .mdl-chip__text {
+                            overflow: hidden;
+                            width: 100%;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                        }
                     }
                 }
             }
