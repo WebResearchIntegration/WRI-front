@@ -127,7 +127,7 @@
                 </div> -->
                 <ul class="article__references__list" ng-if="articleViewer.article.references.length > 0">
                     <li class="article__references__list__reference" ng-repeat="reference in articleViewer.article.references | limitTo: 10">
-                        <span class="mdl-chip" ng-click="articleViewer.showReference(reference)">
+                        <span class="mdl-chip" ng-click="articleViewer.openReference(reference)">
                             <span class="mdl-chip__text">{{reference.name}}</span>
                         </span>
                     </li>

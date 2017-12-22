@@ -37,7 +37,7 @@ function articleViewerCtrl($rootScope, $scope) {
     // [PUBLIC METHODS]
     ctrl.applyKeywordFilter = applyKeywordFilter;
     ctrl.loadArticle = loadArticle;
-    ctrl.showReference = showReference;
+    ctrl.openReference = openReference;
     ctrl.toggleAbstract = toggleAbstract;
     ctrl.turnEditMode = turnEditMode;
   
@@ -71,19 +71,24 @@ function articleViewerCtrl($rootScope, $scope) {
         ctrl.showAbstract = true;
       }
       
+      // Authors
+      if(!_.isArray(ctrl.article.authors)){
+        transformIntoArr(ctrl.article.authors, true);
+      }
+      
       // References
       if(!_.isArray(ctrl.article.references)){
-        transformIntoArr(ctrl.article.references);
+        transformIntoArr(ctrl.article.references, true);
       }
     }
     
     /**
-     * @name showReference
+     * @name openReference
      * @desc Will load the reference in the second viewer in readonly mode
      * @param {Object}  article   article to load in second viewer
      * @memberOf Directives.articleViewer
      */
-    function showReference(article) {
+    function openReference(article) {
       console.log("send reference to second viewer", article);
     }
     
