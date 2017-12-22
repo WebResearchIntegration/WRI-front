@@ -79,11 +79,14 @@
         </section>
         <section class="article__authors">
             <div class="article__authors__inside">
-                <div class="article__authors__title">
-                    <span>Authors</span>
+                <div class="article__authors__header">
+                    <span class="article__authors__header__title">Authors</span>
+                    <a ng-if="articleViewer.article.authors.length > 10" class="article__authors__header__show-all" ng-click="articleViewer.showAllAuthors()">
+                        Show all authors
+                    </a>
                 </div>
                 <ul class="article__authors__list">
-                    <li class="article__authors__list__author" ng-repeat="author in articleViewer.article.authors">
+                    <li class="article__authors__list__author" ng-repeat="author in articleViewer.article.authors | limitTo: 10">
                         <span class="mdl-chip mdl-chip--contact" ng-click="openAuthorProfile(author.id)">
                             <img ng-if="author.imageUrl" class="mdl-chip__contact" src="{{author.imageUrl.small}}"></img>
                             <span ng-if="!author.imageUrl" class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{author.name | limitTo: 1}}</span>

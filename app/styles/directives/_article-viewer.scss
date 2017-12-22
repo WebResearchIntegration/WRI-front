@@ -117,6 +117,7 @@ article-viewer {
         padding-top: 40px;
 
         section {
+            position: relative;
             padding: 10px 20px;
             
             &:not(:last-child){
@@ -183,17 +184,27 @@ article-viewer {
             }
 
             .article__main-informations__action {
-                .article__main-informations__action__toggle-abstract {
+                .article__main-informations__action__toggle-abstract {
                     text-align: center;
+
+                    > a {
+                        cursor: pointer;
+                    }
                 }
             } 
         }
 
         .article__authors {
 
-            .article__authors__title {
-                margin-left: 15px;
-                font-size: 1.3em;
+            .article__authors__header {
+                .article__authors__header__title {
+                    margin-left: 15px;
+                    font-size: 1.3em;                
+                }
+                .article__authors__header__show-all {
+                    float: right;
+                    cursor: pointer;
+                }
             }
             
             .article__authors__list {
