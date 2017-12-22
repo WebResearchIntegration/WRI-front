@@ -7,80 +7,67 @@
  * # viewerDrawer
  */
 angular.module('wriApp')
-  .directive('viewerDrawer', function () {
+.directive('viewerDrawer', viewerDrawerDirective);
+
+function viewerDrawerDirective() {
     return {
-      restrict: 'E',
-      templateUrl: '/views/directives/viewer-drawer.html',
-      scope: {
-        type: '@',
-        element: '=',
-        isViewerOpen:'='
-      },
-      controller: function($scope, Articles) {
-        // [PARAMETERS]
-        var types = ["article", "author"];
-
-        // [PUBLIC METHODS]
-        $scope.availableType = function(elementType){
-          for (var i = 0; i < types.length; i++){
-            if (elementType.toLowerCase() == types[i].toLowerCase()){
-              return true;
-            }
-          }
-          return false;
-        };
-
-        /**
-         * Will toggle the status of the selected element.
-         * @param {String} status value that corresponds to the selected status can be 'saved', 'read' or 'printed'
-         */
-        $scope.toggleStatus = function(status){
-          $scope.element.status[status] = !$scope.element.status[status];
-          // don't forget to update element with back
-        };
-
-        /**
-         * Will check if the element is an array.
-         * @param {Object} elementToAnalyze the sending object to compare.
-         * @return {boolean} true if element is array, false if it's not.
-         */
-        $scope.isArray = function(elementToAnalyze) {
-          return Array.isArray(elementToAnalyze);
-        }
-
-        $scope.createNoteFor = function() {
-          
-        }
-        /**
-         * Will watch the value to know if the viewer is open.
-         */
-        $scope.$watch('isViewerOpen', function(old) {
-          console.log(old)
-        })
-
-        /**
-         * Will send a message to parent scoep or rootScope
-         * to prevent of a closeViewer
-         * @event closeViewer
-         */
-        $scope.closePanel =  function() {
-          $scope.$emit('closeViewer');
-        }
-
-        /**
-         * Will send a message to parent scope or rootScope
-         * to prevent of a enableReferenceModeOn
-         * @event enableReferenceModeOn
-         */
-        $scope.sendEnableReferenceEdition = function() {
-          $scope.$emit('enableReferenceModeOn');
-        }
-
-      },
-      link: function(scope, element, attrs) {
-        // Code to write
-
-        // Watcher on scope.element
-      }
+        restrict: 'E',
+        templateUrl: '/views/directives/viewer-drawer.html',
+        scope: {
+            type: '=',
+            element: '=',
+            closed: '='
+        },
+        bindToController: true,
+        controllerAs: 'viewerDrawer',
+        controller: viewerDrawerCtrl
     };
-  });
+}
+
+function viewerDrawerCtrl($scope, $compile){
+
+    var ctrl = this;
+
+    // [PRIVATE VARIABLES]
+
+    // [PUBLIC VARIABLES]
+
+    // [INIT]
+        ctrl.$onInit = init;
+
+    // [PUBLIC METHODS]        
+        ctrl.closePanel = closePanel;
+
+    ///////////////
+
+    // [METHODS : begin]
+        /**
+         * @name onInit
+         * @desc Will init drawer
+         * @memberOf Directives.viewerDrawer
+         */
+        function init(){
+            ctrl.type = ctrl.type.toLowerCase();
+        }
+
+        /**
+         * @name closePanel
+         * @desc Will send a message to parent scope to prevent of a closeViewer
+         * @event manage:closeViewer
+         */
+        function closePanel() {
+            $scope.$emit('viewer:closing');
+        }
+    // [METHODS : end]
+
+    // [PRIVATE METHODS : begin]
+    // [PRIVATE METHODS : end]
+
+    // [EVENT]
+        $scope.$watch(function(){
+            return ctrl.closed;
+        }, function(newVal, oldVal) {
+            console.log('ctrl viewer closed', ctrl.closed);
+            console.log('ctrl viewer was ::', oldVal);
+        });
+}

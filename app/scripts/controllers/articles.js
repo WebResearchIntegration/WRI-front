@@ -124,8 +124,9 @@ angular.module('wriApp')
          * When triggered will open the viewer.
          * @event closeViewer
          */
-        $rootScope.$on('closeViewer', function() {
+        $rootScope.$on('viewer:closing', function() {
           $scope.viewerClosed = true;
+          $scope.selectedElement = null;
         });
 
         /**

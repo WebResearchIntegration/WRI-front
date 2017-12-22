@@ -16,9 +16,7 @@
         </button>
     </div>
     <div class="wri_manage-viewer mdl-cell wri_grid__col-4">
-        <div class="article-viewer --wri_full-height">
-            <viewer-drawer class="--wri_full-height" type="{{selectedElementType}}" ng-hide="viewerClosed" element="selectedElement" isViewerOpen="openViewer"></viewer-drawer>
-        </div>
+        <viewer-drawer class="--wri_full-height" type="selectedElementType" ng-hide="viewerClosed" element="selectedElement" closed="viewerClosed"></viewer-drawer>
     </div>
 </div>
 <div class="selection-panel" ng-if="isModeSelectionArticleOn">

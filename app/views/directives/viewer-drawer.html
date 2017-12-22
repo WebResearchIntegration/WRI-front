@@ -1,4 +1,4 @@
-<div class="--wri_full-height" ng-if="availableType(type)">
-    <article-viewer ng-if="type.toLowerCase() == 'article'" article="element"></article-viewer>
+<div class="--wri_full-height" ng-switch="viewerDrawer.type">
+    <article-viewer ng-switch-when="article" article="viewerDrawer.element"></article-viewer>
+    <div class="wri_empty-viewer --wri_full-height" ng-switch-default>Vous ne pouvez pas afficher de {{viewerDrawer.type}} dans ce viewer</div>
 </div>
-<div class="--wri_full-height" ng-if="!availableType(type)">Vous ne pouvez pas afficher de {{type}} dans ce viewer</div>

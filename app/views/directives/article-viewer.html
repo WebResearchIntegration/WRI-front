@@ -1,42 +1,37 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
-            <span class="mdl-layout__title" ng-click="closePanel()">{{article.name}}</span>
+            <span class="mdl-layout__title">{{articleViewer.article.name}}</span>
         </div>
         <div class="mdl-layout__header-row">
             <div class="article-infos">
                     <div class="article-publication-details">
-                        <span>{{article.conference}}</span>
-                        <span>{{article.publishedDate}}</span>
+                        <span>{{articleViewer.article.conference}}</span>
+                        <span>{{articleViewer.article.publishedDate}}</span>
                     </div>
-                    <div class="article-score"><i class="material-icons">star</i>{{article.score}}</div>
+                    <div class="article-score"><i class="material-icons">star</i>{{articleViewer.article.score}}</div>
             </div>
         </div>
         <div class="mdl-layout__header-row mdl-color--primary-dark interactive-row">
-            <div class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button">
+            <div class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button" ng-click="articleViewer.turnEditMode()">
                 <i class="material-icons">edit</i>
                 <span class="mdl-button__ripple-container">
                     <span class="mdl-ripple"></span>
                 </span>
             </div>
             <ul class="article-viewer__status-list">
-                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': article.isSaved}" ng-click="toggleStatus('saved')">
+                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isSaved}" ng-click="toggleStatus('saved')">
                     <span class="mdl-chip__contact"><i class="material-icons">check</i></span>
                     <span class="mdl-chip__text">Saved</span>
                 </li>
-                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': article.isRead}" ng-click="toggleStatus('read')">
+                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isRead}" ng-click="toggleStatus('read')">
                     <span class="mdl-chip__contact"><i class="material-icons">remove_red_eye</i></span>
                     <span class="mdl-chip__text">Read</span>
                 </li>
-                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': article.isPrinted}" ng-click="toggleStatus('printed')">
+                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isPrinted}" ng-click="toggleStatus('printed')">
                     <span class="mdl-chip__contact"><i class="material-icons">print</i></span>
                     <span class="mdl-chip__text">Printed</span>
                 </li>
-            </ul>
-            <ul class="article-viewer__status-list" style="display: none">
-                <li class="mdl-button" ng-class="{'status-checked': article.status.saved}" ng-click="toggleStatus('saved')">Saved</li>
-                <li class="mdl-button" ng-class="{'status-checked': article.status.read}" ng-click="toggleStatus('read')">Read</li>
-                <li class="mdl-button" ng-class="{'status-checked': article.status.printed}" ng-click="toggleStatus('printed')">Printed</li>
             </ul>
         </div>
     </header>
@@ -48,7 +43,7 @@
                         <span>Problematic</span>
                     </div>
                     <p class="article__main-informations__value">
-                        {{article.problematic}}
+                        {{articleViewer.article.problematic}}
                     </p>
                 </div>
             </div>
@@ -58,17 +53,17 @@
                         <span>Solution</span>
                     </div>
                     <p class="article__main-informations__value">
-                        {{article.solution}}
+                        {{articleViewer.article.solution}}
                     </p>
                 </div>
             </div>
             <div class="article__main-informations__category mdl-shadow--4dp --article-abstract">
-                <div class="article__main-informations__inside">
+                <div class="article__main-informations__inside" ng-show="articleViewer.showAbstract">
                     <div class="article__main-informations__title">
                         <span>Abstract</span>
                     </div>
                     <p class="article__main-informations__value">
-                        {{article.abstract}}
+                        {{articleViewer.article.abstract}}
                     </p>
                 </div>
             </div>
@@ -79,7 +74,7 @@
                     <span>Authors</span>
                 </div>
                 <ul class="article__authors__list">
-                    <li class="article__authors__list__author" ng-repeat="author in article.authors">
+                    <li class="article__authors__list__author" ng-repeat="author in articleViewer.article.authors">
                         <span class="mdl-chip mdl-chip--contact" ng-click="openAuthorProfile(author.id)">
                             <img ng-if="author.imageUrl" class="mdl-chip__contact" src="{{author.imageUrl.small}}"></img>
                             <span ng-if="!author.imageUrl" class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{author.name | limitTo: 1}}</span>
@@ -95,7 +90,7 @@
                     <span>Keywords</span>
                 </div>
                 <ul class="article__keywords__list">
-                    <li class="article__keywords__list__keyword" ng-repeat="keyword in article.keywords">
+                    <li class="article__keywords__list__keyword" ng-repeat="keyword in articleViewer.article.keywords">
                         <span class="mdl-chip" ng-click="applyKeyboardFilter(keyword)">
                             <span class="mdl-chip__text">#{{keyword}}</span>
                         </span>
@@ -109,14 +104,14 @@
                     <span>References</span>
                 </div>
                 <ul class="article__references__list">
-                    <li class="article__references__list__reference" ng-if="isArray(article.references)" ng-repeat="reference in article.references">
+                    <li class="article__references__list__reference" ng-if="isArray(articleViewer.article.references)" ng-repeat="reference in articleViewer.article.references">
                         <span class="mdl-chip" ng-click="loadArticle(reference)">
                             <span class="mdl-chip__text">{{reference.name}}</span>
                         </span>
                     </li>
-                    <li class="article__references__list__reference" ng-if="!isArray(article.references)">
+                    <li class="article__references__list__reference" ng-if="!isArray(articleViewer.article.references)">
                             <span class="mdl-chip" ng-click="loadArticle(reference)">
-                                <span class="mdl-chip__text">{{article.references.name}}</span>
+                                <span class="mdl-chip__text">{{articleViewer.article.references.name}}</span>
                             </span>
                     </li>
                     <div class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" ng-click="sendEnableReferenceEdition()">
@@ -134,14 +129,14 @@
                     <span>Notes</span>
                 </div>
                 <ul class="article__notes__list">
-                    <article ng-if="isArray(article.notes)" ng-repeat="note in article.notes" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
+                    <article ng-if="articleViewer.isArray(articleViewer.article.notes)" ng-repeat="note in articleViewer.article.notes" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
                         <div class="mdl-card__supporting-text">
                             {{note.text}}
                         </div>
                     </article>
-                    <article ng-if="!isArray(article.notes)" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
+                    <article ng-if="!articleViewer.isArray(articleViewer.article.notes)" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
                             <div class="mdl-card__supporting-text">
-                                {{article.notes.text}}
+                                {{articleViewer.article.notes.text}}
                             </div>
                     </article>
                 </ul>
