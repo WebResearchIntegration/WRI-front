@@ -34,7 +34,8 @@ function articleViewerCtrl($rootScope, $scope) {
   // [INIT]
     // ctrl.$onInit = onInit; /* Angular 1.5+ does not bind attributes until calling $onInit() */
 
-  // [PUBLIC METHODS]
+    // [PUBLIC METHODS]
+    ctrl.applyKeywordFilter = applyKeywordFilter;
     ctrl.loadArticle = loadArticle;
     ctrl.showReference = showReference;
     ctrl.toggleAbstract = toggleAbstract;
@@ -43,6 +44,15 @@ function articleViewerCtrl($rootScope, $scope) {
   ////////////
 
   // [METHODS : begin]
+    /**
+     * @name applyKeywordFilter
+     * @desc Will load article in viewer
+     * @param {String}  keyword   article to load in article viewer
+     * @memberOf Directives.articleViewer
+     */
+    function applyKeywordFilter(keyword){
+      console.log("apply filter keywords on articles : ", keyword);
+    }
     /**
      * @name loadArticle
      * @desc Will load article in viewer
@@ -68,6 +78,16 @@ function articleViewerCtrl($rootScope, $scope) {
     }
     
     /**
+     * @name showReference
+     * @desc Will load the reference in the second viewer in readonly mode
+     * @param {Object}  article   article to load in second viewer
+     * @memberOf Directives.articleViewer
+     */
+    function showReference(article) {
+      console.log("send reference to second viewer", article);
+    }
+    
+    /**
      * @name toggleAbstract
      * @desc Will toggle abstract in the viewer
      * @memberOf Directives.articleViewer
@@ -85,15 +105,6 @@ function articleViewerCtrl($rootScope, $scope) {
       console.log("edit :" , ctrl.article);
     }
     
-    /**
-     * @name showReference
-     * @desc Will load the reference in the second viewer in readonly mode
-     * @param {Object}  article   article to load in second viewer
-     * @memberOf Directives.articleViewer
-     */
-    function showReference(article) {
-      console.log("send reference to second viewer", article);
-    }
 
     /**
      * @name sendEnableReferenceEdition

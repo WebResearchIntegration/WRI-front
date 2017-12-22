@@ -103,7 +103,7 @@
                 </div>
                 <ul class="article__keywords__list">
                     <li class="article__keywords__list__keyword" ng-repeat="keyword in articleViewer.article.keywords">
-                        <span class="mdl-chip" ng-click="applyKeyboardFilter(keyword)">
+                        <span class="mdl-chip" ng-click="articleViewer.applyKeywordFilter(keyword)">
                             <span class="mdl-chip__text">#{{keyword}}</span>
                         </span>
                     </li>
