@@ -55,7 +55,7 @@ angular.module('wriApp')
          * Will watch the value to know if the viewer is open.
          */
         $scope.$watch('isViewerOpen', function(old) {
-          console.log(old)
+          // console.log(old)
         })
 
         /**

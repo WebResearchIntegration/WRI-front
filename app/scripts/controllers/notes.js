@@ -8,19 +8,22 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('notesCtrl', function ($scope, ngDialog, $rootScope) {
+    .controller('notesCtrl', function ($scope, ngDialog, $rootScope, $compile) {
         
         var ctrl = this;
 
         ctrl.noteEdit = {
             'name' : '',
-            'content' : ''
+            'content' :  '',
+            'tex' : ''
         };
+
+        ctrl.noteEdit.totalContent = ctrl.noteEdit.content + ctrl.noteEdit.tex
+
 
         ctrl.notes = [
             {
                 'name' : 'Note X',
-                'content' : ''
             },
             {
                 'name' : 'Note X'
@@ -37,35 +40,76 @@ angular.module('wriApp')
             {
                 'name' : 'Note X'
             },
-            
         ];
 
+        ctrl.newNote = function(note){
+            var obj = {
+                'name' : note.name,
+                'content' : note.content,
+                'tex': note.tex
+            }
+
+            var isDuplicate = _.find(ctrl.notes, ['name', obj.name])
+            ctrl.newArray = _.pullAllWith(ctrl.notes, [isDuplicate], _.isEqual);
+            ctrl.notes.unshift(obj);
+            ctrl.noteEdit.name = '';
+            ctrl.noteEdit.content = '';
+            ctrl.noteEdit.tex = '';
+        }
+
         ctrl.saveNote = function(note){
+            var obj = {};
 
             var isDuplicate = _.find(ctrl.notes, ['name', note.name])
-            console.log('notes : ', ctrl.notes );
-            console.log('name : ', note.name );
-            console.log('isDuplicate : ', isDuplicate );
-            
+
             if(!isDuplicate){
                 var promptVal = prompt('name ?')
                 console.log(promptVal );
-                var obj = {
-                    'name' : promptVal,
-                    'content' : note.content
-                };
-                ctrl.notes.unshift(obj);
 
+                    
+                obj = {
+                    'name' : promptVal,
+                    'content' : note.content,
+                    'tex': note.tex
+                };
+
+                ctrl.notes.unshift(obj);
+                ctrl.noteEdit.name = '';
+                ctrl.noteEdit.content = '';
+                ctrl.noteEdit.tex = '';
             } else {
-                isDuplicate.content = note.content;
+                obj.content = note.content
+                isDuplicate.content = obj.content
             }
 
-            // ctrl.noteEdit.content = '';
+            
         }
 
         ctrl.editNote = function(note){
-            ctrl.noteEdit.content = note.content;
-            ctrl.noteEdit.name = note.name;
+            ctrl.noteEdit = note;
+            console.log(note );
+            // ctrl.reload(note.tex);       
         }
-  
+
+        // ctrl.reload = function(texExprssion){
+        //     var el = angular.element(document.getElementsByClassName('mathjax'))
+        //     el.html(texExprssion);
+        //     MathJax.Hub.Queue(["Typeset", MathJax.Hub, el[0]]);
+        // }
+
+
+        ctrl.addFormula = function(data){
+            var el =  angular.element(document.querySelector("div[contenteditable='true']"));
+            ctrl.noteEdit.tex += data.tex;
+            angular.element(el[0].childNodes[0]).append(data.div);
+        }
+
+        $rootScope.$on('mathFormula', function(event, data){
+            ctrl.addFormula(data);
+        })
+
     });
+
+
+
+

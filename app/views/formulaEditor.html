@@ -1,2 +1,13 @@
-<div> Hello </div>
+<div ng-controller="formulaEditorCtrl as formulaEditor">
+    <textarea ng-model="formulaEditor.exampleText" rows="10" cols="50" class="formulaEditor">
+    </textarea>
+    <div class="previewFormula">
+        <span>Preview : </span>
+        <br>
+        <br>
+        <span mathjax-bind="formulaEditor.exampleText" class="mathjax"></span>
+    </div>
+    <button class="btn btn-primary col-lg-2 col-lg-offset-5 addFormula" ng-click="addFormula(formulaEditor.exampleText); closeThisDialog()">Add formula</button>
+</div>
+
 
