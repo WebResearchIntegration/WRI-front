@@ -1,9 +1,11 @@
 // bower:scss
+@import "font-awesome/scss/font-awesome.scss";
 // endbower
 
 // [DIRECTIVES : begin]
 @import "directives/_element-viewer.scss";
 @import "header.scss";
+@import "formulaEditor.scss";
 // [DIRECTIVES : end]
 
 body {
@@ -128,4 +130,14 @@ body {
 
 .content-wri-app-background {
     background: white;
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    width: 770px;
+    height: 80vh;
+}
+
+.ngdialog.ngdialog-theme-default {
+    padding-bottom: 160px;
+    padding-top: 64px;
 }
