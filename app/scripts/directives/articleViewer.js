@@ -35,7 +35,8 @@ function articleViewerCtrl($rootScope, $scope) {
     // ctrl.$onInit = onInit; /* Angular 1.5+ does not bind attributes until calling $onInit() */
 
   // [PUBLIC METHODS]
-    ctrl.isArray = isArray;
+    ctrl.loadArticle = loadArticle;
+    ctrl.showReference = showReference;
     ctrl.toggleAbstract = toggleAbstract;
     ctrl.turnEditMode = turnEditMode;
   
@@ -49,6 +50,8 @@ function articleViewerCtrl($rootScope, $scope) {
      * @memberOf Directives.articleViewer
      */
     function loadArticle(article) {
+      
+      // Main informations
       if(!_.isEmpty(article.problematic) && !_.isEmpty(article.problematic)){
         ctrl.showProbSoluce = true;
         ctrl.showAbstract = false;
@@ -57,18 +60,13 @@ function articleViewerCtrl($rootScope, $scope) {
         ctrl.showProbSoluce = false;
         ctrl.showAbstract = true;
       }
+      
+      // References
+      if(!_.isArray(ctrl.article.references)){
+        transformIntoArr(ctrl.article.references);
+      }
     }
-
-    /**
-     * @name isArray
-     * @desc check if element is an array
-     * @param {Object} elementToAnalyze   element to analyze
-     * @memberOf Directives.articleViewer
-     */
-    function isArray(elementToAnalyze) {
-      return Array.isArray(elementToAnalyze);
-    }
-
+    
     /**
      * @name toggleAbstract
      * @desc Will toggle abstract in the viewer
@@ -77,7 +75,7 @@ function articleViewerCtrl($rootScope, $scope) {
     function toggleAbstract() {
       ctrl.showAbstract = !ctrl.showAbstract;
     }
-
+    
     /**
      * @name turnEditMode
      * @desc Will turn on edit mode for article
@@ -85,6 +83,16 @@ function articleViewerCtrl($rootScope, $scope) {
      */
     function turnEditMode() {
       console.log("edit :" , ctrl.article);
+    }
+    
+    /**
+     * @name showReference
+     * @desc Will load the reference in the second viewer in readonly mode
+     * @param {Object}  article   article to load in second viewer
+     * @memberOf Directives.articleViewer
+     */
+    function showReference(article) {
+      console.log("send reference to second viewer", article);
     }
 
     /**
@@ -99,6 +107,26 @@ function articleViewerCtrl($rootScope, $scope) {
   // [METHODS : end]
 
   // [PRIVATE FUNCTIONS : begin]
+    /**
+     * @name transformIntoArr
+     * @desc Will update article property passed as param into an array
+     * @param {Object}  property   property to transform into an array
+     * @param {Boolean}  onlyObject   check if the current property has to be an object
+     * @memberOf Directives.articleViewer
+     */
+    function transformIntoArr(property, onlyObject) {
+      onlyObject = onlyObject || false;
+      var returnArr = [];
+      if (!_.isEmpty(property)){
+        if (onlyObject && _.isObject(property)){
+          returnArr.push(property);
+        }
+        else if (!onlyObject){
+          returnArr.push(property);
+        }
+      }
+      property = returnArr;
+    }
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]

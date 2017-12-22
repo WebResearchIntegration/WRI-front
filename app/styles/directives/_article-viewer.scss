@@ -240,11 +240,18 @@ article-viewer {
 
         .article__references {
 
-            .article__references__title {
-                margin-left: 15px;
-                font-size: 1.3em;
-            }
+            .article__references__header {
 
+                .article__references__header__title {
+                    margin-left: 15px;
+                    font-size: 1.3em;
+                }
+
+                .article__references__header__show-all {
+                    float: right;
+                    cursor: pointer;
+                }
+            }
             .article__references__list {
                 list-style: none;
 

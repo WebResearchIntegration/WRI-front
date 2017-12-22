@@ -112,26 +112,25 @@
         </section>
         <section class="article__references">
             <div class="article__references__inside">
-                <div class="article__references__title">
-                    <span>References</span>
+                <div class="article__references__header">
+                    <span class="article__references__header__title">References</span>
+                    <a ng-if="articleViewer.article.references.length > 10" class="article__references__header__show-all" ng-click="articleViewer.showAllReferences()">
+                        Show all references
+                    </a>
                 </div>
-                <ul class="article__references__list">
-                    <li class="article__references__list__reference" ng-if="isArray(articleViewer.article.references)" ng-repeat="reference in articleViewer.article.references">
-                        <span class="mdl-chip" ng-click="loadArticle(reference)">
+                <!-- FOR EDIT MODE -->
+                <!-- <div class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" ng-click="sendEnableReferenceEdition()">
+                    <i class="material-icons">add</i>
+                    <span class="mdl-button__ripple-container">
+                        <span class="mdl-ripple"></span>
+                    </span>
+                </div> -->
+                <ul class="article__references__list" ng-if="articleViewer.article.references.length > 0">
+                    <li class="article__references__list__reference" ng-repeat="reference in articleViewer.article.references | limitTo: 10">
+                        <span class="mdl-chip" ng-click="articleViewer.showReference(reference)">
                             <span class="mdl-chip__text">{{reference.name}}</span>
                         </span>
                     </li>
-                    <li class="article__references__list__reference" ng-if="!isArray(articleViewer.article.references)">
-                            <span class="mdl-chip" ng-click="loadArticle(reference)">
-                                <span class="mdl-chip__text">{{articleViewer.article.references.name}}</span>
-                            </span>
-                    </li>
-                    <div class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" ng-click="sendEnableReferenceEdition()">
-                        <i class="material-icons">add</i>
-                        <span class="mdl-button__ripple-container">
-                            <span class="mdl-ripple"></span>
-                        </span>
-                    </div>
                 </ul>
             </div>
         </section>
