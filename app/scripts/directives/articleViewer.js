@@ -29,12 +29,14 @@ function articleViewerCtrl($rootScope, $scope) {
   // [PUBLIC VARIABLES]
     // All attributes are binded after $onInit(). They will be accessible as ctrl.[attributeName]
     ctrl.showAbstract;      // boolean to know if we show abstract or not
+    ctrl.showProbSoluce;    // boolean to know if we show problematic and soluce or not
     
   // [INIT]
     // ctrl.$onInit = onInit; /* Angular 1.5+ does not bind attributes until calling $onInit() */
 
   // [PUBLIC METHODS]
     ctrl.isArray = isArray;
+    ctrl.toggleAbstract = toggleAbstract;
     ctrl.turnEditMode = turnEditMode;
   
   ////////////
@@ -47,13 +49,14 @@ function articleViewerCtrl($rootScope, $scope) {
      * @memberOf Directives.articleViewer
      */
     function loadArticle(article) {
-      console.log(_.isEmpty(article.problematic));
-      // if (!_.isEmpty(article.problematic) && !article.solution){
-      //   ctrl.showAbstract = true;
-      // }
-      // else {
-      //   ctrl.showAbstract = false;
-      // }
+      if(!_.isEmpty(article.problematic) && !_.isEmpty(article.problematic)){
+        ctrl.showProbSoluce = true;
+        ctrl.showAbstract = false;
+      }
+      else {
+        ctrl.showProbSoluce = false;
+        ctrl.showAbstract = true;
+      }
     }
 
     /**
@@ -64,6 +67,15 @@ function articleViewerCtrl($rootScope, $scope) {
      */
     function isArray(elementToAnalyze) {
       return Array.isArray(elementToAnalyze);
+    }
+
+    /**
+     * @name toggleAbstract
+     * @desc Will toggle abstract in the viewer
+     * @memberOf Directives.articleViewer
+     */
+    function toggleAbstract() {
+      ctrl.showAbstract = !ctrl.showAbstract;
     }
 
     /**
@@ -90,11 +102,11 @@ function articleViewerCtrl($rootScope, $scope) {
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
-    // $scope.$watch( function(){
-    //   return ctrl.article;
-    // }, function(newArticle, previousArticle){
-    //   if (ctrl.article != null){
-    //     loadArticle(ctrl.article);
-    //   }
-    // }, true);
+    $scope.$watch( function(){
+      return ctrl.article;
+    }, function(newArticle, previousArticle){
+      if (ctrl.article != null){
+        loadArticle(ctrl.article);
+      }
+    }, true);
 }

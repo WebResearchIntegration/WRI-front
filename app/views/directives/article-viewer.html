@@ -37,7 +37,7 @@
     </header>
     <main class="mdl-layout__content --wri_scrollY-area">
         <section class="article__main-informations">
-            <div class="article__main-informations__category mdl-shadow--4dp --article-problematic">
+            <div class="article__main-informations__category mdl-shadow--4dp --article-problematic" ng-show="articleViewer.showProbSoluce">
                 <div class="article__main-informations__inside">
                     <div class="article__main-informations__title">
                         <span>Problematic</span>
@@ -47,7 +47,7 @@
                     </p>
                 </div>
             </div>
-            <div class="article__main-informations__category mdl-shadow--4dp --article-solution">
+            <div class="article__main-informations__category mdl-shadow--4dp --article-solution" ng-show="articleViewer.showProbSoluce">
                 <div class="article__main-informations__inside">
                     <div class="article__main-informations__title">
                         <span>Solution</span>
@@ -57,14 +57,23 @@
                     </p>
                 </div>
             </div>
-            <div class="article__main-informations__category mdl-shadow--4dp --article-abstract">
-                <div class="article__main-informations__inside" ng-show="articleViewer.showAbstract">
+            <div class="article__main-informations__category mdl-shadow--4dp --article-abstract" ng-show="articleViewer.showAbstract">
+                <div class="article__main-informations__inside">
                     <div class="article__main-informations__title">
                         <span>Abstract</span>
                     </div>
                     <p class="article__main-informations__value">
                         {{articleViewer.article.abstract}}
                     </p>
+                </div>
+            </div>
+            <div class="article__main-informations__action" ng-show="articleViewer.showProbSoluce">
+                <div class="article__main-informations__action__toggle-abstract">
+                    <a ng-click="articleViewer.toggleAbstract()">
+                        <span ng-if="!articleViewer.showAbstract">Show</span>
+                        <span ng-if="articleViewer.showAbstract">Hide</span>
+                        Abstract
+                    </a>
                 </div>
             </div>
         </section>
