@@ -126,6 +126,43 @@ article-viewer {
             }
         }
 
+        .article__section__header {
+            .article__section__header__title {
+                margin-left: 15px;
+                font-size: 1.3em;                
+            }
+            .article__section__header__show-all {
+                position: relative;
+                float: right;
+                cursor: pointer;
+
+                &:after {
+                    content :'';
+                    position: absolute;
+                    top: 100%;
+                    height: 1px;
+                    width: 100%;
+                    background-color: $contrast;
+                    transform: scaleX(0);
+                    transition: transform .3s ease-out;
+                }
+
+                &:hover {
+                    &:after {
+                        background-color: $contrast-dark;
+                        transform: scaleX(1);
+                        transition: transform .3s ease-in;
+                    }
+                }
+
+                &:active {
+                    &:after {
+                        background-color: $contrast-light;
+                    }
+                }
+            }
+        }
+
         .article__main-informations {
             position: relative;
 
@@ -195,18 +232,6 @@ article-viewer {
         }
 
         .article__authors {
-
-            .article__authors__header {
-                .article__authors__header__title {
-                    margin-left: 15px;
-                    font-size: 1.3em;                
-                }
-                .article__authors__header__show-all {
-                    float: right;
-                    cursor: pointer;
-                }
-            }
-            
             .article__authors__list {
                 list-style: none;
 
@@ -220,12 +245,6 @@ article-viewer {
         }
         
         .article__keywords {
-
-            .article__keywords__title {
-                margin-left: 15px;
-                font-size: 1.3em;
-            }
-
             .article__keywords__list {
                 list-style: none;
 
@@ -239,19 +258,6 @@ article-viewer {
         }
 
         .article__references {
-
-            .article__references__header {
-
-                .article__references__header__title {
-                    margin-left: 15px;
-                    font-size: 1.3em;
-                }
-
-                .article__references__header__show-all {
-                    float: right;
-                    cursor: pointer;
-                }
-            }
             .article__references__list {
                 list-style: none;
 
@@ -277,12 +283,6 @@ article-viewer {
         }
 
         .article__notes {
-
-            .article__notes__title {
-                margin-left: 15px;
-                font-size: 1.3em;
-            }
-
             .article__notes__list {
                 list-style: none;
 
