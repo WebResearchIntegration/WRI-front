@@ -49,8 +49,8 @@
             </div>
             <div class="article__main-informations__category mdl-shadow--4dp --article-solution" ng-show="articleViewer.showProbSoluce">
                 <div class="article__main-informations__inside">
-                    <div class="article__main-informations__title">
-                        <span>Solution</span>
+                    <div class="article__section__header">
+                        <span class="article__section__header__title">Solution</span>
                     </div>
                     <p class="article__main-informations__value">
                         {{articleViewer.article.solution}}
@@ -79,9 +79,9 @@
         </section>
         <section class="article__authors">
             <div class="article__authors__inside">
-                <div class="article__authors__header">
-                    <span class="article__authors__header__title">Authors</span>
-                    <a ng-if="articleViewer.article.authors.length > 10" class="article__authors__header__show-all" ng-click="articleViewer.showAllAuthors()">
+                <div class="article__section__header">
+                    <span class="article__section__header__title">Authors</span>
+                    <a ng-if="articleViewer.article.authors.length > 10" class="article__section__header__show-all" ng-click="articleViewer.showAllAuthors()">
                         Show all authors
                     </a>
                 </div>
@@ -98,8 +98,8 @@
         </section>
         <section class="article__keywords">
             <div class="article__keywords__inside">
-                <div class="article__keywords__title">
-                    <span>Keywords</span>
+                <div class="article__section__header">
+                    <span class="article__section__header__title">Keywords</span>
                 </div>
                 <ul class="article__keywords__list">
                     <li class="article__keywords__list__keyword" ng-repeat="keyword in articleViewer.article.keywords">
@@ -112,9 +112,9 @@
         </section>
         <section class="article__references">
             <div class="article__references__inside">
-                <div class="article__references__header">
-                    <span class="article__references__header__title">References</span>
-                    <a ng-if="articleViewer.article.references.length > 10" class="article__references__header__show-all" ng-click="articleViewer.showAllReferences()">
+                <div class="article__section__header">
+                    <span class="article__section__header__title">References</span>
+                    <a ng-if="articleViewer.article.references.length > 10" class="article__section__header__show-all" ng-click="articleViewer.showAllReferences()">
                         Show all references
                     </a>
                 </div>
@@ -136,19 +136,17 @@
         </section>
         <section  class="article__notes">
             <div class="article__notes__inside">
-                <div class="article__notes__title">
-                    <span>Notes</span>
+                <div class="article__section__header">
+                    <span class="article__section__header__title">Notes</span>
+                    <a ng-if="articleViewer.article.notes.length > 5" class="article__section__header__show-all" ng-click="articleViewer.showAllNotes()">
+                        Show all notes
+                    </a>
                 </div>
-                <ul class="article__notes__list">
-                    <article ng-if="articleViewer.isArray(articleViewer.article.notes)" ng-repeat="note in articleViewer.article.notes" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
+                <ul class="article__notes__list" ng-if="articleViewer.article.notes.length > 0">
+                    <article ng-repeat="note in articleViewer.article.notes | limitTo: 5" class="mdl-card mdl-shadow--4dp article_notes_list_note"> 
                         <div class="mdl-card__supporting-text">
                             {{note.text}}
                         </div>
-                    </article>
-                    <article ng-if="!articleViewer.isArray(articleViewer.article.notes)" class="mdl-card mdl-shadow--4dp article_notes_list_note">         
-                            <div class="mdl-card__supporting-text">
-                                {{articleViewer.article.notes.text}}
-                            </div>
                     </article>
                 </ul>
                 <div class="article__notes__action">
