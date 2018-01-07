@@ -36,6 +36,7 @@ function articleViewerCtrl($rootScope, $scope) {
 
     // [PUBLIC METHODS]
     ctrl.applyKeywordFilter = applyKeywordFilter;
+    ctrl.createNoteFor = createNoteFor;
     ctrl.loadArticle = loadArticle;
     ctrl.openReference = openReference;
     ctrl.toggleAbstract = toggleAbstract;
@@ -53,6 +54,16 @@ function articleViewerCtrl($rootScope, $scope) {
     function applyKeywordFilter(keyword){
       console.log("apply filter keywords on articles : ", keyword);
     }
+
+    /**
+     * @name createNoteFor
+     * @desc Will load notes view and note editor. It will bind the new note with current article
+     * @memberOf Directives.articleViewer
+     */
+    function createNoteFor(){
+      console.log("add a note for article #", ctrl.article.id);
+    }
+
     /**
      * @name loadArticle
      * @desc Will load article in viewer
