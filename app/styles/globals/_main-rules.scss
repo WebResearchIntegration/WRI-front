@@ -6,3 +6,14 @@ body {
 .mdl-grid {
     padding: 0;
 }
+
+a {
+    cursor: pointer;
+    
+    &:hover {
+        color :  $contrast-dark;
+    }
+    &:active {
+        color :  $contrast-light;
+    }
+}
