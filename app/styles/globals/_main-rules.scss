@@ -1,11 +1,25 @@
 body {
     overflow: hidden;
     height: 100%;
+    background: rgba(#eee, 0.3);
 }
+.mdl-tabs__tab-bar{
+    background: #fff;
 
+    a {
+        transition: color 150ms linear;
+        &:hover {
+            color :  $primary;
+        }
+        &:active {
+            color :  $primary;
+        }
+    }
+}
 .mdl-grid {
     padding: 0;
 }
+
 
 a {
     cursor: pointer;
@@ -15,5 +29,20 @@ a {
     }
     &:active {
         color :  $contrast-light;
+    }
+}
+
+::-webkit-scrollbar {
+    border: none;
+    background: transparent;
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb{
+    box-shadow: 0 0 10px rgba(0,0,0,.4);
+    background-color: rgba(#7c7c7c, 0.7);
+
+    &:hover {
+        background-color: #7c7c7c;
     }
 }
