@@ -1,6 +1,13 @@
 .wri_manage {
     height: calc(100% - #{$header-height});
-
+    
+    .mdl-tabs__tab-bar {
+        .mdl-tabs__tab {
+            &.tab-active {
+                color: $primary;
+            }
+        }
+    }
     .content-layout {
         overflow: hidden;
         height: calc(100% - #{$tabs-navigator-height});
@@ -12,6 +19,7 @@
         .wri_manage-filter {
            
         }
+        
         .wri_manage-select {
             position: relative;
             padding: 0 10px;
@@ -21,9 +29,59 @@
                 right: calc(33% + 40px);
                 bottom: 25px;
             }
+
+            &::-webkit-scrollbar-thumb{
+                background-color: rgba($primary-dark, 0.8);
+
+                &:hover {
+                    background-color: $primary-dark;
+                }
+            }
         }
+
         .wri_manage-viewer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
             
+            .wri_manage-viewer__closer {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .wri_manage-viewer__closer__container{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: 5px;
+                    height: 75px;
+                    box-shadow: -2px 0 6px 1px rgba(0,0,0,.5);
+                    border-top-left-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                    background : $primary;
+                }
+                .material-icons{ //arrow
+                    color: #fff;
+                    transition: opacity 3s linear 1s;
+                    
+                    &.ng-enter {
+                        opacity: 0;
+            
+                        &.ng-enter-active {
+                            opacity: 1;
+                        }
+                    }
+    
+                    &.ng-leave {
+                        opacity: 1;
+            
+                        &.ng-leave-active {
+                            opacity: 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }
