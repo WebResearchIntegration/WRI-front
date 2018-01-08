@@ -14,7 +14,8 @@ function articleViewerDirective() {
     restrict: 'E',
     templateUrl: '/views/directives/article-viewer.html',
     scope: {
-      article: '='
+      article: '=',
+      editMode: '='
     },
     bindToController: true,
     controllerAs: 'articleViewer',

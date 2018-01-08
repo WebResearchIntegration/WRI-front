@@ -1,4 +1,4 @@
 <div class="--wri_full-height" ng-switch="viewerDrawer.type">
-    <article-viewer ng-switch-when="article" article="viewerDrawer.element"></article-viewer>
+    <article-viewer ng-switch-when="article" article="viewerDrawer.element" edit-mode="viewerDrawer.editMode"></article-viewer>
     <div class="wri_empty-viewer --wri_full-height" ng-switch-default>Vous ne pouvez pas afficher de {{viewerDrawer.type}} dans ce viewer</div>
 </div>

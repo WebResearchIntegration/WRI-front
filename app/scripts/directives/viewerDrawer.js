@@ -16,6 +16,7 @@ function viewerDrawerDirective() {
         scope: {
             type: '=',
             element: '=',
+            editMode:"=",
             closed: '='
         },
         bindToController: true,
@@ -47,7 +48,9 @@ function viewerDrawerCtrl($scope, $compile){
          * @memberOf Directives.viewerDrawer
          */
         function init(){
-            ctrl.type = ctrl.type.toLowerCase();
+            if (ctrl.type){
+                ctrl.type = ctrl.type.toLowerCase();
+            }
         }
 
         /**
