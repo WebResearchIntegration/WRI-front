@@ -1,0 +1,37 @@
+.wri_form__textfield {
+    position: relative; 
+    
+    &:not(.--no-focus) input {
+        + label {
+            &:after {
+                visibility: visible;
+                content :'';
+                position: absolute;
+                left: 0;
+                height: 2px;
+                width: 100%;
+                background-color: $contrast;
+                transform: scaleX(0);
+                transition: transform .3s ease-in-out;
+            }
+        }
+
+        &:focus {
+            outline: none;
+            
+            + label {
+                &:after {
+                    transform: scaleX(1);
+                }
+            }
+        }
+    }
+
+    &.--no-focus input {
+        border: none;
+        
+        &:focus {
+            outline: none;
+        }
+    }
+}
