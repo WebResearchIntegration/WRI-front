@@ -106,7 +106,7 @@ function articleViewerCtrl($rootScope, $scope) {
      * @memberOf Directives.articleViewer
      */
     function openReference(article) {
-      console.log("send reference to second viewer", article);
+      $scope.$emit("reference:open",article);
     }
     
     /**
@@ -124,7 +124,7 @@ function articleViewerCtrl($rootScope, $scope) {
      * @memberOf Directives.articleViewer
      */
     function turnEditMode() {
-      console.log("edit :" , ctrl.article);
+      ctrl.editMode = true;
     }
     
 

@@ -187,6 +187,11 @@
             event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             loadItemInViewer(emptyArticle, true);
         });
+
+        $scope.$on("reference:open", function(event, article){
+            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
+            loadItemInViewer(article);
+        });
   }
 })();
     

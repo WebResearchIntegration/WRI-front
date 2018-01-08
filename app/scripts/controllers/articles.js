@@ -45,13 +45,31 @@ angular.module('wriApp')
          * Create an article inside the list and refresh the list of articles.
          * @param {String} name the name of the created article
          */
-        ctrl.addArticle = function(name){
-            var promptToUser = prompt("What is the name of your article ?");
-            Articles.create({'name': promptToUser}).then(function(element){
-                console.log(element);
-                ctrl.init();
-            });
-        }
+        ctrl.addArticle = function(){
+            var newArticle = {
+                name : "",
+                conference : "",
+                writtenDate : null,
+                publishedDate : null,
+                score : null,
+                isSaved : false,
+                isRead : false,
+                isPrinted : false,
+                problematic : "",
+                solution : "",
+                abstract : "",
+                authors : [],
+                keywords : [],
+                references : [],
+                notes : [],
+                link : ''
+            };
+            $scope.$emit('articles:newArticle', newArticle);
+            // Articles.create({'name': promptToUser}).then(function(element){
+            //     console.log(element);
+            //     ctrl.init();
+            // });
+        };
         
         /**
          * Will delete an article by giving the right id.
