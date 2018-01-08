@@ -6,3 +6,7 @@
     @extend .--wri_full-height;
     overflow-y: auto;
 }
+
+.--wri__interactive {
+    cursor: pointer;
+}
