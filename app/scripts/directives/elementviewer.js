@@ -10,7 +10,7 @@ angular.module('wriApp')
   .directive('elementViewer', function () {
     return {
       restrict: 'E',
-      templateUrl: '/views/directives/element-viewer/element-viewer.html',
+      templateUrl: 'views/directives/element-viewer.html',
       scope: {
         type: '@',
         element: '=',
