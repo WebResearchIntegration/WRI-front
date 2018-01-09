@@ -28,12 +28,12 @@ angular.module('wriApp')
     /**
      * Will update one author from the database by providing it's id.
      */
-    service.updateById = function (id) {
+    service.updateById = function (id, newAuthor) {
       return service.getById(id).then(function(author) {
-        author = newAuthors;
+        author = newAuthor;
         author.save();
       });
-    }
+    };
 
     /**
      * Will delete one author by providing its id.
@@ -43,14 +43,14 @@ angular.module('wriApp')
         console.log(author);
         author.remove();
     });
-    }
+    };
 
     /**
      * Will create a new author inside the database
      */
     service.create = function(author) {
       return Restangular.service('author').post(author);
-    }
+    };
 
     return service;
   });
