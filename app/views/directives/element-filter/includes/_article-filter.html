@@ -1,0 +1,60 @@
+<div class="mdl-textfield mdl-js-textfield" >
+
+   <!-- NAME -->
+    <input class="mdl-textfield__input" 
+           ng-model="searchArticle.name" 
+           ng-change="sendFilters(searchArticle)" 
+           placeholder="name" 
+           type="text" >
+
+    <!-- AUTHORS -->
+    <input class="mdl-textfield__input" 
+           ng-model="searchArticle.authors.name" 
+           ng-change="sendFilters(searchArticle)" 
+           placeholder="authors" 
+           type="text" >
+
+    <!-- SCORES -->
+    <input class="mdl-textfield__input" 
+           ng-model="searchArticle.score" 
+           ng-change="sendFilters(searchArticle)" 
+           placeholder="score" 
+           type="text" >
+
+    <!-- KEYWORDS -->
+    <input class="mdl-textfield__input" 
+           ng-model="searchArticle.keywords" 
+           ng-change="sendFilters(searchArticle)" 
+           placeholder="keywords" 
+           type="text" >
+
+    <!-- REFERENCES -->
+    <input class="mdl-textfield__input" 
+           ng-model="searchArticle.references.name" 
+           ng-change="sendFilters(searchArticle)" 
+           placeholder="references" 
+           type="text" >
+
+    <!-- NOTES -->
+    <input class="mdl-textfield__input" 
+           ng-model="searchArticle.notes.text" 
+           ng-change="sendFilters(searchArticle)" 
+           placeholder="notes" 
+           type="text" >
+
+    <div class="wrap-orderBy">
+        <label for="orderSelect"> Order by &nbsp; : &nbsp;</label>
+        <select name="orderSelect" class="orderBy" id="orderSelect" ng-model="orderValue.config" ng-options="order.name for order in orderBy" ng-change="sendOrderBy(orderValue.config.name)">
+        </select>
+    </div>
+
+    <!-- RESET -->
+    <div class="reset--wri">
+        <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="resetFiltersAndOrder()">
+            RESET
+        </button>
+    </div>
+
+
+</div>
+ 

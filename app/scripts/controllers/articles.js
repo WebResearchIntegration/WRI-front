@@ -18,21 +18,107 @@ angular.module('wriApp')
         $scope.viewerOpen = true;
         $scope.isModeSelectionArticleOn = false;
         $scope.articlesList = [];
+        $scope.filter = {};
+        $scope.order;
         // [END DECLARED $scope VARIABLES]
+        ctrl.articles = [
+            {
+                "id": 54,
+                "conference": "azerty",
+                "keywords": [
+                    "Yo",
+                    "cacao"
+                ],
+                "problematic": "Which kind of game was it ?",
+                "isRead": true,
+                "link": "http://3442/blah",
+                "abstract": "LOL",
+                "isPrinted": false,
+                "score": 2,
+                "solution": "No one knows...",
+                "isSaved": true,
+                "name": "Supa Fly Test",
+                "publishedDate": "2017-45-21",
+                "writtenDate": "2017-10-08",
+                "references": {
+                    "name": "La superbe histoire de l'emlv",
+                    "id": 58,
+                    "_rel": {}
+                },
+                "authors": [
+                    {
+                        "name": "John Doe",
+                        "id": 56,
+                        "_rel": {}
+                    },
+                    {
+                        "name": "Mister chocolat",
+                        "id": 55,
+                        "_rel": {}
+                    }
+                ],
+                "notes": {
+                    "text": "Ok cette note est valide",
+                    "id": 57,
+                    "_rel": {}
+                }
+            },{
+                "id": 54,
+                "conference": "azerty",
+                "keywords": [
+                    "Yo",
+                    "test"
+                ],
+                "problematic": "Which kind of game was it ?",
+                "isRead": true,
+                "link": "http://3442/blah",
+                "abstract": "LOL",
+                "isPrinted": false,
+                "score": 4,
+                "solution": "No one knows...",
+                "isSaved": true,
+                "name": "Test",
+                "publishedDate": "2017-45-21",
+                "writtenDate": "2017-10-08",
+                "references": {
+                    "name": "La superbe histoire de l'esilv",
+                    "id": 58,
+                    "_rel": {}
+                },
+                "authors": [
+                    {
+                        "name": "John Doe",
+                        "id": 56,
+                        "_rel": {}
+                    },
+                    {
+                        "name": "Mister vanilla",
+                        "id": 55,
+                        "_rel": {}
+                    }
+                ],
+                "notes": {
+                    "text": "Bonjour",
+                    "id": 57,
+                    "_rel": {}
+                },
+            } 
+        ]
 
         ctrl.showModale;
+        
 
         /**
          * Init method on load of the controller.
          * Will load all articles from the database.
          */
-        (ctrl.init = function() {
-            // Will load the data directly from the database
-            Articles.getAll().then(function(articles) {
-                ctrl.articles = articles;
-                console.log(articles);
-            });
-        })();
+        // (ctrl.init = function() {
+        //     // Will load the data directly from the database
+        //     Articles.getAll().then(function(articles) {
+        //         ctrl.articles = articles;
+        //         console.log(articles);
+        //     });
+        // })();
 
         /**
          * Show modale by turning the controller value to true.
@@ -136,4 +222,19 @@ angular.module('wriApp')
         $rootScope.$on('enableReferenceModeOn', function() {
             $scope.isModeSelectionArticleOn = true;
         });
+
+        $rootScope.$on('sendFilters', function(event, data) {
+            if(data === 'reset'){
+                $scope.filter = {}    
+                $scope.order = {};
+            } else {
+                $scope.filter = data;
+            }
+        });
+
+        $rootScope.$on('sendOrderBy', function(event, data) {
+            $scope.order = data;
+        });
+
+
     });

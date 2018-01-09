@@ -1,10 +1,13 @@
 <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--3-col">
+
+    <element-filter type="{{selectedElementType}}" element="articlesCtrl.articles"></element-filter>
+
     </div>
     <div class="mdl-cell mdl-cell--5-col">
         <div class="item" ng-class="{'selected-mode-item': isModeSelectionArticleOn, 'selected-item': article.isSelectedForReference}"
-            ng-repeat="article in articlesCtrl.articles" ng-click="articlesCtrl.sendArticle(article)">
-            <span>{{article.name}} with id: {{article.id}}</span>
+            ng-repeat="article in articlesCtrl.articles | filter : filter | orderBy : order" ng-click="articlesCtrl.sendArticle(article)" >
+            <span>{{article.name}} with id: {{article.id}} </span>
             <div class="validator" ng-class="{'selected-item-validator': article.isSelectedForReference, 'selected-item-validator-disabled': !article.isSelectedForReference}" ng-if="isModeSelectionArticleOn">
                 <i class="material-icons" ng-if="article.isSelectedForReference">done</i>
                 <i class="material-icons" ng-if="!article.isSelectedForReference">add</i>
@@ -14,6 +17,8 @@
         <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="articlesCtrl.addArticle()">
             <i class="material-icons">add</i>
         </button>
+
+        
     </div>
     <div class="mdl-cell mdl-cell--4-col">
         <div class="article-viewer">
