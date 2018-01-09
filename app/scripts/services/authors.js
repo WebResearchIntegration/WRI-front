@@ -8,7 +8,7 @@
  * Service in the wriApp.
  */
 angular.module('wriApp')
-  .service('authorsService', function (Restangular) {
+  .service('Authors', ['Restangular', function (Restangular) {
     var service = this;
 
     /**
@@ -53,4 +53,4 @@ angular.module('wriApp')
     };
 
     return service;
-  });
+  }]);
