@@ -1,16 +1,25 @@
-<div class="col-lg-6 col-lg-offset-3">
-    <text-angular-toolbar name="mathsForm""></text-angular-toolbar>
+<div class="mdl-grid">
+     <div class="mdl-cell mdl-cell--3-col">
+        <element-filter type="{{selectedElementType}}" element="notesCtrl.notes"></element-filter>
+    </div>  
 
-    <text-angular ta-target-toolbars='mathsForm' id="text-angular" ng-model="notesCtrl.noteEdit.content">
-    </text-angular>
-    
-    
-    <button class="btn" ng-click="notesCtrl.newNote(notesCtrl.noteEdit)" >New note</button> 
-    <button class="btn btn-primary" ng-click="notesCtrl.saveNote(notesCtrl.noteEdit)" >Save</button> 
-    <!-- <button class="btn" ng-click="notesCtrl.reload(notesCtrl.noteEdit.tex)" >RELOAD</button>  -->
-    <div class="item" ng-click="notesCtrl.editNote(note)" ng-repeat="note in notesCtrl.notes">{{note.name}}</div>
+    <div class="mdl-cell mdl-cell--5-col">
 
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article">
-        <i class="material-icons">add</i>
-    </button>
-</div>
+        <div class="item" ng-repeat="note in notes" ng-click="notesCtrl.editNote(note)" id="{{note.id}}"></div>
+
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="notesCtrl.newNote()">
+            <i class="material-icons">add</i>
+        </button>
+    </div>
+
+    <div class="mdl-cell mdr-cell--4-col">
+
+        <text-angular-toolbar ng-disabled="false" name="toolbar1" ></text-angular-toolbar>
+
+        <text-angular ta-target-toolbars='toolbar1' ng-model="noteEdit.text">
+        </text-angular>
+
+        
+        <button class="btn btn-primary" ng-click="notesCtrl.saveNote(noteEdit)" >Save</button> 
+    </div>
+</div>     

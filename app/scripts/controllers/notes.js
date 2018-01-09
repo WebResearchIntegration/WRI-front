@@ -12,102 +12,70 @@ angular.module('wriApp')
         
         var ctrl = this;
 
-        ctrl.noteEdit = {
-            'name' : '',
-            'content' :  '',
-            'tex' : ''
-        };
-
-        ctrl.noteEdit.totalContent = ctrl.noteEdit.content + ctrl.noteEdit.tex
-
-
-        ctrl.notes = [
+        $scope.notes = [
             {
-                'name' : 'Note X',
-            },
-            {
-                'name' : 'Note X'
-            },
-            {
-                'name' : 'Note X'
-            },
-            {
-                'name' : 'Note X'
-            },
-            {
-                'name' : 'Note X'
-            },
-            {
-                'name' : 'Note X'
-            },
+                'id' : 1,
+                'text' : ''
+            }
         ];
 
-        ctrl.newNote = function(note){
+        $scope.selectedElementType = "note"
+
+        init()
+
+        ctrl.newNote = function(){
+            var targetId = _.maxBy($scope.notes, 'id')
+            var id = targetId.id + 1;
+
             var obj = {
-                'name' : note.name,
-                'content' : note.content,
-                'tex': note.tex
+                'id' : id,
+                'problematic' : '',
             }
 
-            var isDuplicate = _.find(ctrl.notes, ['name', obj.name])
-            ctrl.newArray = _.pullAllWith(ctrl.notes, [isDuplicate], _.isEqual);
-            ctrl.notes.unshift(obj);
-            ctrl.noteEdit.name = '';
-            ctrl.noteEdit.content = '';
-            ctrl.noteEdit.tex = '';
+            $scope.notes.unshift(obj);
+            $scope.noteEdit.id = obj.id
+            $scope.noteEdit.text = obj.text;
+
         }
 
         ctrl.saveNote = function(note){
             var obj = {};
 
-            var isDuplicate = _.find(ctrl.notes, ['name', note.name])
+            var isDuplicate = _.find($scope.notes, ['id', note.id])
 
-            if(!isDuplicate){
-                var promptVal = prompt('name ?')
-                console.log(promptVal );
+            obj.text = note.text
+            isDuplicate.text = obj.text
 
-                    
-                obj = {
-                    'name' : promptVal,
-                    'content' : note.content,
-                    'tex': note.tex
-                };
+            var elToBind = document.getElementById(isDuplicate.id)
+            elToBind.innerHTML = angular.element(isDuplicate.text)[0].innerHTML
 
-                ctrl.notes.unshift(obj);
-                ctrl.noteEdit.name = '';
-                ctrl.noteEdit.content = '';
-                ctrl.noteEdit.tex = '';
-            } else {
-                obj.content = note.content
-                isDuplicate.content = obj.content
-            }
-
-            
         }
 
         ctrl.editNote = function(note){
-            ctrl.noteEdit = note;
-            console.log(note );
-            // ctrl.reload(note.tex);       
+            var obj = {
+                'id': note.id,
+                'text': note.text,
+            }
+
+            $scope.noteEdit.id = obj.id;
+            $scope.noteEdit.text = obj.text;
+
         }
 
-        // ctrl.reload = function(texExprssion){
-        //     var el = angular.element(document.getElementsByClassName('mathjax'))
-        //     el.html(texExprssion);
-        //     MathJax.Hub.Queue(["Typeset", MathJax.Hub, el[0]]);
-        // }
-
-
-        ctrl.addFormula = function(data){
-            var el =  angular.element(document.querySelector("div[contenteditable='true']"));
-            ctrl.noteEdit.tex += data.tex;
-            angular.element(el[0].childNodes[0]).append(data.div);
+        function initList(){
+            $scope.noteEdit = {
+                'id' : 1,
+                'text' : ''
+            }
+            // $scope.notes.forEach(function(note){
+            //     var elToBind = document.getElementById(note.id)
+            //     elToBind.innerHTML = angular.element(note.text)[0].innerHTML
+            // })
         }
 
-        $rootScope.$on('mathFormula', function(event, data){
-            ctrl.addFormula(data);
-        })
-
+        function init(){
+            initList()
+        }
     });
 
 

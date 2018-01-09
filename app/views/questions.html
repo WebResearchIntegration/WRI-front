@@ -1,5 +1,30 @@
-<div class="item" ng-repeat="question in questCtrl.questions">{{question.name}}</div>
+<div class="mdl-grid">
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="">
-    <i class="material-icons">add</i>
-</button>
+    <!-- FILTER -->
+    <div class="mdl-cell mdl-cell--3-col">
+        <element-filter type="{{selectedElementType}}" element="questionsCtrl.questions"></element-filter>
+    </div>  
+
+
+    <!-- LIST -->
+    <div class="mdl-cell mdl-cell--5-col">
+
+        <div class="item" ng-repeat="question in questions" ng-click="questionsCtrl.editQuestion(question)">{{question.problematic}}</div>
+
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="questionsCtrl.newQuestion()">
+            <i class="material-icons">add</i>
+        </button>
+    </div>
+
+    <!-- VIEW/EDIT -->
+    <div class="mdl-cell mdr-cell--4-col">
+        
+        <label for="">Problematic</label><input type="text" ng-model="questionEdit.problematic">
+
+        <text-angular-toolbar name="toolbar2"></text-angular-toolbar>
+
+        <text-angular ta-target-toolbars='toolbar2' ng-model="questionEdit.answer">
+        </text-angular>
+        <button class="btn btn-primary" ng-click="questionsCtrl.saveQuestion(questionEdit)" >Save</button> 
+    </div>
+</div>     
