@@ -19,7 +19,7 @@
            ng-model="searchArticle.score" 
            ng-change="sendFilters(searchArticle)" 
            placeholder="score" 
-           type="text" >²
+           type="text" >
 
     <!-- KEYWORDS -->
     <input class="mdl-textfield__input" 
@@ -35,11 +35,11 @@
            placeholder="references" 
            type="text" >
 
-    <!-- PROBLEMATICS -->
+    <!-- NOTES -->
     <input class="mdl-textfield__input" 
-           ng-model="searchArticle.problematic" 
+           ng-model="searchArticle.notes.text" 
            ng-change="sendFilters(searchArticle)" 
-           placeholder="problematic" 
+           placeholder="notes" 
            type="text" >
 
     <div class="wrap-orderBy">
