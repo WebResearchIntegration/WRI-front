@@ -8,7 +8,7 @@
  * Service in the wriApp.
  */
 angular.module('wriApp')
-  .service('questionsService', function () {
+  .service('Questions', ['Restangular', function (Restangular) {
     var service = this;
 
     /**
@@ -22,21 +22,36 @@ angular.module('wriApp')
      * 
      */
     service.getById = function (id) {
-
+      return Restangular.one('question', id).get();
     };
 
     /**
      * 
      */
-    service.updateById = function (id) {
+    service.updateById = function (id, newQuestion) {
+      return service.getById(id).then(function (question) {
+        question = newQuestion;
+        question.save();
+      });
+    };
 
-    }
+    /**
+    * Will create an article inside the database.
+    * 
+    */
+    service.create = function (question) {
+      // ADD OBJECT CONTROL
+      return Restangular.service('question').post(question);
+    };
 
     /**
      * 
      */
     service.delete = function (id) {
-
-    }
+      return service.getById(id).then(function(question) {
+        console.log(question);
+        question.remove();
+      });
+    };
     return service;
-  });
+  }]);

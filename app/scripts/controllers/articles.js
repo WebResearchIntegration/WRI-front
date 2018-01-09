@@ -94,7 +94,7 @@ angular.module('wriApp')
         ctrl.disableModeSelectionArticle = function() {
             $scope.isModeSelectionArticleOn = false;
             $scope.articlesList = [];
-            ctrl.articles.forEach(element => {
+            ctrl.articles.forEach(function(element) {
                 delete element.isSelectedForReference;
             });
         }
