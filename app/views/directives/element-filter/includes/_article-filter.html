@@ -1,6 +1,5 @@
 <div class="mdl-textfield mdl-js-textfield" >
 
-
    <!-- NAME -->
     <input class="mdl-textfield__input" 
            ng-model="searchArticle.name" 
@@ -20,7 +19,7 @@
            ng-model="searchArticle.score" 
            ng-change="sendFilters(searchArticle)" 
            placeholder="score" 
-           type="text" >
+           type="text" >²
 
     <!-- KEYWORDS -->
     <input class="mdl-textfield__input" 
@@ -43,15 +42,8 @@
            placeholder="problematic" 
            type="text" >
 
-    <!-- SOLUTIONS -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchArticle.solution" 
-           ng-change="sendFilters(searchArticle)" 
-           placeholder="solution" 
-           type="text" >
-
-    <div>
-        <label for="orderSelect"> Order by : </label>
+    <div class="wrap-orderBy">
+        <label for="orderSelect"> Order by &nbsp; : &nbsp;</label>
         <select name="orderSelect" class="orderBy" id="orderSelect" ng-model="orderValue.config" ng-options="order.name for order in orderBy" ng-change="sendOrderBy(orderValue.config.name)">
         </select>
     </div>

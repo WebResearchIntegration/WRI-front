@@ -1,23 +1,34 @@
 element-filter {
 
     .mdl-textfield {
-        display: flex;
-        flex-direction: column;
-        height: 80vh;
-        justify-content: space-around;
+        height: 410px;
 
-        .orderBy {
-            width: 50%;
-        }
+        .mdl-textfield__input {
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+            justify-content: space-around;
+            padding: 10px 0;
 
-        .reset--wri {
-            display:flex;
-            justify-content: center;
 
-            .mdl-button {
-                position: inherit;
+            .reset--wri {
+                display:flex;
+                justify-content: center;
+
+                .mdl-button {
+                    position: inherit;
+                }
             }
         }
+
+            .wrap-orderBy {
+                padding: 10px 0;
+
+                .orderBy {
+                    width: 50%;
+                }
+            }
+
     }
     
 }

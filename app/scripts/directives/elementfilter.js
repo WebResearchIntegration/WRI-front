@@ -18,13 +18,10 @@ angular.module('wriApp')
         controller: function($scope, Articles) {
         
             // [PARAMETERS]
-            var types = ["article", "author"];
+            var types = ["article", "author", "notes"];
             $scope.orderValue = {};
             $scope.orderBy = [
-                {"name" : "", "value" : "default"},
-                {"name" : "Id", "value" : "id"},
                 {"name" : "Name", "value" : "name"},
-                {"name" : "Score", "value" : "score"},
             ];
 
             // GET RID OF DEFAULT OPTION FOR THE SELECT 
