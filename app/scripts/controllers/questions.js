@@ -8,29 +8,15 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('questionsCtrl', function ($scope) {
+    .controller('questionsCtrl', function ($scope, Questions) {
         
         var ctrl = this;
 
-        ctrl.questions = [
-            {
-                'name' : 'Question X'
-            },
-            {
-                'name' : 'Question X'
-            },
-            {
-                'name' : 'Question X'
-            },
-            {
-                'name' : 'Question X'
-            },
-            {
-                'name' : 'Question X'
-            },
-            {
-                'name' : 'Question X'
-            },
-            
-        ];
+        ctrl.questions = [];
+
+        (ctrl.init = function() {
+            Questions.getAll().then(function(questions) {
+                ctrl.questions = questions;
+            });
+        })();
     });
