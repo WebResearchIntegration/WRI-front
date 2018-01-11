@@ -64,7 +64,7 @@ angular.module('wriApp')
                 notes : [],
                 link : ''
             };
-            $scope.$emit('articles:newArticle', newArticle);
+            $scope.$emit('articles:new', newArticle);
             // Articles.create({'name': promptToUser}).then(function(element){
             //     console.log(element);
             //     ctrl.init();

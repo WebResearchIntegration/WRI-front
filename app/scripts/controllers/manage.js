@@ -183,7 +183,7 @@
         // [PRIVATE FUNCTIONS : end]
 
         // [EVENTS]
-        $scope.$on("articles:newArticle", function(event, emptyArticle){
+        $scope.$on("articles:new", function(event, emptyArticle){
             event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             loadItemInViewer(emptyArticle, true);
         });
