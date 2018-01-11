@@ -135,15 +135,17 @@ article-viewer {
     }
 
     .mdl-layout__content {
-        padding-top: 40px;
+        &:not(.--edit-mode) {
+            padding-top: 40px;
+        }
 
         section {
             position: relative;
             padding: 15px 20px;
-            
+            margin: 10px 0;
+
             &:not(:last-child){
                 border-bottom: 1px solid rgb(195, 195, 195);
-                margin-bottom: 20px;
             }
             .wri_article__section__counter {
                 margin: 25px 0;

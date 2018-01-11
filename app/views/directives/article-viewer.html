@@ -55,7 +55,7 @@
             </ul>
         </div>
     </header>
-    <main class="mdl-layout__content --wri_scrollY-area">
+    <main class="mdl-layout__content --wri_scrollY-area" ng-class="{'--edit-mode': articleViewer.editMode}">
         <section class="wri_article__main-informations">
             <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-problematic" ng-show="articleViewer.showProbSoluce || articleViewer.editMode">
                 <div class="wri_article__main-informations__inside">
