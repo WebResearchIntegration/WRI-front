@@ -10,6 +10,7 @@
 
             <!-- FILTER / SELECTOR -->
             <div class="wri_manage-filter mdl-cell wri_grid__col-3">
+                <element-filter type="{{manageCtrl.getType()}}" element="articlesCtrl.articles"></element-filter>
                 <div class="selection-panel" ng-if="manageCtrl.selectMode">
                     <div>
                         <span class="mdl-chip mdl-chip--contact">

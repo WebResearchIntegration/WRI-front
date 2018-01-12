@@ -30,6 +30,7 @@
 
       //[SCOPE METHODS]
       ctrl.disableSelector = disableSelector;
+      ctrl.getType = getType;
       ctrl.getCurrentTab = getCurrentTab;
       ctrl.selectItem = selectItem;
       ctrl.showCategory = showCategory;
