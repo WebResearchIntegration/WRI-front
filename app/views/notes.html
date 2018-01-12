@@ -1,4 +1,5 @@
 <div class="mdl-grid">
+
      <div class="mdl-cell mdl-cell--3-col">
         <element-filter type="{{selectedElementType}}" element="notesCtrl.notes"></element-filter>
     </div>  
@@ -23,3 +24,18 @@
         <button class="btn btn-primary" ng-click="notesCtrl.saveNote(noteEdit)" >Save</button> 
     </div>
 </div>     
+
+
+<!-- 
+<div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': note.isSelected}" ng-repeat="note in notesCtrl.notes" ng-click="manageCtrl.selectItem(note)">
+        <span>{{note.name}}</span>
+        <div class="validator" ng-class="{'selected-item-validator': note.isSelected, 'selected-item-validator-disabled': !note.isSelected}"
+            ng-if="manageCtrl.selectMode">
+            <i class="material-icons" ng-if="note.isSelected">done</i>
+            <i class="material-icons" ng-if="!note.isSelected">add</i>
+        </div>
+    </div>
+    
+<button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp">
+    <i class="material-icons">add</i>
+</button> -->

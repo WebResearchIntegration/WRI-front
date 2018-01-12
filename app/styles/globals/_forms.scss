@@ -1,0 +1,44 @@
+span {
+    &.wri_form__textfield, &.wri_form__datefield, &.wri_form__numberfield {
+        width: initial; 
+    }
+}
+.wri_form__textfield, .wri_form__datefield, .wri_form__numberfield {
+    &.--no-focus input {
+        border: none;
+        
+        &:focus {
+            outline: none;
+        }
+    }
+}
+.wri_form__textfield {
+    position: relative; 
+    // padding: 0;
+    
+    &:not(.--no-focus) input {
+        + label {
+            &:after {
+                visibility: visible;
+                content :'';
+                position: absolute;
+                left: 0;
+                height: 2px;
+                width: 100%;
+                background-color: $primary;
+                transform: scaleX(0);
+                transition: transform .3s ease-in-out;
+            }
+        }
+
+        &:focus {
+            outline: none;
+            
+            + label {
+                &:after {
+                    transform: scaleX(1);
+                }
+            }
+        }
+    }
+}
