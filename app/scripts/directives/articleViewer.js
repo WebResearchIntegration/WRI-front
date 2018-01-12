@@ -23,10 +23,12 @@ function articleViewerDirective() {
   };  
 }
 
-function articleViewerCtrl($rootScope, $scope) {
+function articleViewerCtrl($scope, Selector, Articles) {
 
   var ctrl = this;
 
+  var selectedProperty;  // variable for know which property is being updated
+  
   // [PUBLIC VARIABLES]
     // All attributes are binded after $onInit(). They will be accessible as ctrl.[attributeName]
     ctrl.showAbstract;      // boolean to know if we show abstract or not
@@ -40,6 +42,7 @@ function articleViewerCtrl($rootScope, $scope) {
     ctrl.createNoteFor = createNoteFor;
     ctrl.loadArticle = loadArticle;
     ctrl.openReference = openReference;
+    ctrl.selectReferences = selectReferences;
     ctrl.toggleAbstract = toggleAbstract;
     ctrl.turnEditMode = turnEditMode;
   
@@ -129,17 +132,33 @@ function articleViewerCtrl($rootScope, $scope) {
     
 
     /**
-     * @name sendEnableReferenceEdition
+     * @name selectReferences
      * @desc Will turn on selector mode for references of the article
      * @memberOf Directives.articleViewer
      */
-    $scope.sendEnableReferenceEdition = function() {
-      console.log("selection mode on");
-      $rootScope.$emit('enableReferenceModeOn');
-    };
+    function selectReferences() {
+      selectedProperty = "references";
+      $scope.$emit('select:articles', ctrl.article);
+      Selector.loadSelection(ctrl.article.references);
+    }
   // [METHODS : end]
 
   // [PRIVATE FUNCTIONS : begin]
+    /**
+     * @name insertDataInto
+     * @desc Will update article property passed as param into an array
+     * @param {Object}  property   property to transform into an array
+     * @param {Boolean}  onlyObject   check if the current property has to be an object
+     * @memberOf Directives.articleViewer
+     */
+    function insertDataInto() {
+      var itemsSelected = Selector.getSelection();
+      if(_.isArray(ctrl.article[selectedProperty])){
+        ctrl.article[selectedProperty] = itemsSelected;
+      }
+      Selector.disable();
+    }
+
     /**
      * @name transformIntoArr
      * @desc Will update article property passed as param into an array
@@ -160,6 +179,21 @@ function articleViewerCtrl($rootScope, $scope) {
       }
       ctrl.article[property] = returnArr;
     }
+
+      //       /**
+      //    * Will delete an article by giving the right id.
+      //    * @param {Number} id the correponsding of the database.
+      //    */
+      //   ctrl.deleteArticle = function(id) {
+      //     Articles.delete(29).then(function(el){
+      //         ctrl.init();
+      //     });
+      // }
+
+      // Articles.create({'name': promptToUser}).then(function(element){
+      //     console.log(element);
+      //     ctrl.init();
+      // });
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
@@ -168,6 +202,15 @@ function articleViewerCtrl($rootScope, $scope) {
     }, function(newArticle, previousArticle){
       if (ctrl.article != null){
         loadArticle(ctrl.article);
+      }
+    }, true);
+
+    $scope.$watch( function(){
+      return Selector.selectionValidated;
+    }, function(newVal, oldVal){
+      if (newVal){
+        insertDataInto();
+        Selector.receiptSelection();
       }
     }, true);
 }

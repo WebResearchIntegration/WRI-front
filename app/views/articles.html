@@ -1,10 +1,9 @@
-    <div class="item" ng-class="{'selected-mode-item': isModeSelectionArticleOn, 'selected-item': article.isSelectedForReference}"
-        ng-repeat="article in articlesCtrl.articles" ng-click="manageCtrl.selectItem(article)">
+    <div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': article.isSelected}" ng-repeat="article in articlesCtrl.articles" ng-click="manageCtrl.selectItem(article)" ng-if="manageCtrl.selectMode && article.id != manageCtrl.viewer.itemToShow.id || !manageCtrl.selectMode">
         <span>{{article.name}} with id: {{article.id}}</span>
-        <div class="validator" ng-class="{'selected-item-validator': article.isSelectedForReference, 'selected-item-validator-disabled': !article.isSelectedForReference}"
-            ng-if="isModeSelectionArticleOn">
-            <i class="material-icons" ng-if="article.isSelectedForReference">done</i>
-            <i class="material-icons" ng-if="!article.isSelectedForReference">add</i>
+        <div class="validator" ng-class="{'selected-item-validator': article.isSelected, 'selected-item-validator-disabled': !article.isSelected}"
+            ng-if="manageCtrl.selectMode">
+            <i class="material-icons" ng-if="article.isSelected">done</i>
+            <i class="material-icons" ng-if="!article.isSelected">add</i>
         </div>
     </div>
 

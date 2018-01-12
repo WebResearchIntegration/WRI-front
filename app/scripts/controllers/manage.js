@@ -15,22 +15,25 @@
    * @desc Controller of the manage page
    * @memberOf Controllers
    */
-  function manageController($scope, $timeout) {
+  function manageController($scope, $timeout, Selector) {
       
       var ctrl = this;
 
       //[SCOPE VARIABLES]
-      ctrl.selectMode;   // boolean to check Selection Mode
-      ctrl.manageTabs;   // categories accessible in manage section
-      ctrl.viewer;       // viewer params
+      ctrl.manageTabs;          // categories accessible in manage section
+      ctrl.selectMode;          // boolean to check Selection Mode
+      ctrl.selectionSize;       // 
+      ctrl.viewer;              // viewer params
       
       // [INIT]
       init();
 
       //[SCOPE METHODS]
+      ctrl.disableSelector = disableSelector;
       ctrl.selectItem = selectItem;
       ctrl.showCategory = showCategory;
       ctrl.toggleViewer = toggleViewer;
+      ctrl.validateSelection = validateSelection;
     
       ////////////
     
@@ -50,11 +53,10 @@
                 'notes' : false,
                 'questions' : false
             };
-            var currentTab = getCurrentTab();
-            ctrl.currentCtrl = currentTab + "Ctrl as " + currentTab +"Ctrl";
             
             // Selection Mode
-            ctrl.selectMode = false;
+            ctrl.selectMode = Selector.isEnabled;
+            ctrl.selectionSize = Selector.getSelectionSize();
             
             // Viewer variables
             ctrl.viewer = {
@@ -67,6 +69,24 @@
         }
             
         /**
+         * @name disableSelector
+         * @desc turn off the select mode
+         * @return {void}
+         */
+        function disableSelector() {
+            Selector.disable();
+        }
+
+        /**
+         * @name validateSelection
+         * @desc valid the selection and send it to the current element
+         * @param {Object} item   item from the list got from the database.
+         */
+        function validateSelection() {
+            Selector.validate();
+        }
+
+        /**
          * @name selectItem
          * @desc Two cases are available for this method.
          * Will send the item to the viewer.
@@ -75,9 +95,12 @@
          */
         function selectItem(item) {
             if(ctrl.selectMode) {
-                // Not implemented yet
+                item.isSelected = !item.isSelected;
+                Selector.toggleInList(item);
+                ctrl.selectionSize = Selector.getSelectionSize();
             } else {
                 // TODO: check if the type can be load in viewer
+                ctrl.viewer.itemToShow = item;
                 loadItemInViewer(item);
             }
         }
@@ -106,6 +129,9 @@
          */
         function toggleViewer() {
             ctrl.viewer.isClosed = !ctrl.viewer.isClosed;
+            if(Selector.isEnabled){
+                Selector.disable();
+            }
             changeCloserIcon();
         }
       // [METHODS : end]
@@ -180,6 +206,16 @@
                 changeCloserIcon();
             }
         }
+
+        /**
+         * @name sliceBy
+         * @desc return the arrow in opposite direction of viewer expansion
+         * @memberOf Controllers.manage
+         */
+        function sliceBy(string, separator, end) {
+            var startSliceAt = string.indexOf(separator)+separator.length;
+            return string.slice(startSliceAt, end);
+        }
         // [PRIVATE FUNCTIONS : end]
 
         // [EVENTS]
@@ -191,6 +227,23 @@
         $scope.$on("reference:open", function(event, article){
             event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             loadItemInViewer(article);
+        });
+
+        $scope.$on("select:articles", function(event, article){
+            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
+            var category = sliceBy(event.name, ":");
+            showCategory(category);
+            Selector.enable("articles");
+            $timeout(function(){
+                ctrl.selectionSize = Selector.getSelectionSize();
+            });
+        });
+
+        // [WATCHERS]
+        $scope.$watch(function(){
+            return Selector.isEnabled;
+        }, function(newVal, oldVal){
+            ctrl.selectMode = Selector.isEnabled;
         });
   }
 })();

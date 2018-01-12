@@ -14,6 +14,7 @@ angular.module('wriApp')
 
     // [PRIVATE PROPERTIES]
     var selectedItems = [];
+    var selectedType = "";
     
     // [PUBLIC PROPERTIES]
     factory.itemsAlreadySelectedSize = false;
@@ -26,8 +27,11 @@ angular.module('wriApp')
     factory.enable = enable;
     factory.getSelection = getSelection;
     factory.getSelectionSize = getSelectionSize;
+    factory.getSelectionType = getSelectionType;
     factory.loadSelection = loadSelection;
+    factory.reinitSelection = reinitSelection;
     factory.receiptSelection = receiptSelection;
+    factory.setSelectionInCtrl = setSelectionInCtrl;
     factory.toggleInList = toggleInList;
     factory.validate = validate;
 
@@ -49,6 +53,7 @@ angular.module('wriApp')
        * @return {void}
        */
       function disable(){
+        selectedType = "";
         factory.isEnabled = false;
         factory.itemsAlreadySelectedSize = 0;
         cleanList();
@@ -57,10 +62,12 @@ angular.module('wriApp')
       /**
        * @name enable
        * @desc will turn on select mode
+       * @param {String} type   type which will be selected
        * @return {void}
        */
-      function enable(){
+      function enable(type){
         factory.isEnabled = true;
+        selectedType = type;
       }
 
       /**
@@ -70,6 +77,15 @@ angular.module('wriApp')
        */
       function getSelection(){
           return selectedItems;
+      }
+
+      /**
+       * @name getSelectionType
+       * @desc will return the selected items
+       * @return {Array}  the selected items
+       */
+      function getSelectionType(){
+          return selectedType;
       }
 
       /**
@@ -93,12 +109,40 @@ angular.module('wriApp')
       }
 
       /**
+       * @name reinitSelection
+       * @desc Disable selected articles in list 
+       * @return {void} 
+       */
+      function reinitSelection(listOfItem){
+        listOfItem.forEach(element => {
+          delete element.isSelected;
+        });
+      }
+
+      /**
        * @name receiptSelection
        * @desc confirm reception of the selection
        * @return {void}
        */
       function receiptSelection(){
         factory.selectionValidated = false;
+      }
+
+      /**
+       * @name setSelectionInCtrl
+       * @desc Select items in items list 
+       * @param {Array} itemsToSelect  items to select in the list
+       * @return {void} 
+       */
+      function setSelectionInCtrl(collection){
+        var tmp;
+        _.forEach(selectedItems, function(itemToSelect){
+          tmp = _.find(collection, ['id', itemToSelect.id]);
+          console.log(tmp);
+          if (tmp != undefined){
+              tmp.isSelected = true;
+          }
+        });
       }
 
       /**
