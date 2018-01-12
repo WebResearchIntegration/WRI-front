@@ -1,0 +1,22 @@
+.--wri_full-height {
+    height: 100%;
+}
+
+.--wri_scrollY-area {
+    @extend .--wri_full-height;
+    overflow-y: auto;
+}
+
+.--wri__interactive {
+    cursor: pointer;
+}
+
+.--wri_text-right {
+    text-align: right;
+}
+
+.--wri_disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}

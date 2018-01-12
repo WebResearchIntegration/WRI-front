@@ -1,22 +1,58 @@
-<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" style="margin-top: 70px" ng-controller="manageCtrl as manageCtrl">
-
+<div class="wri_manage mdl-tabs mdl-js-tabs mdl-js-ripple-effect">            
     <!-- NAVIGATIONS -->
-    <div class="mdl-tabs__tab-bar fixed-nav">
-        <a href="" class="mdl-tabs__tab" ng-repeat="(key, data) in manageCtrl.manageTab" ng-click="manageCtrl.showCategory(key)">{{key}}</a>
+    <div class="mdl-tabs__tab-bar">
+        <a href="" class="mdl-tabs__tab" ng-repeat="(tab, isActive) in manageCtrl.manageTabs" ng-click="manageCtrl.showCategory(tab)" ng-class="{'tab-active': isActive, '--wri_disabled': manageCtrl.selectMode && !isActive}">{{tab}}</a>
     </div>
 
-    <!-- ARTICLES -->
-    <div class="content-layout" ng-show="manageCtrl.manageTab.articles === true" ng-include="'views/articles.html'" class="wrap-item" ng-controller="articlesCtrl as articlesCtrl"></div>
+    <!-- CONTENT -->
+    <div class="content-layout">
+        <div class="mdl-grid --wri_full-height">
 
-    <!-- AUTHORS -->
-     <div class="content-layout" ng-show="manageCtrl.manageTab.authors === true" ng-include="'views/authors.html'" class="wrap-item" ng-controller="authorsCtrl as authorsCtrl"></div>
+            <!-- FILTER / SELECTOR -->
+            <div class="wri_manage-filter mdl-cell wri_grid__col-3">
+                <div class="selection-panel" ng-if="manageCtrl.selectMode">
+                    <div>
+                        <span class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{manageCtrl.selectionSize}}</span>
+                            <span class="mdl-chip__text wri_selector__indicator">{{manageCtrl.getCurrentTab()}} added</span>
+                        </span>
+                    </div>
+                    <div class="actions">
+                        <i class="material-icons" ng-click="manageCtrl.validateSelection()">done</i>
+                        <i class="material-icons" ng-click="manageCtrl.disableSelector()">clear</i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITEMS LIST -->
+            <div class="wri_manage-select mdl-cell wri_grid__col-5 --wri_scrollY-area">
+                <!-- ARTICLES  -->
+                <div ng-if="manageCtrl.manageTabs.articles" class="wri_manage-select__articles" ng-controller="articlesCtrl as articlesCtrl" ng-include="'views/articles.html'">
+                </div>
+
+                <!-- AUTHORS  -->
+                <div ng-if="manageCtrl.manageTabs.authors" class="wri_manage-select__authors" ng-controller="authorsCtrl as authorsCtrl" ng-include="'views/authors.html'">
+                </div>
+                
+                <!-- NOTES  -->
+                <div ng-if="manageCtrl.manageTabs.notes" class="wri_manage-select__notes" ng-controller="notesCtrl as notesCtrl" ng-include="'views/notes.html'">
+                </div>
+
+                <!-- QUESTIONS  -->
+                <div ng-if="manageCtrl.manageTabs.questions" class="wri_manage-select__questions" ng-controller="questionsCtrl as questionsCtrl" ng-include="'views/questions.html'">
+                </div>
+            </div>
+
+            <!-- VIEWER / EDITOR -->
+            <div class="wri_manage-viewer mdl-cell wri_grid__col-4 --wri_full-height">
+                <div class="wri_manage-viewer__closer --wri_full-height">
+                    <div class="wri_manage-viewer__closer__container  --wri__interactive " ng-click="manageCtrl.toggleViewer()">
+                        <i class="material-icons">{{manageCtrl.viewer.closerIcon}}</i>
+                    </div>
+                </div>
+                <viewer-drawer class="--wri_full-height ng-hide" ng-class="{'--unaccessible': manageCtrl.selectMode}" ng-hide="manageCtrl.viewer.isClosed" type="manageCtrl.viewer.itemToShowType" element="manageCtrl.viewer.itemToShow" edit-mode="manageCtrl.viewer.editMode" closed="manageCtrl.viewer.isClosed"></viewer-drawer>
+            </div>
+        </div> 
     
-    <!-- NOTES -->
-     <div class="content-layout" ng-show="manageCtrl.manageTab.notes === true" ng-include="'views/notes.html'" class="wrap-item" ng-controller="notesCtrl as notesCtrl" style="position: relative; top: 60px; width: 100%;">
-         
-     </div>
-
-    <!-- QUESTIONS -->
-     <div class="content-layout" ng-show="manageCtrl.manageTab.questions === true" ng-include="'views/questions.html'" class="wrap-item" ng-controller="questionsCtrl as questCtrl"></div>   
-
+    </div> 
 </div>
