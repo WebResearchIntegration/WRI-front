@@ -1,4 +1,4 @@
-<div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': note.isSelected}" ng-repeat="note in notesCtrl.notes" ng-click="manageCtrl.selectItem(note)" ng-if="manageCtrl.selectMode && note.id != manageCtrl.viewer.itemToShow.id || !manageCtrl.selectMode">
+<div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': note.isSelected}" ng-repeat="note in notesCtrl.notes" ng-click="manageCtrl.selectItem(note)">
         <span>{{note.name}}</span>
         <div class="validator" ng-class="{'selected-item-validator': note.isSelected, 'selected-item-validator-disabled': !note.isSelected}"
             ng-if="manageCtrl.selectMode">
