@@ -12,6 +12,8 @@ angular.module('wriApp')
         
         var ctrl = this;
 
+        $scope.selectedElementType = "author";
+
         ctrl.authors = [];
 
         (ctrl.init = function() {
