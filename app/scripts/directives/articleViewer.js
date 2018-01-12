@@ -42,6 +42,8 @@ function articleViewerCtrl($scope, Selector, Articles) {
     ctrl.createNoteFor = createNoteFor;
     ctrl.loadArticle = loadArticle;
     ctrl.openReference = openReference;
+    ctrl.selectAuthors = selectAuthors;
+    ctrl.selectNotes = selectNotes;
     ctrl.selectReferences = selectReferences;
     ctrl.toggleAbstract = toggleAbstract;
     ctrl.turnEditMode = turnEditMode;
@@ -132,13 +134,35 @@ function articleViewerCtrl($scope, Selector, Articles) {
     
 
     /**
+     * @name selectAuthors
+     * @desc Will turn on selector mode for authors of the article
+     * @memberOf Directives.articleViewer
+     */
+    function selectAuthors() {
+      selectedProperty = "authors";
+      $scope.$emit('select:authors');
+      Selector.loadSelection(ctrl.article.authors);
+    }
+
+    /**
+     * @name selectNotes
+     * @desc Will turn on selector mode for notes of the article
+     * @memberOf Directives.articleViewer
+     */
+    function selectNotes() {
+      selectedProperty = "notes";
+      $scope.$emit('select:notes');
+      Selector.loadSelection(ctrl.article.notes);
+    }
+
+    /**
      * @name selectReferences
      * @desc Will turn on selector mode for references of the article
      * @memberOf Directives.articleViewer
      */
     function selectReferences() {
       selectedProperty = "references";
-      $scope.$emit('select:articles', ctrl.article);
+      $scope.$emit('select:articles');
       Selector.loadSelection(ctrl.article.references);
     }
   // [METHODS : end]

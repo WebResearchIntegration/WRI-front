@@ -22,7 +22,7 @@
       //[SCOPE VARIABLES]
       ctrl.manageTabs;          // categories accessible in manage section
       ctrl.selectMode;          // boolean to check Selection Mode
-      ctrl.selectionSize;       // 
+      ctrl.selectionSize;       // size of items selected list
       ctrl.viewer;              // viewer params
       
       // [INIT]
@@ -30,6 +30,7 @@
 
       //[SCOPE METHODS]
       ctrl.disableSelector = disableSelector;
+      ctrl.getCurrentTab = getCurrentTab;
       ctrl.selectItem = selectItem;
       ctrl.showCategory = showCategory;
       ctrl.toggleViewer = toggleViewer;
@@ -78,12 +79,12 @@
         }
 
         /**
-         * @name validateSelection
-         * @desc valid the selection and send it to the current element
-         * @param {Object} item   item from the list got from the database.
+         * @name getCurrentTab
+         * @desc get the current active tab by checking which key in ctrl.manageTabs has true value
+         * @return {String} tab   the active tab on the page
          */
-        function validateSelection() {
-            Selector.validate();
+        function getCurrentTab() {
+            return _.findKey(ctrl.manageTabs, _.partial(_.isEqual, true));
         }
 
         /**
@@ -134,6 +135,15 @@
             }
             changeCloserIcon();
         }
+
+        /**
+         * @name validateSelection
+         * @desc valid the selection and send it to the current element
+         * @param {Object} item   item from the list got from the database.
+         */
+        function validateSelection() {
+            Selector.validate();
+        }
       // [METHODS : end]
 
       // [PRIVATE FUNCTIONS : begin]
@@ -146,15 +156,6 @@
             $timeout(function(){
                 ctrl.viewer.closerIcon = getViewerCloserIcon();
             }, 400);
-        }
-
-        /**
-         * @name getCurrentTab
-         * @desc get the current active tab by checking which key in ctrl.manageTabs has true value
-         * @return {String} tab   the active tab on the page
-         */
-        function getCurrentTab() {
-            return _.findKey(ctrl.manageTabs, _.partial(_.isEqual, true));
         }
 
         /**
@@ -229,11 +230,31 @@
             loadItemInViewer(article);
         });
 
-        $scope.$on("select:articles", function(event, article){
+        $scope.$on("select:articles", function(event){
             event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             var category = sliceBy(event.name, ":");
             showCategory(category);
             Selector.enable("articles");
+            $timeout(function(){
+                ctrl.selectionSize = Selector.getSelectionSize();
+            });
+        });
+
+        $scope.$on("select:authors", function(event){
+            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
+            var category = sliceBy(event.name, ":");
+            showCategory(category);
+            Selector.enable("authors");
+            $timeout(function(){
+                ctrl.selectionSize = Selector.getSelectionSize();
+            });
+        });
+
+        $scope.$on("select:notes", function(event){
+            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
+            var category = sliceBy(event.name, ":");
+            showCategory(category);
+            Selector.enable("notes");
             $timeout(function(){
                 ctrl.selectionSize = Selector.getSelectionSize();
             });

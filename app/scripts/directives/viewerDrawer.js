@@ -68,9 +68,8 @@ function viewerDrawerCtrl($scope, $compile){
 
     // [EVENT]
         $scope.$watch(function(){
-            return ctrl.closed;
+            return ctrl.type;
         }, function(newVal, oldVal) {
-            console.log('ctrl viewer closed', ctrl.closed);
-            console.log('ctrl viewer was ::', oldVal);
+            console.log("type for viewer :", ctrl.type);
         });
 }

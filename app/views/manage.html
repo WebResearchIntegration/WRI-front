@@ -1,7 +1,7 @@
-<div class="wri_manage mdl-tabs mdl-js-tabs mdl-js-ripple-effect" ng-controller="manageCtrl as manageCtrl">            
+<div class="wri_manage mdl-tabs mdl-js-tabs mdl-js-ripple-effect">            
     <!-- NAVIGATIONS -->
     <div class="mdl-tabs__tab-bar">
-        <a href="" class="mdl-tabs__tab" ng-repeat="(tab, active) in manageCtrl.manageTabs" ng-click="manageCtrl.showCategory(tab)" ng-class="{'tab-active': active}">{{tab}}</a>
+        <a href="" class="mdl-tabs__tab" ng-repeat="(tab, isActive) in manageCtrl.manageTabs" ng-click="manageCtrl.showCategory(tab)" ng-class="{'tab-active': isActive, '--wri_disabled': manageCtrl.selectMode && !isActive}">{{tab}}</a>
     </div>
 
     <!-- CONTENT -->
@@ -14,7 +14,7 @@
                     <div>
                         <span class="mdl-chip mdl-chip--contact">
                             <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{manageCtrl.selectionSize}}</span>
-                            <span class="mdl-chip__text">References added</span>
+                            <span class="mdl-chip__text wri_selector__indicator">{{manageCtrl.getCurrentTab()}} added</span>
                         </span>
                     </div>
                     <div class="actions">
@@ -50,7 +50,7 @@
                         <i class="material-icons">{{manageCtrl.viewer.closerIcon}}</i>
                     </div>
                 </div>
-                <viewer-drawer class="--wri_full-height ng-hide" ng-hide="manageCtrl.viewer.isClosed" type="manageCtrl.viewer.itemToShowType" element="manageCtrl.viewer.itemToShow" edit-mode="manageCtrl.viewer.editMode" closed="manageCtrl.viewer.isClosed"></viewer-drawer>
+                <viewer-drawer class="--wri_full-height ng-hide" ng-class="{'--unaccessible': manageCtrl.selectMode}" ng-hide="manageCtrl.viewer.isClosed" type="manageCtrl.viewer.itemToShowType" element="manageCtrl.viewer.itemToShow" edit-mode="manageCtrl.viewer.editMode" closed="manageCtrl.viewer.isClosed"></viewer-drawer>
             </div>
         </div> 
     

@@ -1,5 +1,6 @@
 viewer-drawer {
     display:block;
+    position: relative;
     width: 100%;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.5) inset;
     background: #fff;
@@ -8,6 +9,19 @@ viewer-drawer {
     > * {
         opacity: 1;
         transition: opacity 0.3s linear;
+    }
+
+    &.--unaccessible {
+        &:after {
+            content: ' ';
+            z-index: 5;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.5);
+        }
     }
 
     &.ng-hide-add {

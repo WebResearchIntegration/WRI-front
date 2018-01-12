@@ -17,7 +17,9 @@
         }
 
         .wri_manage-filter {
-           
+            .wri_selector__indicator {
+                text-transform: capitalize;
+            }
         }
         
         .wri_manage-select {
