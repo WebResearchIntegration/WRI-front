@@ -1,10 +1,14 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <button class="mdl-button mdl-js-button mdl-button--icon wri_viewer__menu-icon" ng-click="articleViewer.deleteArticle()">
+        <i class="material-icons">highlight_off</i>
+    </button>
+
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <div class="wri_article-title">
                 <span class="mdl-layout__title" ng-if="!articleViewer.editMode">{{articleViewer.article.name}}</span>
                 <div ng-if="articleViewer.editMode" class="wri_form__textfield --no-focus mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="article-title" ng-model="articleViewer.article.name" placeholder="Title...">
+                    <input class="mdl-textfield__input" type="text" id="article-title" ng-model="articleViewer.article.name" placeholder="Title..." required>
                     <label class="mdl-textfield__label" for="article-title"></label>
                 </div>
             </div>
@@ -117,8 +121,10 @@
                         </span>
                     </li>
                 </ul>
+                <p class="wri_article__section__counter" ng-if="articleViewer.editMode || articleViewer.article.authors.length == 0"> 
+                    This article has {{articleViewer.article.authors.length}} {{ (articleViewer.article.authors.length > 1) ? "authors" : "author"}}
+                </p>
                 <div class="wri_article__authors__selector" ng-if="articleViewer.editMode">
-                    <p class="wri_article__section__counter"> This article has {{articleViewer.article.authors.length}} {{ (articleViewer.article.authors.length > 1) ? "authors" : "author"}}</p>
                     <div class="wri_article__section__action">
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="articleViewer.selectAuthors()">
                             Update Authors
@@ -139,6 +145,9 @@
                         </span>
                     </li>
                 </ul>
+                <p class="wri_article__section__counter" ng-if="!articleViewer.editMode && articleViewer.article.keywords.length == 0"> 
+                    This article has {{articleViewer.article.keywords.length}} keyword
+                </p>
                 <div ng-if="articleViewer.editMode" class="wri_form__textfield mdl-textfield mdl-js-textfield">
                     <input class="mdl-textfield__input" type="text" id="article-keywords" ng-model="articleViewer.article.keywords" placeholder="Keywords...">
                     <label class="mdl-textfield__label" for="article-keywords"></label>
@@ -153,22 +162,17 @@
                         Show all references
                     </a>
                 </div>
-                <!-- FOR EDIT MODE -->
-                <!-- <div class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" ng-click="sendEnableReferenceEdition()">
-                    <i class="material-icons">add</i>
-                    <span class="mdl-button__ripple-container">
-                        <span class="mdl-ripple"></span>
-                    </span>
-                </div> -->
-                <ul class="wri_article__references__list" ng-if="!articleViewer.editMode &&articleViewer.article.references.length > 0">
+                <ul class="wri_article__references__list" ng-if="!articleViewer.editMode && articleViewer.article.references.length > 0">
                     <li class="wri_article__references__list__reference" ng-repeat="reference in articleViewer.article.references | limitTo: 10">
                         <span class="mdl-chip" ng-click="articleViewer.openReference(reference)">
                             <span class="mdl-chip__text">{{reference.name}}</span>
                         </span>
                     </li>
                 </ul>
+                <p class="wri_article__section__counter" ng-if="articleViewer.editMode || articleViewer.article.references.length == 0"> 
+                    This article has {{articleViewer.article.references.length}} {{ (articleViewer.article.references.length > 1) ? "references" : "reference"}}
+                </p>
                 <div class="wri_article__references__selector" ng-if="articleViewer.editMode">
-                    <p class="wri_article__section__counter"> This article has {{articleViewer.article.references.length}} {{ (articleViewer.article.references.length > 1) ? "references" : "reference"}}</p>
                     <div class="wri_article__section__action">
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="articleViewer.selectReferences()">
                             Update references
@@ -193,24 +197,34 @@
                             </div>
                         </article>
                     </ul>
-                    <div class="wri_article__section__action">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="articleViewer.createNoteFor()">
-                            Add a note
-                        </button>
-                    </div>
                 </div>
-                <div class="wri_article__notes__selector" ng-if="articleViewer.editMode">
-                    <p class="wri_article__section__counter"> This article has {{articleViewer.article.notes.length}} {{ (articleViewer.article.notes.length > 1) ? "notes" : "note"}}</p>
-                    <div class="wri_article__section__action">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="articleViewer.selectNotes()">
-                            Update notes
-                        </button>
-                    </div>
+                <p class="wri_article__section__counter" ng-if="articleViewer.editMode || articleViewer.article.notes.length == 0"> 
+                    This article has {{articleViewer.article.notes.length}} {{ (articleViewer.article.notes.length > 1) ? "notes" : "note"}}
+                </p>
+                <div class="wri_article__section__action" ng-if="!articleViewer.editMode">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="articleViewer.createNoteFor()">
+                        Add a note
+                    </button>
+                </div>
+                <div class="wri_article__section__action" ng-if="articleViewer.editMode">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="articleViewer.selectNotes()">
+                        Update notes
+                    </button>
                 </div>
             </div>
         </section>
     </main>
-    <footer>
-        <div></div>
+    <footer ng-if="articleViewer.editMode">
+        <div class="wri_article-viewer__footer__actions mdl-shadow--8dp">
+            <button ng-if="!articleViewer.article.id" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action" ng-class="{'--wri_disabled': articleViewer.article.name == null || articleViewer.article.name == ''}" ng-disabled="articleViewer.article.name == null || articleViewer.article.name == ''" ng-click="articleViewer.createArticle()">
+                Create
+            </button>
+            <button ng-if="articleViewer.article.id != null" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="articleViewer.cancelEdition()">
+                Cancel
+            </button>
+            <button ng-if="articleViewer.article.id != null" ng-class="{'--wri_disabled': articleViewer.article.name == null || articleViewer.article.name == ''}" ng-disabled="articleViewer.article.name == null || articleViewer.article.name == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action" ng-click="articleViewer.updateArticle()">
+                Update
+            </button>
+        </div>
     </footer>
 </div>

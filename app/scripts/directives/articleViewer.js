@@ -23,23 +23,27 @@ function articleViewerDirective() {
   };  
 }
 
-function articleViewerCtrl($scope, Selector, Articles) {
+function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
 
   var ctrl = this;
 
   var selectedProperty;  // variable for know which property is being updated
   
   // [PUBLIC VARIABLES]
-    // All attributes are binded after $onInit(). They will be accessible as ctrl.[attributeName]
-    ctrl.showAbstract;      // boolean to know if we show abstract or not
-    ctrl.showProbSoluce;    // boolean to know if we show problematic and soluce or not
+  // All attributes are binded after $onInit(). They will be accessible as ctrl.[attributeName]
+  ctrl.articleTmp;        // temporary article during edition
+  ctrl.showAbstract;      // boolean to know if we show abstract or not
+  ctrl.showProbSoluce;    // boolean to know if we show problematic and soluce or not
     
   // [INIT]
     // ctrl.$onInit = onInit; /* Angular 1.5+ does not bind attributes until calling $onInit() */
 
     // [PUBLIC METHODS]
     ctrl.applyKeywordFilter = applyKeywordFilter;
+    ctrl.cancelEdition = cancelEdition;
+    ctrl.createArticle = createArticle;
     ctrl.createNoteFor = createNoteFor;
+    ctrl.deleteArticle = deleteArticle;
     ctrl.loadArticle = loadArticle;
     ctrl.openReference = openReference;
     ctrl.selectAuthors = selectAuthors;
@@ -47,6 +51,7 @@ function articleViewerCtrl($scope, Selector, Articles) {
     ctrl.selectReferences = selectReferences;
     ctrl.toggleAbstract = toggleAbstract;
     ctrl.turnEditMode = turnEditMode;
+    ctrl.updateArticle = updateArticle;
   
   ////////////
 
@@ -62,6 +67,19 @@ function articleViewerCtrl($scope, Selector, Articles) {
     }
 
     /**
+     * @name createArticle
+     * @desc Will create a new article
+     * @memberOf Directives.articleViewer
+     */
+    function createArticle() {
+      Articles.create(ctrl.article).then(function(article){
+        ctrl.article = article;
+        ctrl.editMode = false;
+      });
+      $rootScope.$emit("articles:refresh");
+    }
+
+    /**
      * @name createNoteFor
      * @desc Will load notes view and note editor. It will bind the new note with current article
      * @memberOf Directives.articleViewer
@@ -71,13 +89,35 @@ function articleViewerCtrl($scope, Selector, Articles) {
     }
 
     /**
+     * @name cancelEdition
+     * @desc Discard changes on the article edited
+     * @memberOf Directives.articleViewer
+     */
+    function cancelEdition(){
+      ctrl.article = ctrl.articleTmp;
+      ctrl.editMode = false;
+    }
+
+    /**
+     * @name deleteArticle
+     * @desc Will delete current article
+     * @memberOf Directives.articleViewer
+     */
+    function deleteArticle() {
+      Articles.delete(ctrl.article.id).then(function(){
+          ctrl.article = null;
+      });
+      $rootScope.$emit("articles:refresh");
+    }
+
+    /**
      * @name loadArticle
      * @desc Will load article in viewer
      * @param {Object}  article   article to load in article viewer
      * @memberOf Directives.articleViewer
      */
     function loadArticle(article) {
-      
+
       // Main informations
       if(!_.isEmpty(article.problematic) && !_.isEmpty(article.problematic)){
         ctrl.showProbSoluce = true;
@@ -102,6 +142,8 @@ function articleViewerCtrl($scope, Selector, Articles) {
       if(!_.isArray(ctrl.article.notes)){
         transformIntoArr("notes", true);
       }
+
+      ctrl.articleTmp = null;
     }
     
     /**
@@ -130,8 +172,8 @@ function articleViewerCtrl($scope, Selector, Articles) {
      */
     function turnEditMode() {
       ctrl.editMode = true;
-    }
-    
+      ctrl.articleTmp = angular.copy(ctrl.article);
+    } 
 
     /**
      * @name selectAuthors
@@ -204,20 +246,22 @@ function articleViewerCtrl($scope, Selector, Articles) {
       ctrl.article[property] = returnArr;
     }
 
-      //       /**
-      //    * Will delete an article by giving the right id.
-      //    * @param {Number} id the correponsding of the database.
-      //    */
-      //   ctrl.deleteArticle = function(id) {
-      //     Articles.delete(29).then(function(el){
-      //         ctrl.init();
-      //     });
-      // }
-
-      // Articles.create({'name': promptToUser}).then(function(element){
-      //     console.log(element);
-      //     ctrl.init();
-      // });
+    /**
+     * @name updateArticle
+     * @desc Will delete current article
+     * @param {Object}  property   property to transform into an array
+     * @param {Boolean}  onlyObject   check if the current property has to be an object
+     * @memberOf Directives.articleViewer
+     */
+    function updateArticle() {
+      Articles.updateById(ctrl.article.id, ctrl.article).then(function(articleUpdated){
+          ctrl.editMode = false;
+          $timeout(function(){
+            loadArticle(articleUpdated)
+          });
+      });
+      $rootScope.$emit("articles:refresh");
+    }
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
@@ -227,7 +271,7 @@ function articleViewerCtrl($scope, Selector, Articles) {
       if (ctrl.article != null){
         loadArticle(ctrl.article);
       }
-    }, true);
+    });
 
     $scope.$watch( function(){
       return Selector.selectionValidated;

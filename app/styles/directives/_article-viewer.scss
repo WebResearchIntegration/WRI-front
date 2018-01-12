@@ -8,6 +8,13 @@ article-viewer {
     ::-webkit-input-placeholder {
         color: rgba(rgb(124, 125, 129), 0.7);
     }
+    .wri_viewer__menu-icon {
+        position: absolute;
+        z-index: 4;
+        right: 10px;
+        top: 10px;
+        color: white;
+    }
     .mdl-layout__header {
         .mdl-layout__header-row {
             padding-left: 40px;
@@ -346,6 +353,28 @@ article-viewer {
                     .mdl-card__supporting-text {
                         padding-bottom: 30px;
                     }
+                }
+            }
+        }
+    }
+    
+    footer {
+        box-shadow: 0 0 10px -2px rgba(0,0,0,0.4);
+
+        .wri_article-viewer__footer__actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 20px;
+
+            .wri_article-viewer__footer__actions__action {
+
+                &.mdl-button--accent {
+                    background-color: #2b9c5e;
+                }
+
+                + .wri_article-viewer__footer__actions__action {
+                    margin-left: 20px;
                 }
             }
         }

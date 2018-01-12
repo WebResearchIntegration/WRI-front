@@ -8,7 +8,7 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('articlesCtrl', function ($scope, Articles, Selector) {
+    .controller('articlesCtrl', function ($rootScope, $scope, Articles, Selector) {
         
         var ctrl = this;
 
@@ -66,6 +66,12 @@ angular.module('wriApp')
         // [PRIVATE METHODS: begin]
 
         // [PRIVATE METHODS: end]
+
+
+        // [EVENTS]
+        $rootScope.$on("articles:refresh", function(event){
+            init();
+        });
 
         // [WATCHERS]
         $scope.$watch(function(){
