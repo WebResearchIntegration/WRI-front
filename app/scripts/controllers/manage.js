@@ -102,6 +102,7 @@
                 ctrl.selectionSize = Selector.getSelectionSize();
             } else {
                 // TODO: check if the type can be load in viewer
+                console.log(item);
                 ctrl.viewer.itemToShow = item;
                 loadItemInViewer(item);
             }

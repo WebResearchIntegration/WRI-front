@@ -1,4 +1,4 @@
-<div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': author.isSelected}" ng-repeat="author in authorsCtrl.authors" ng-click="manageCtrl.selectItem(author)">
+<div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': author.isSelected}" ng-repeat="author in authorsCtrl.authors | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(author)">
     <span>{{author.name}}</span>
     <div class="validator" ng-class="{'selected-item-validator': author.isSelected, 'selected-item-validator-disabled': !author.isSelected}"
         ng-if="manageCtrl.selectMode">
@@ -10,44 +10,3 @@
 <button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp">
     <i class="material-icons">add</i>
 </button>
-
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col">
-        <element-filter type="{{selectedElementType}}" element="authorsCtrl.authors"></element-filter>
-    </div>
-    
-    <div class="mdl-cell mdl-cell--5-col">
-        <div class="item" ng-class="{'selected-mode-item': isModeSelectionAuthorOn, 'selected-item': author.isSelectedForReference}"
-            ng-repeat="author in authorsCtrl.authors | filter : filter | orderBy : order" ng-click="authorsCtrl.sendArticle(author)" >
-            <span>{{author.name}} with id: {{author.id}} </span>
-            <div class="validator" ng-class="{'selected-item-validator': author.isSelectedForReference, 'selected-item-validator-disabled': !author.isSelectedForReference}" ng-if="isModeSelectionArticleOn">
-                <i class="material-icons" ng-if="author.isSelectedForReference">done</i>
-                <i class="material-icons" ng-if="!author.isSelectedForReference">add</i>
-            </div>
-        </div>
-
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article" ng-click="authorsCtrl.addAuthor()">
-            <i class="material-icons">add</i>
-        </button>
-
-        
-    </div>
-    <div class="mdl-cell mdl-cell--4-col">
-        <div class="article-viewer">
-            <element-viewer type="{{selectedElementType}}" ng-hide="viewerOpen" element="selectedElement" isViewerOpen="openViewer"></element-viewer>
-        </div>
-    </div>
-</div>
-<div class="selection-panel" ng-if="isModeSelectionArticleOn">
-    <div>
-        <span class="mdl-chip mdl-chip--contact">
-            <span ng-if="!author.imageUrl" class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{articlesList.length}}</span>
-            <span class="mdl-chip__text">References added</span>
-        </span>
-    </div>
-    <div class="actions">
-        <i class="material-icons" ng-click="authorsCtrl.saveReferences()">done</i>
-        <i class="material-icons" ng-click="authorsCtrl.disableModeSelectionArticle()">clear</i>
-    </div>
-</div>
->>>>>>> feature/authors

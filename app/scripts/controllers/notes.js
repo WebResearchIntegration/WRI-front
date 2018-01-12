@@ -8,23 +8,23 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('notesCtrl', function ($scope, ngDialog, $rootScope, $compile) {
+    .controller('notesCtrl', function ($scope, ngDialog, $rootScope, $compile, Notes) {
         
         var ctrl = this;
 
-        $scope.notes = [
+        ctrl.notes = [
             {
                 'id' : 1,
                 'text' : ''
             }
         ];
 
-        $scope.selectedElementType = "note"
+        // $scope.selectedElementType = "note"
 
         init()
 
         ctrl.newNote = function(){
-            var targetId = _.maxBy($scope.notes, 'id')
+            var targetId = _.maxBy(ctrl.notes, 'id')
             var id = targetId.id + 1;
 
             var obj = {
@@ -32,7 +32,7 @@ angular.module('wriApp')
                 'problematic' : '',
             }
 
-            $scope.notes.unshift(obj);
+            ctrl.notes.unshift(obj);
             $scope.noteEdit.id = obj.id
             $scope.noteEdit.text = obj.text;
 
@@ -41,7 +41,7 @@ angular.module('wriApp')
         ctrl.saveNote = function(note){
             var obj = {};
 
-            var isDuplicate = _.find($scope.notes, ['id', note.id])
+            var isDuplicate = _.find(ctrl.notes, ['id', note.id])
 
             obj.text = note.text
             isDuplicate.text = obj.text
@@ -63,19 +63,28 @@ angular.module('wriApp')
         }
 
         function initList(){
-            $scope.noteEdit = {
-                'id' : 1,
-                'text' : ''
-            }
-            // $scope.notes.forEach(function(note){
-            //     var elToBind = document.getElementById(note.id)
-            //     elToBind.innerHTML = angular.element(note.text)[0].innerHTML
-            // })
+            Notes.getAll().then(function(notes) {
+                ctrl.notes = notes;
+            });
         }
 
         function init(){
             initList()
         }
+
+
+        $rootScope.$on('sendFilters', function(event, data) {
+            if(data === 'reset'){
+                $scope.filter = {}    
+                $scope.order = {};
+            } else {
+                $scope.filter = data;
+            }
+        });
+
+        $rootScope.$on('sendOrderBy', function(event, data) {
+            $scope.order = data;
+        });
     });
 
 

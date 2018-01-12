@@ -8,24 +8,16 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('questionsCtrl', function ($scope, Questions) {
+    .controller('questionsCtrl', function ($scope, Questions, $rootScope) {
         
         var ctrl = this;
 
-        $scope.questions = [
-            {
-                'id' : 1,
-                'problematic':  '',
-                'answer' : '',
-            }
-        ];
-
-        $scope.selectedElementType = "question"
+        $scope.questionEdit = {};
 
         init()
 
         ctrl.newQuestion = function(){
-            var targetId = _.maxBy($scope.questions, 'id')
+            var targetId = _.maxBy(ctrl.questions, 'id')
             var id = targetId.id + 1;
 
             var obj = {
@@ -34,7 +26,7 @@ angular.module('wriApp')
                 'answer' : ''
             }
 
-            $scope.questions.unshift(obj);
+            ctrl.questions.unshift(obj);
             $scope.questionEdit.id = obj.id
             $scope.questionEdit.problematic = obj.problematic;
             $scope.questionEdit.answer = obj.answer;
@@ -44,12 +36,14 @@ angular.module('wriApp')
         ctrl.saveQuestion = function(question){
             var obj = {};
 
-            var isDuplicate = _.find($scope.questions, ['id', question.id])
+            var isDuplicate = _.find(ctrl.questions, ['id', question.id]);
 
-            obj.problematic = question.problematic
-            obj.answer = question.answer
-            isDuplicate.problematic = obj.problematic
-            isDuplicate.answer = obj.answer
+            obj.problematic = question.problematic;
+            obj.answer = question.answer;
+            if (isDuplicate != undefined){
+                isDuplicate.problematic = obj.problematic;
+                isDuplicate.answer = obj.answer;
+            }
         }
 
         ctrl.editQuestion = function(question){
@@ -57,7 +51,7 @@ angular.module('wriApp')
                 'id': question.id,
                 'problematic': question.problematic,
                 'answer': question.answer
-            }
+            };
 
             console.log('obj ', obj );
             $scope.questionEdit.id = obj.id;
@@ -67,20 +61,26 @@ angular.module('wriApp')
         }
 
         function initList(){
-            $scope.questionEdit = {
-                'id' : 1,
-                'problematic': '',
-                'answer': ''
-            }
+            Questions.getAll().then(function(questions) {
+                ctrl.questions = questions;
+            });
         }
 
         function init(){
             initList()
         }
 
-        // (ctrl.init = function() {
-        //     Questions.getAll().then(function(questions) {
-        //         ctrl.questions = questions;
-        //     });
-        // })();
+        // [EVENTS]
+        $rootScope.$on('sendFilters', function(event, data) {
+            if(data === 'reset'){
+                $scope.filter = {}    
+                $scope.order = {};
+            } else {
+                $scope.filter = data;
+            }
+        });
+
+        $rootScope.$on('sendOrderBy', function(event, data) {
+            $scope.order = data;
+        });
     });
