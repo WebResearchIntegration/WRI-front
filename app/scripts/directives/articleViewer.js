@@ -76,8 +76,8 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
       Articles.create(ctrl.article).then(function(article){
         ctrl.article = article;
         ctrl.editMode = false;
+        $scope.$emit("articles:refresh");
       });
-      $rootScope.$emit("articles:refresh");
     }
 
     /**
@@ -97,6 +97,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
     function cancelEdition(){
       ctrl.article = ctrl.articleTmp;
       ctrl.editMode = false;
+      $scope.$emit("articles:refresh");
     }
 
     /**
@@ -107,8 +108,8 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
     function deleteArticle() {
       Articles.delete(ctrl.article.id).then(function(){
           ctrl.article = null;
+          $scope.$emit("articles:refresh");
       });
-      $rootScope.$emit("articles:refresh");
     }
 
     /**
@@ -268,8 +269,8 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
       Articles.updateById(ctrl.article.id, ctrl.article).then(function(articleUpdated){
           ctrl.editMode = false;
           loadArticle(articleUpdated);
+          $scope.$emit("articles:refresh");
       });
-      $rootScope.$emit("articles:refresh");
     }
   // [PRIVATE FUNCTIONS : end]
 

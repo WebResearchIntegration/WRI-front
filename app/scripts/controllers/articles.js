@@ -71,6 +71,7 @@ angular.module('wriApp')
         // [EVENTS]
         $rootScope.$on("articles:refresh", function(event){
             init();
+            $scope.$digest();
         });
 
         // [WATCHERS]
@@ -90,9 +91,11 @@ angular.module('wriApp')
             }
         });
 
+
+        // [FILTER / ORDER]
         $rootScope.$on('sendFilters', function(event, data) {
             if(data === 'reset'){
-                $scope.filter = {}    
+                $scope.filter = {};  
                 $scope.order = {};
             } else {
                 $scope.filter = data;
