@@ -55,4 +55,16 @@ viewer-drawer {
             opacity: 0;
         }
     }
+
+    .wri_empty-viewer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            font-size: 18px;
+            font-style: italic;
+            color: #9c9a9a;
+        }
+    }
 }
