@@ -1,4 +1,8 @@
 .wri_manage {
+    text-angular {
+        width: 100%;
+    }
+
     height: calc(100% - #{$header-height});
     
     .mdl-tabs__tab-bar {

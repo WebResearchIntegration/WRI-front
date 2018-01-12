@@ -12,12 +12,7 @@ angular.module('wriApp')
         
         var ctrl = this;
 
-        ctrl.notes = [
-            {
-                'id' : 1,
-                'text' : ''
-            }
-        ];
+        $scope.noteEdit = {};
 
         // $scope.selectedElementType = "note"
 

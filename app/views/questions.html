@@ -1,25 +1,32 @@
-<div class="mdl-grid">
-
-    <!-- LIST -->
-    <div class="mdl-cell mdl-cell--5-col">
-
-        <div class="item" ng-repeat="question in questions" ng-click="questionsCtrl.editQuestion(question)">{{question.problematic}}</div>
-
+<div class="wri_article__main-informations">
+    <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-problematic">
+        <div class="wri_article__main-informations__inside">
+            <div class="wri_article__main-informations__title">
+                <span>Problematic</span>
+            </div>
+            <textarea class="mdl-textfield__input" type="text" id="question-problematic" ng-model="questionEdit.problematic" placeholder="The problematic presented in the article..."></textarea>
+        </div>
     </div>
+</div>
+<div class="wri_article__main-informations">
+    <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-solution">
+        <div class="wri_article__main-informations__inside">
+            <div class="wri_article__main-informations__title">
+                <span>Solution</span>
+            </div>
+            <!-- <textarea class="mdl-textfield__input" type="text" id="question-text" ng-model="questionEdit.text" placeholder="The soluce presented in the article..."></textarea> -->
+            <text-angular-toolbar name="toolbar2"></text-angular-toolbar>
 
-    <!-- VIEW/EDIT -->
-    <div class="mdl-cell mdr-cell--4-col">
-        
-        <label for="">Problematic</label><input type="text" ng-model="questionEdit.problematic">
-
-        <text-angular-toolbar name="toolbar2"></text-angular-toolbar>
-
-        <text-angular ta-target-toolbars='toolbar2' ng-model="questionEdit.answer">
-        </text-angular>
-        <button class="btn btn-primary" ng-click="questionsCtrl.saveQuestion(questionEdit)" >Save</button> 
+            <text-angular ta-target-toolbars='toolbar2' ng-model="questionEdit.answer">
+            </text-angular>
+        </div>
     </div>
-</div>     
-<div class="item" ng-repeat="question in questionsCtrl.questions | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(question, true)">{{question.problematic}}</div>
+</div>
+    
+    <button class="btn btn-primary" ng-click="questionsCtrl.saveQuestion(questionEdit)" >Save</button>   
+<div class="item" ng-repeat="question in questionsCtrl.questions | filter : filter | orderBy : order" ng-click="questionsCtrl.editQuestion(question)">{{question.problematic}}</div>
+
+<!-- manageCtrl.selectItem(question, true) -->
 
 <button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="questionsCtrl.newQuestion()">
     <i class="material-icons">add</i>
