@@ -70,12 +70,15 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
     /**
      * @name createArticle
      * @desc Will create a new article
+     * @param {Boolean} duringEdition 
      * @memberOf Directives.articleViewer
      */
-    function createArticle() {
+    function createArticle(duringEdition) {
       Articles.create(ctrl.article).then(function(article){
-        ctrl.article = article;
-        ctrl.editMode = false;
+        if(!duringEdition){
+          ctrl.article = article;
+          ctrl.editMode = false;
+        }
         $scope.$emit("articles:refresh");
       });
     }
@@ -106,8 +109,9 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
      * @memberOf Directives.articleViewer
      */
     function deleteArticle() {
-      Articles.delete(ctrl.article.id).then(function(){
-          ctrl.article = null;
+      var articleID = ctrl.article.id;
+      ctrl.article = null;
+      Articles.delete(articleID).then(function(){
           $scope.$emit("articles:refresh");
       });
     }

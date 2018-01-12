@@ -71,7 +71,7 @@ angular.module('wriApp')
         // [EVENTS]
         $rootScope.$on("articles:refresh", function(event){
             init();
-            $scope.$digest();
+            $scope.$apply();
         });
 
         // [WATCHERS]

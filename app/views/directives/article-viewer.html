@@ -216,7 +216,7 @@
     </main>
     <footer ng-if="articleViewer.editMode">
         <div class="wri_article-viewer__footer__actions mdl-shadow--8dp">
-            <button ng-if="!articleViewer.article.id" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action" ng-class="{'--wri_disabled': articleViewer.article.name == null || articleViewer.article.name == ''}" ng-disabled="articleViewer.article.name == null || articleViewer.article.name == ''" ng-click="articleViewer.createArticle()">
+            <button ng-if="!articleViewer.article.id" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action" ng-class="{'--wri_disabled': articleViewer.article.name == null || articleViewer.article.name == ''}" ng-disabled="articleViewer.article.name == null || articleViewer.article.name == ''" ng-click="articleViewer.createArticle(articleViewer.article.id != manageCtrl.viewer.itemToShow.id)">
                 Create
             </button>
             <button ng-if="articleViewer.article.id != null" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="articleViewer.cancelEdition()">
