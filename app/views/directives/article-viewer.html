@@ -44,15 +44,15 @@
                 </span>
             </div>
             <ul class="wri_article-viewer__status-list">
-                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isSaved}" ng-click="toggleStatus('saved')">
+                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isSaved}" ng-click="articleViewer.toggleStatus('isSaved')">
                     <span class="mdl-chip__contact"><i class="material-icons">check</i></span>
                     <span class="mdl-chip__text">Saved</span>
                 </li>
-                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isRead}" ng-click="toggleStatus('read')">
+                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isRead}" ng-click="articleViewer.toggleStatus('isRead')">
                     <span class="mdl-chip__contact"><i class="material-icons">remove_red_eye</i></span>
                     <span class="mdl-chip__text">Read</span>
                 </li>
-                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isPrinted}" ng-click="toggleStatus('printed')">
+                <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isPrinted}" ng-click="articleViewer.toggleStatus('isPrinted')">
                     <span class="mdl-chip__contact"><i class="material-icons">print</i></span>
                     <span class="mdl-chip__text">Printed</span>
                 </li>

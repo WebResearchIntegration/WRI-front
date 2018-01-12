@@ -50,6 +50,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
     ctrl.selectNotes = selectNotes;
     ctrl.selectReferences = selectReferences;
     ctrl.toggleAbstract = toggleAbstract;
+    ctrl.toggleStatus = toggleStatus;
     ctrl.turnEditMode = turnEditMode;
     ctrl.updateArticle = updateArticle;
   
@@ -164,6 +165,16 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
     function toggleAbstract() {
       ctrl.showAbstract = !ctrl.showAbstract;
     }
+
+    /**
+     * @name toggleStatus
+     * @desc Will toggle abstract in the viewer
+     * @memberOf Directives.articleViewer
+     */
+    function toggleStatus(status) {
+      ctrl.article[status] = !ctrl[status];
+      updateArticle();
+    }
     
     /**
      * @name turnEditMode
@@ -256,9 +267,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
     function updateArticle() {
       Articles.updateById(ctrl.article.id, ctrl.article).then(function(articleUpdated){
           ctrl.editMode = false;
-          $timeout(function(){
-            loadArticle(articleUpdated)
-          });
+          loadArticle(articleUpdated);
       });
       $rootScope.$emit("articles:refresh");
     }
