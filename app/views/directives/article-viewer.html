@@ -17,7 +17,7 @@
             <div class="wri_article-infos">
                     <div class="wri_article-publication-details">
                         <span ng-if="!articleViewer.editMode">{{articleViewer.article.conference}}</span>
-                        <span ng-if="!articleViewer.editMode">{{articleViewer.article.publishedDate}}</span>
+                        <span ng-if="!articleViewer.editMode">{{articleViewer.article.publishedDate | date:'dd/MM/yyyy'}}</span>
                         <span ng-if="articleViewer.editMode" class="wri_form__textfield --no-focus mdl-textfield mdl-js-textfield">
                                 <input class="mdl-textfield__input" type="text" id="article-conference" ng-model="articleViewer.article.conference" placeholder="Conference...">
                                 <label class="mdl-textfield__label" for="article-conference"></label>
