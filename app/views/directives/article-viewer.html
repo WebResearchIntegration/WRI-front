@@ -1,8 +1,4 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <button class="mdl-button mdl-js-button mdl-button--icon wri_viewer__menu-icon" ng-click="articleViewer.deleteArticle()">
-        <i class="material-icons">highlight_off</i>
-    </button>
-
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <div class="wri_article-title">
@@ -216,16 +212,25 @@
         </section>
     </main>
     <footer ng-if="articleViewer.editMode">
-        <div class="wri_article-viewer__footer__actions mdl-shadow--8dp">
-            <button ng-if="!articleViewer.article.id" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action" ng-class="{'--wri_disabled': articleViewer.article.name == null || articleViewer.article.name == ''}" ng-disabled="articleViewer.article.name == null || articleViewer.article.name == ''" ng-click="articleViewer.createArticle(articleViewer.article.id != manageCtrl.viewer.itemToShow.id)">
+        <div ng-if="!articleViewer.article.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': articleViewer.article.name == null || articleViewer.article.name == ''}" ng-disabled="articleViewer.article.name == null || articleViewer.article.name == ''" ng-click="articleViewer.createArticle(articleViewer.article.id != manageCtrl.viewer.itemToShow.id)">
                 Create
             </button>
-            <button ng-if="articleViewer.article.id != null" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="articleViewer.cancelEdition()">
-                Cancel
-            </button>
-            <button ng-if="articleViewer.article.id != null" ng-class="{'--wri_disabled': articleViewer.article.name == null || articleViewer.article.name == ''}" ng-disabled="articleViewer.article.name == null || articleViewer.article.name == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action" ng-click="articleViewer.updateArticle()">
-                Update
-            </button>
+        </div>
+        <div ng-if="articleViewer.article.id != null" class="wri_article-viewer__footer__actions --updating mdl-shadow--8dp">
+            <div>
+                <button  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action --delete" ng-click="articleViewer.deleteArticle()">
+                    Delete
+                </button>
+            </div>
+            <div>
+                <button ng-if="articleViewer.article.id != null" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="articleViewer.cancelEdition()">
+                    Cancel
+                </button>
+                <button ng-if="articleViewer.article.id != null" ng-class="{'--wri_disabled': articleViewer.article.name == null || articleViewer.article.name == ''}" ng-disabled="articleViewer.article.name == null || articleViewer.article.name == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="articleViewer.updateArticle()">
+                    Update
+                </button>
+            </div>
         </div>
     </footer>
 </div>

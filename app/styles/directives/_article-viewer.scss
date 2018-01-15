@@ -433,14 +433,29 @@ article-viewer {
         box-shadow: 0 0 10px -2px rgba(0,0,0,0.4);
 
         .wri_article-viewer__footer__actions {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
             padding: 10px 20px;
+            display: flex;
+            align-items: center;
+
+            &.--creating {
+                justify-content: flex-end;
+            }
+
+            &.--updating {
+                justify-content: space-between;
+
+                > div {
+                    display: inline-block;
+                }
+            }
 
             .wri_article-viewer__footer__actions__action {
-
-                &.mdl-button--accent {
+                &.--delete {
+                    background: #ca4040;
+                    color: white;
+                    justify-self: left;
+                }
+                &.--update, &.--create  {
                     background-color: #2b9c5e;
                 }
 
