@@ -264,17 +264,13 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
 
     /**
      * @name updateArticle
-     * @desc Will delete current article
-     * @param {Object}  property   property to transform into an array
-     * @param {Boolean}  onlyObject   check if the current property has to be an object
+     * @desc Will update current article
      * @memberOf Directives.articleViewer
      */
     function updateArticle() {
       Articles.updateById(ctrl.article.id, ctrl.article).then(function(articleUpdated){
           ctrl.editMode = false;
-          console.log(articleUpdated);
           loadArticle(articleUpdated);
-          $scope.$emit("articles:refresh");
       });
     }
   // [PRIVATE FUNCTIONS : end]

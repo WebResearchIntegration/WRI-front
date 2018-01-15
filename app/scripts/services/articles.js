@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('wriApp')
     .service('Articles', [ 'Restangular', function (Restangular) {
         var service = this;
@@ -25,9 +27,9 @@ angular.module('wriApp')
         service.updateById = function(id, newArticle) {
             return service.getById(id).then(function(article) {
                 article = newArticle;
-                article.save();
+                return article.save();
             });
-        }
+        };
 
         /**
          * Will create an article inside the database.
@@ -36,7 +38,7 @@ angular.module('wriApp')
         service.create = function (article) {
             // ADD OBJECT CONTROL
             return Restangular.service('article').post(article);
-        }
+        };
 
         /**
          * Will delete an article by the giving id.
@@ -46,7 +48,7 @@ angular.module('wriApp')
                 console.log(article);
                 article.remove();
             });
-        }
+        };
 
         return service;
     }]);
