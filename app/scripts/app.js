@@ -18,7 +18,8 @@ angular
     'ngTouch',
     'restangular',
     'ngDialog',
-    'textAngular'
+    'textAngular',
+    'selectize'
   ])
   .config(function ($routeProvider, RestangularProvider, $provide) {
     $routeProvider

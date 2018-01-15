@@ -146,11 +146,12 @@
                     </li>
                 </ul>
                 <p class="wri_article__section__counter" ng-if="!articleViewer.editMode && articleViewer.article.keywords.length == 0"> 
-                    This article has {{articleViewer.article.keywords.length}} keyword
+                    This article has 0 keyword
                 </p>
                 <div ng-if="articleViewer.editMode" class="wri_form__textfield mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="article-keywords" ng-model="articleViewer.article.keywords" placeholder="Keywords...">
-                    <label class="mdl-textfield__label" for="article-keywords"></label>
+                    <selectize config="articleViewer.keywordsSelectize.config" options="articleViewer.keywordsSelectize.options" ng-model="articleViewer.article.keywords"></selectize>
+                    <!-- <input class="mdl-textfield__input" type="text" id="article-keywords" ng-model="articleViewer.article.keywords" placeholder="Keywords...">
+                    <label class="mdl-textfield__label" for="article-keywords"></label>  -->
                 </div>
             </div>
         </section>

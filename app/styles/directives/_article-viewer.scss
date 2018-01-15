@@ -312,6 +312,78 @@ article-viewer {
             .wri_form__textfield {
                 align-self: center;
             }
+
+            .selectize-control.multi .selectize-input { 
+                position: relative;
+                border: none;
+                box-shadow: none;
+                padding-bottom: 10px;
+
+                &:before {
+                    visibility: visible;
+                    content :'';
+                    position: absolute;
+                    left: 0;
+                    bottom: 2px;
+                    height: 1px;
+                    width: 100%;
+                    background-color: #E0E0E0;
+                }
+                
+                &:after {
+                    visibility: visible;
+                    content :'';
+                    position: absolute;
+                    left: 0;
+                    bottom: 2px;
+                    height: 2px;
+                    width: 100%;
+                    background-color: $primary;
+                    transform: scaleX(0);
+                    transition: transform .3s ease-in-out;
+                }
+
+                &.input-active {
+                    outline: none;
+
+                    &:after {
+                        transform: scaleX(1);
+                    }
+                }
+
+                input[type="text"]{
+                    height: 32px;
+                    line-height: 32px !important;
+                    font-size: 14px;
+                    vertical-align: bottom;
+                }
+
+                .mdl-chip[data-value] {
+                    text-shadow: none;
+                    -webkit-border-radius: initial;
+                    -moz-border-radius: initial;
+                    border-radius: initial;
+                    background-image: none;
+                    filter: none;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+
+                    // Overridding with mdl-chip style
+
+                    height: 32px;
+                    font-family: "Roboto","Helvetica","Arial",sans-serif;
+                    line-height: 32px;
+                    padding: 0 12px;
+                    border: 0;
+                    border-radius: 16px;
+                    background-color: #dedede;
+                    display: inline-block;
+                    color: rgba(0,0,0,.87);
+                    margin: 2px;
+                    font-size: 0;
+                    white-space: nowrap;
+                }
+            }
         }
 
         .wri_article__references {

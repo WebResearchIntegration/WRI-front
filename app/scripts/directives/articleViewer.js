@@ -34,6 +34,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
   ctrl.articleTmp;        // temporary article during edition
   ctrl.showAbstract;      // boolean to know if we show abstract or not
   ctrl.showProbSoluce;    // boolean to know if we show problematic and soluce or not
+  ctrl.keywordsSelectize; // object to setup selectize for keywords
     
   // [INIT]
     // ctrl.$onInit = onInit; /* Angular 1.5+ does not bind attributes until calling $onInit() */
@@ -150,6 +151,24 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
       }
 
       ctrl.articleTmp = null;
+      ctrl.keywordsSelectize = {
+        config: {
+          create: true,
+          valueField: 'text',
+          labelField: 'text',
+          delimiter: ',',
+          placeholder: 'Add keywords',
+          onInitialize: function(selectize){
+            // receives the selectize object as an argument
+          },
+          render: {
+            item: function(data, escape) {
+              return '<span class="mdl-chip"><span class="mdl-chip__text">#' + escape(data.text) + '</span></span>';
+            }
+          }
+        },
+        options: [{id:1, text: "interest"}] // get all keywords from database
+      };
     }
     
     /**
