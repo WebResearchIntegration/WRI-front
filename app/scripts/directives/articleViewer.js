@@ -177,7 +177,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
      * @memberOf Directives.articleViewer
      */
     function toggleStatus(status) {
-      ctrl.article[status] = !ctrl[status];
+      ctrl.article[status] = !ctrl.article[status];
       updateArticle();
     }
     
@@ -272,6 +272,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
     function updateArticle() {
       Articles.updateById(ctrl.article.id, ctrl.article).then(function(articleUpdated){
           ctrl.editMode = false;
+          console.log(articleUpdated);
           loadArticle(articleUpdated);
           $scope.$emit("articles:refresh");
       });
