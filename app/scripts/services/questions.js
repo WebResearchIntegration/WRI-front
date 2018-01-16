@@ -31,7 +31,6 @@ angular.module('wriApp')
     service.updateById = function (id, newQuestion) {
       return service.getById(id).then(function (question) {
         question = newQuestion;
-        console.log("updating with :", question);
         return question.save();
       });
     };

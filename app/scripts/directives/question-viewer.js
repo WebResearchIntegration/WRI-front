@@ -69,7 +69,7 @@
        */
       function cancelEdition(){
         ctrl.editMode = false;
-        ctrl.questionTmp = null;
+        ctrl.questionTmp = _.pick(ctrl.question, ['problematic', 'answer']);
         $scope.$emit("questions:refresh");
       }
   
@@ -80,9 +80,9 @@
        */
       function deleteQuestion() {
         var questionID = ctrl.question.id;
-        ctrl.question = null;
         Questions.delete(questionID).then(function(){
-            $scope.$emit("questions:refresh");
+          $scope.$emit("questions:refresh");
+          ctrl.question = null;
         });
       }
   
@@ -94,7 +94,7 @@
        */
       function loadQuestion(question) {
         ctrl.questionTmp = null;
-        ctrl.questionTmp = angular.copy(ctrl.question);
+        ctrl.questionTmp = _.pick(ctrl.question, ['problematic', 'answer']);
       }
       
       /**
@@ -104,7 +104,7 @@
        */
       function turnEditMode() {
         ctrl.editMode = true;
-        ctrl.questionTmp = angular.copy(ctrl.question);
+        ctrl.questionTmp = _.pick(ctrl.question, ['problematic', 'answer']);
       } 
     // [METHODS : end]
   
@@ -117,13 +117,12 @@
        * @param {Boolean}  onlyObject   check if the current property has to be an object
        * @memberOf Directives.questionViewer
        */
-      function updateQuestion() {
-        ctrl.question = ctrl.questionTmp;
+      function updateQuestion() {    
+        _.assignIn(ctrl.question, ctrl.questionTmp);
+
         Questions.updateById(ctrl.question.id, ctrl.question).then(function(questionUpdated){
             ctrl.editMode = false;
-            console.log(questionUpdated);
             loadQuestion(questionUpdated);
-            $scope.$emit("questions:refresh");
         });
       }
     // [PRIVATE FUNCTIONS : end]
