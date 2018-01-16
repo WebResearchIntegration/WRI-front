@@ -94,17 +94,17 @@
          * Will send the item to the viewer.
          * Will add the item to the list of selected items if selection mode is on.
          * @param {Object} item   item from the list got from the database.
+         * @param {Boolean}  inEditor    true if we want to load the item in editor
          */
-        function selectItem(item) {
+        function selectItem(item, inEditor) {
             if(ctrl.selectMode) {
                 item.isSelected = !item.isSelected;
                 Selector.toggleInList(item);
                 ctrl.selectionSize = Selector.getSelectionSize();
             } else {
                 // TODO: check if the type can be load in viewer
-                console.log(item);
                 ctrl.viewer.itemToShow = item;
-                loadItemInViewer(item);
+                loadItemInViewer(item, inEditor);
             }
         }
 
@@ -225,6 +225,11 @@
         $scope.$on("articles:new", function(event, emptyArticle){
             event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             loadItemInViewer(emptyArticle, true);
+        });
+        
+        $scope.$on("questions:new", function(event, emptyQuestion){
+            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
+            loadItemInViewer(emptyQuestion, true);
         });
 
         $scope.$on("reference:open", function(event, article){

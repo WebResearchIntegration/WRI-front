@@ -138,7 +138,6 @@ angular.module('wriApp')
         var tmp;
         _.forEach(selectedItems, function(itemToSelect){
           tmp = _.find(collection, ['id', itemToSelect.id]);
-          console.log(tmp);
           if (tmp != undefined){
               tmp.isSelected = true;
           }
