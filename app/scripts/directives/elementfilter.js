@@ -15,18 +15,18 @@ angular.module('wriApp')
             type: '@',
             element: '='
         },
-        controller: function($scope, Articles) {
-        
+        controller: function($scope, $rootScope, Articles) {
+            $rootScope.order = 'id';
             // [PARAMETERS]
-            var types = ["article", "author", "notes"];
+            var types = ["article", "author", "note", "question"];
             $scope.orderValue = {};
             $scope.orderBy = [
-                {"name" : "Name", "value" : "name"},
+                {"name" : "Name"},
             ];
 
             // GET RID OF DEFAULT OPTION FOR THE SELECT 
             // AND SET THE DEFAULT VALUE 
-            $scope.orderValue.config = $scope.orderBy[0];
+            $scope.orderValue.config = "id";
 
             $scope.searchArticle = {};
 
@@ -56,7 +56,7 @@ angular.module('wriApp')
              */
             $scope.resetFiltersAndOrder = function() {
                 $scope.searchArticle = {};
-                $scope.orderValue.config = $scope.orderBy[0];
+                $scope.orderValue.config = "id";
                 $scope.$emit('sendFilters', 'reset');
             }
 

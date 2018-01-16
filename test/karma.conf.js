@@ -43,6 +43,10 @@ module.exports = function(config) {
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/MathJax/MathJax.js',
       'bower_components/ng-dialog/js/ngDialog.js',
+      'bower_components/sifter/sifter.js',
+      'bower_components/microplugin/src/microplugin.js',
+      'bower_components/selectize/dist/js/selectize.js',
+      'bower_components/angular-selectize2/dist/angular-selectize.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

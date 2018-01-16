@@ -8,9 +8,11 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('authorsCtrl', function ($scope, Authors) {
+    .controller('authorsCtrl', function ($rootScope, $scope, Authors) {
         
         var ctrl = this;
+
+        $scope.selectedElementType = "author";
 
         ctrl.authors = [];
 
@@ -18,7 +20,19 @@ angular.module('wriApp')
             // Will load the data directly from the database
             Authors.getAll().then(function(authors) {
                 ctrl.authors = authors;
-                console.log(authors);
             });
         })();
+
+        $rootScope.$on('sendFilters', function(event, data) {
+            if(data === 'reset'){
+                $scope.filter = {}    
+                $scope.order = {};
+            } else {
+                $scope.filter = data;
+            }
+        });
+
+        $rootScope.$on('sendOrderBy', function(event, data) {
+            $scope.order = data;
+        });
     });

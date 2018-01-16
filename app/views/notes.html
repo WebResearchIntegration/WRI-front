@@ -1,16 +1,24 @@
-<div class="col-lg-6 col-lg-offset-3">
-    <text-angular-toolbar name="mathsForm""></text-angular-toolbar>
+<div class="mdl-grid">
 
-    <text-angular ta-target-toolbars='mathsForm' id="text-angular" ng-model="notesCtrl.noteEdit.content">
-    </text-angular>
-    
-    
-    <button class="btn" ng-click="notesCtrl.newNote(notesCtrl.noteEdit)" >New note</button> 
-    <button class="btn btn-primary" ng-click="notesCtrl.saveNote(notesCtrl.noteEdit)" >Save</button> 
-    <!-- <button class="btn" ng-click="notesCtrl.reload(notesCtrl.noteEdit.tex)" >RELOAD</button>  -->
-    <div class="item" ng-click="notesCtrl.editNote(note)" ng-repeat="note in notesCtrl.notes">{{note.name}}</div>
+        <text-angular-toolbar ng-disabled="false" name="toolbar1" ></text-angular-toolbar>
 
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article">
-        <i class="material-icons">add</i>
-    </button>
-</div>
+        <text-angular ta-target-toolbars='toolbar1' ng-model="noteEdit.text">
+        </text-angular>
+
+        
+        <button class="btn btn-primary" ng-click="notesCtrl.saveNote(noteEdit)" >Save</button> 
+</div>     
+
+
+<div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': note.isSelected}" ng-repeat="note in notesCtrl.notes | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(note)">
+        <span>{{note.text}}</span>
+        <div class="validator" ng-class="{'selected-item-validator': note.isSelected, 'selected-item-validator-disabled': !note.isSelected}"
+            ng-if="manageCtrl.selectMode">
+            <i class="material-icons" ng-if="note.isSelected">done</i>
+            <i class="material-icons" ng-if="!note.isSelected">add</i>
+        </div>
+    </div>
+    
+<button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="notesCtrl.newNote()">
+    <i class="material-icons">add</i>
+</button>

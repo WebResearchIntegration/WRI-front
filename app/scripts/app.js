@@ -18,19 +18,15 @@ angular
     'ngTouch',
     'restangular',
     'ngDialog',
-    'textAngular'
+    'textAngular',
+    'selectize'
   ])
   .config(function ($routeProvider, RestangularProvider, $provide) {
     $routeProvider
-      .when('/', {
+      .when('/manage', {
         templateUrl: 'views/manage.html',
         controller: 'manageCtrl',
-        controllerAs: 'manage' 
-      })
-      .when('/manage/articles', {
-        templateUrl: 'views/articles.html',
-        controller: 'articlesCtrl',
-        controllerAs: 'articles' 
+        controllerAs: 'manageCtrl' 
       })
       .otherwise({
         redirectTo: '/'

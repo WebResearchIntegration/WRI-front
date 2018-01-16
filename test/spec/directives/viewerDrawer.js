@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: elementViewer', function () {
+describe('Directive: viewerDrawer', function () {
 
   // load the directive's module
   beforeEach(module('wriApp'));
@@ -13,7 +13,7 @@ describe('Directive: elementViewer', function () {
   }));
 
   it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<element-viewer></element-viewer>');
+    element = angular.element('<viewer-drawer></viewer-drawer>');
     element = $compile(element)(scope);
     expect(element.text()).toBe('this is the elementViewer directive');
   }));

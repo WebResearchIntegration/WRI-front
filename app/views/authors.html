@@ -1,5 +1,12 @@
-<div class="item" ng-repeat="author in authorsCtrl.authors">{{author.name}}</div>
+<div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': author.isSelected}" ng-repeat="author in authorsCtrl.authors | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(author)">
+    <span>{{author.name}}</span>
+    <div class="validator" ng-class="{'selected-item-validator': author.isSelected, 'selected-item-validator-disabled': !author.isSelected}"
+        ng-if="manageCtrl.selectMode">
+        <i class="material-icons" ng-if="author.isSelected">done</i>
+        <i class="material-icons" ng-if="!author.isSelected">add</i>
+    </div>
+</div>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored add-article">
+<button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp">
     <i class="material-icons">add</i>
 </button>
