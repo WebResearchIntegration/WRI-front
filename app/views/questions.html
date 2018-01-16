@@ -1,35 +1,5 @@
-<div class="wri_article__main-informations">
-    <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-problematic">
-        <div class="wri_article__main-informations__inside">
-            <div class="wri_article__main-informations__title">
-                <span>Question</span>
-            </div>
-            <textarea class="mdl-textfield__input" type="text" id="question-problematic" ng-model="questionEdit.problematic" placeholder="Why the world is..."></textarea>
-        </div>
-    </div>
-</div>
-<div class="wri_article__main-informations">
-    <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-solution">
-        <div class="wri_article__main-informations__inside">
-            <div class="wri_article__main-informations__title">
-                <span>Solution</span>
-            </div>
-            <!-- <textarea class="mdl-textfield__input" type="text" id="question-text" ng-model="questionEdit.text" placeholder="The soluce presented in the article..."></textarea> -->
-            <text-angular-toolbar name="toolbar2"></text-angular-toolbar>
+<div class="item" ng-repeat="question in questionsCtrl.questions | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(question, true)">{{question.problematic}}</div>
 
-            <text-angular ta-target-toolbars='toolbar2' ng-model="questionEdit.answer">
-            </text-angular>
-        </div>
-    </div>
-</div>
-    
-<button class="btn btn-primary" ng-click="questionsCtrl.saveQuestion(questionEdit)" >Save</button>   
-
-<div class="item" ng-repeat="question in questionsCtrl.questions | filter : filter | orderBy : order" ng-click=" manageCtrl.selectItem(question, true)">{{question.problematic}}</div>
-
-<!-- manageCtrl.selectItem(question, true) -->
-<!-- questionsCtrl.editQuestion(question) -->
-
-<button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="questionsCtrl.newQuestion()">
+<button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="questionsCtrl.addQuestion()">
     <i class="material-icons">add</i>
 </button>

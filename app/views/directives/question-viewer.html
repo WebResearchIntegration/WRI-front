@@ -1,35 +1,66 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <main class="mdl-layout__content --wri_scrollY-area" ng-class="{'--edit-mode': articleViewer.editMode}">
-        <div class="wri_article__main-informations">
-            <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-problematic">
-                <div class="wri_article__main-informations__inside">
-                    <div class="wri_article__main-informations__title">
-                        <span>Problematic</span>
-                    </div>
-                    <textarea class="mdl-textfield__input" type="text" id="question-problematic" ng-model="questionEdit.problematic" placeholder="The problematic presented in the article..."></textarea>
-                </div>
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <div class="wri_article-title">
+                <span class="mdl-layout__title --little-padding">Question {{questionViewer.editMode ? "Editor" : "Viewer"}}</span>
             </div>
         </div>
-        <div class="wri_article__main-informations">
-            <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-solution">
-                <div class="wri_article__main-informations__inside">
-                    <div class="wri_article__main-informations__title">
-                        <span>Solution</span>
-                    </div>
-                    <!-- <textarea class="mdl-textfield__input" type="text" id="question-text" ng-model="questionEdit.text" placeholder="The soluce presented in the article..."></textarea> -->
-                    <text-angular-toolbar name="toolbar2"></text-angular-toolbar>
-        
-                    <text-angular ta-target-toolbars='toolbar2' ng-model="questionEdit.answer">
-                    </text-angular>
-                </div>
+        <div ng-if="!questionViewer.editMode" class="mdl-layout__header-row mdl-color--primary-dark interactive-row">
+            <div class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button" ng-click="questionViewer.turnEditMode()">
+                <i class="material-icons">edit</i>
+                <span class="mdl-button__ripple-container">
+                    <span class="mdl-ripple"></span>
+                </span>
             </div>
         </div>
+    </header>
+    <main class="mdl-layout__content --wri_scrollY-area" ng-class="{'--edit-mode': questionViewer.editMode}">
+        <section>
+            <div class="wri_article__main-informations">
+                <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-problematic">
+                    <div class="wri_article__main-informations__inside">
+                        <div class="wri_article__main-informations__title">
+                            <span>Question</span>
+                        </div>
+                        <textarea class="mdl-textfield__input" type="text" id="question-problematic" ng-model="questionViewer.questionTmp.problematic" placeholder="A question on an subject..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="wri_article__main-informations">
+                <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-solution">
+                    <div class="wri_article__main-informations__inside">
+                        <div class="wri_article__main-informations__title">
+                            <span>Answer</span>
+                        </div>
+                        
+                        <text-angular-toolbar name="toolbar2"></text-angular-toolbar>
+            
+                        <text-angular ta-target-toolbars="toolbar2" ng-model="questionViewer.questionTmp.answer"></text-angular>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
     <footer ng-if="questionViewer.editMode">
-        <div class="wri_article-viewer__footer__actions mdl-shadow--8dp">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action" ng-class="{'--wri_disabled': questionViewer.problematic == null || questionViewer.problematic == ''}" ng-disabled="questionViewer.problematic == null || questionViewer.problematic == ''" ng-click="questionViewer.createQuestion()">
+        <div ng-if="!questionViewer.question.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': questionViewer.questionTmp.problematic == null || questionViewer.questionTmp.problematic == ''}" ng-disabled="questionViewer.questionTmp.problematic == null || questionViewer.questionTmp.problematic == ''" ng-click="questionViewer.createQuestion()">
                 Create
             </button>
+        </div>
+        <div ng-if="questionViewer.question.id != null" class="wri_article-viewer__footer__actions --updating mdl-shadow--8dp">
+            <div>
+                <button  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action --delete" ng-click="questionViewer.deleteQuestion()">
+                    Delete
+                </button>
+            </div>
+            <div>
+                <button ng-if="questionViewer.question.id != null" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="questionViewer.cancelEdition()">
+                    Cancel
+                </button>
+                <button ng-if="questionViewer.question.id != null" ng-class="{'--wri_disabled': questionViewer.question.problematic == null || questionViewer.question.problematic == ''}" ng-disabled="questionViewer.question.problematic == null || questionViewer.question.problematic == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="questionViewer.updateQuestion()">
+                    Update
+                </button>
+            </div>
         </div>
     </footer>
 </div>

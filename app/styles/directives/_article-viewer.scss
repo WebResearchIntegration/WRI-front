@@ -1,4 +1,4 @@
-article-viewer {
+.viewer {
     %flex-row-between-center {
         display: flex;
         flex-direction: row;
@@ -8,6 +8,7 @@ article-viewer {
     ::-webkit-input-placeholder {
         color: rgba(rgb(124, 125, 129), 0.7);
     }
+    
     .wri_viewer__menu-icon {
         position: absolute;
         z-index: 4;
@@ -43,6 +44,10 @@ article-viewer {
                 padding-top: 20px;
                 line-height: 1.1em;
                 font-size: 1.7em;
+
+                &.--little-padding {
+                    padding-top: 10px;
+                }
             }
 
             ::-webkit-input-placeholder {
@@ -141,7 +146,6 @@ article-viewer {
             }
         }
     }
-
     .mdl-layout__content {
         &:not(.--edit-mode) {
             padding-top: 40px;
@@ -540,5 +544,16 @@ article-viewer {
                 }
             }
         }
+    }
+}
+
+.ta-editor.ta-html, .ta-scroll-window.form-control {
+    background: white;
+    border: 1px solid #b4b4b4;
+}
+
+.ta-scroll-window > .ta-bind {
+    &:focus {
+        outline: none;
     }
 }

@@ -36,12 +36,12 @@
     ctrl.showProbSoluce;    // boolean to know if we show problematic and soluce or not
       
     // [INIT]
-      // ctrl.$onInit = onInit; /* Angular 1.5+ does not bind attributes until calling $onInit() */
+      // ctrl.$onInit = loadQuestion; /* Angular 1.5+ does not bind attributes until calling $onInit() */
   
       // [PUBLIC METHODS]
       ctrl.createQuestion = createQuestion;
+      ctrl.cancelEdition = cancelEdition;
       ctrl.deleteQuestion = deleteQuestion;
-      ctrl.loadQuestion = loadQuestion;
       ctrl.turnEditMode = turnEditMode;
       ctrl.updateQuestion = updateQuestion;
     
@@ -51,16 +51,14 @@
       /**
        * @name createQuestion
        * @desc Will create a new question
-       * @param {Boolean} duringEdition 
        * @memberOf Directives.questionViewer
        */
-      function createQuestion(duringEdition) {
-        Questions.create(ctrl.question).then(function(question){
-          if(!duringEdition){
-            ctrl.question = question;
+      function createQuestion() {
+        ctrl.question = ctrl.questionTmp;
+        Questions.create(ctrl.question).then(function(questionAdded){
+            ctrl.question = questionAdded;
             ctrl.editMode = false;
-          }
-          $scope.$emit("questions:refresh");
+            $rootScope.$emit("questions:refresh");
         });
       }
   
@@ -70,8 +68,8 @@
        * @memberOf Directives.questionViewer
        */
       function cancelEdition(){
-        ctrl.question = ctrl.questionTmp;
         ctrl.editMode = false;
+        ctrl.questionTmp = null;
         $scope.$emit("questions:refresh");
       }
   
@@ -83,7 +81,7 @@
       function deleteQuestion() {
         var questionID = ctrl.question.id;
         ctrl.question = null;
-        questions.delete(questionID).then(function(){
+        Questions.delete(questionID).then(function(){
             $scope.$emit("questions:refresh");
         });
       }
@@ -96,6 +94,7 @@
        */
       function loadQuestion(question) {
         ctrl.questionTmp = null;
+        ctrl.questionTmp = angular.copy(ctrl.question);
       }
       
       /**
@@ -113,14 +112,16 @@
   
       /**
        * @name updateQuestion
-       * @desc Will delete current question
+       * @desc Will update current question
        * @param {Object}  property   property to transform into an array
        * @param {Boolean}  onlyObject   check if the current property has to be an object
        * @memberOf Directives.questionViewer
        */
       function updateQuestion() {
+        ctrl.question = ctrl.questionTmp;
         Questions.updateById(ctrl.question.id, ctrl.question).then(function(questionUpdated){
             ctrl.editMode = false;
+            console.log(questionUpdated);
             loadQuestion(questionUpdated);
             $scope.$emit("questions:refresh");
         });
@@ -130,7 +131,7 @@
     // [EVENTS]
       $scope.$watch( function(){
         return ctrl.question;
-      }, function(newquestion, previousquestion){
+      }, function(newQuestion, previousQuestion){
         if (ctrl.question != null){
           loadQuestion(ctrl.question);
         }

@@ -1,6 +1,6 @@
 <div class="--wri_full-height" ng-if="viewerDrawer.element != null" ng-switch="viewerDrawer.type">
-    <article-viewer ng-switch-when="article" article="viewerDrawer.element" edit-mode="viewerDrawer.editMode"></article-viewer>
-    <question-viewer ng-switch-when="question" question="viewerDrawer.element" edit-mode="viewerDrawer.editMode"></question-viewer>
+    <article-viewer class="viewer" ng-switch-when="article" article="viewerDrawer.element" edit-mode="viewerDrawer.editMode"></article-viewer>
+    <question-viewer class="viewer" ng-switch-when="question" question="viewerDrawer.element" edit-mode="viewerDrawer.editMode"></question-viewer>
     <div class="wri_empty-viewer --wri_full-height" ng-switch-default>
         <span>Can't load {{viewerDrawer.type}} in the viewer</span>
     </div>

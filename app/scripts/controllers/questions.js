@@ -12,65 +12,51 @@ angular.module('wriApp')
         
         var ctrl = this;
 
-        $scope.questionEdit = {};
+        // [PUBLIC VARIABLES]
+        ctrl.questions;
 
-        init()
+        // [INIT]
+        init();
 
-        ctrl.newQuestion = function(){
-            var targetId = _.maxBy(ctrl.questions, 'id')
-            var id = targetId.id + 1;
+        // [PUBLIC METHODS]
+        ctrl.addQuestion = addQuestion;
+        
+        ///////////////////
 
-            var obj = {
-                'id' : id,
-                'problematic':  '',
-                'answer' : ''
-            }
-
-            ctrl.questions.unshift(obj);
-            $scope.questionEdit.id = obj.id
-            $scope.questionEdit.problematic = obj.problematic;
-            $scope.questionEdit.answer = obj.answer;
-
-        }
-
-        ctrl.saveQuestion = function(question){
-            var obj = {};
-
-            var isDuplicate = _.find(ctrl.questions, ['id', question.id]);
-
-            obj.problematic = question.problematic;
-            obj.answer = question.answer;
-            if (isDuplicate != undefined){
-                isDuplicate.problematic = obj.problematic;
-                isDuplicate.answer = obj.answer;
-            }
-        }
-
-        ctrl.editQuestion = function(question){
-            var obj = {
-                'id': question.id,
-                'problematic': question.problematic,
-                'answer': question.answer
-            };
-
-            console.log('obj ', obj );
-            $scope.questionEdit.id = obj.id;
-            $scope.questionEdit.problematic = obj.problematic;
-            $scope.questionEdit.answer = obj.answer;
-
-        }
-
-        function initList(){
+        // [METHODS : begin]
+        /**
+        * @name init
+        * @desc Will init the controller with data from database
+        * @memberOf Directives.questionViewer
+        */
+        function init(){
             Questions.getAll().then(function(questions) {
                 ctrl.questions = questions;
             });
         }
 
-        function init(){
-            initList()
+        /**
+        * @name addQuestion
+        * @desc Will send an empty question into the question editor
+        * @memberOf Directives.questionViewer
+        */
+        function addQuestion() {
+            var newQuestion = {
+                problematic: "",
+                answer: ""
+            };
+            $scope.$emit('questions:new', newQuestion);
         }
+        // [METHODS : end]
+
+        // [PRIVATE METHODS : begin]
+        // [PRIVATE METHODS : end]
 
         // [EVENTS]
+        $rootScope.$on('questions:refresh', function(event) {
+            init();
+        });
+
         $rootScope.$on('sendFilters', function(event, data) {
             if(data === 'reset'){
                 $scope.filter = {}    
