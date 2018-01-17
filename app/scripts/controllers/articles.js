@@ -13,7 +13,7 @@ angular.module('wriApp')
         var ctrl = this;
 
         // [PUBLIC VARIABLES]
-
+        ctrl.articles;
 
         // [INIT]
         init();
@@ -70,8 +70,8 @@ angular.module('wriApp')
 
         // [EVENTS]
         $rootScope.$on("articles:refresh", function(event){
+            // event.stopPropagation();
             init();
-            $scope.$apply();
         });
 
         // [WATCHERS]
@@ -86,7 +86,7 @@ angular.module('wriApp')
         $scope.$watch(function(){
             return Selector.itemsAlreadySelectedSize;
         }, function(newVal, oldVal){
-            if (newVal > oldVal && Selector.getSelectionType() == "articles") {
+            if (Selector.getSelectionType() == "articles") {
                 Selector.setSelectionInCtrl(ctrl.articles);
             }
         });
