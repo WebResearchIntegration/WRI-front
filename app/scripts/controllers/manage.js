@@ -226,6 +226,10 @@
             loadItemInViewer(emptyArticle, true);
         });
         
+        $scope.$on("notes:new", function(event, emptyNote){
+            loadItemInViewer(emptyNote, true);
+        });
+
         $scope.$on("questions:new", function(event, emptyQuestion){
             loadItemInViewer(emptyQuestion, true);
         });

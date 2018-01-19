@@ -1,24 +1,5 @@
-<div class="mdl-grid">
+<div class="item" ng-repeat="note in notesCtrl.notes | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(note, true)">{{note.text}}</div>
 
-        <text-angular-toolbar ng-disabled="false" name="toolbar1" ></text-angular-toolbar>
-
-        <text-angular ta-target-toolbars='toolbar1' ng-model="noteEdit.text">
-        </text-angular>
-
-        
-        <button class="btn btn-primary" ng-click="notesCtrl.saveNote(noteEdit)" >Save</button> 
-</div>     
-
-
-<div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': note.isSelected}" ng-repeat="note in notesCtrl.notes | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(note)">
-        <span>{{note.text}}</span>
-        <div class="validator" ng-class="{'selected-item-validator': note.isSelected, 'selected-item-validator-disabled': !note.isSelected}"
-            ng-if="manageCtrl.selectMode">
-            <i class="material-icons" ng-if="note.isSelected">done</i>
-            <i class="material-icons" ng-if="!note.isSelected">add</i>
-        </div>
-    </div>
-    
-<button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="notesCtrl.newNote()">
+<button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="notesCtrl.addNote()">
     <i class="material-icons">add</i>
 </button>

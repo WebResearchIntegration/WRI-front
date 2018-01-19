@@ -50,11 +50,12 @@ function noteViewerCtrl($rootScope, $scope, Notes) {
    * @memberOf Directives.noteViewer
    */
   function createNote() {
-    ctrl.note = ctrl.noteTmp;
-    Notes.create(ctrl.note).then(function (noteAdded) {
-      ctrl.note = noteAdded;
-      ctrl.editMode = false;
-      $rootScope.$emit("notes:refresh");
+	console.log("note :: ", ctrl.noteTmp);
+    Notes.create(ctrl.noteTmp).then(function (noteAdded) {
+		console.log(noteAdded);
+		ctrl.note = noteAdded;
+		ctrl.editMode = false;
+		$rootScope.$emit("notes:refresh");
     });
   }
 
