@@ -223,22 +223,18 @@
 
         // [EVENTS]
         $scope.$on("articles:new", function(event, emptyArticle){
-            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             loadItemInViewer(emptyArticle, true);
         });
         
         $scope.$on("questions:new", function(event, emptyQuestion){
-            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             loadItemInViewer(emptyQuestion, true);
         });
 
         $scope.$on("reference:open", function(event, article){
-            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             loadItemInViewer(article);
         });
 
         $scope.$on("select:articles", function(event){
-            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             var category = sliceBy(event.name, ":");
             showCategory(category);
             Selector.enable("articles");
@@ -248,7 +244,6 @@
         });
 
         $scope.$on("select:authors", function(event){
-            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             var category = sliceBy(event.name, ":");
             showCategory(category);
             Selector.enable("authors");
@@ -258,7 +253,6 @@
         });
 
         $scope.$on("select:notes", function(event){
-            event.stopPropagation(); // to prevent to be called twice => why is it called twice ?
             var category = sliceBy(event.name, ":");
             showCategory(category);
             Selector.enable("notes");
