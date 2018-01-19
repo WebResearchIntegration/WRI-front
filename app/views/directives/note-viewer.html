@@ -1,0 +1,56 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <div class="wri_article-title">
+                <span class="mdl-layout__title --little-padding">Note {{noteViewer.editMode ? "Editor" : "Viewer"}}</span>
+            </div>
+        </div>
+        <div ng-if="!noteViewer.editMode" class="mdl-layout__header-row mdl-color--primary-dark interactive-row">
+            <div class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button" ng-click="noteViewer.turnEditMode()">
+                <i class="material-icons">edit</i>
+                <span class="mdl-button__ripple-container">
+                    <span class="mdl-ripple"></span>
+                </span>
+            </div>
+        </div>
+    </header>
+    <main class="mdl-layout__content --wri_scrollY-area" ng-class="{'--edit-mode': noteViewer.editMode}">
+        <section>
+            <div class="wri_article__main-informations">
+                <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-abstract">
+                    <div class="wri_article__main-informations__inside">
+                        <div class="wri_article__main-informations__title">
+                            <span>Note</span>
+                        </div>
+                        
+                        <text-angular-toolbar name="toolbar1"></text-angular-toolbar>
+            
+                        <text-angular ta-target-toolbars="toolbar1" ng-model="noteViewer.noteTmp.text"></text-angular>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer ng-if="noteViewer.editMode">
+        <div ng-if="!noteViewer.note.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': noteViewer.noteTmp.text == null || noteViewer.noteTmp.text == ''}" ng-disabled="noteViewer.noteTmp.text == null || noteViewer.noteTmp.text == ''" ng-click="noteViewer.createNote()">
+                Create
+            </button>
+        </div>
+        <div ng-if="noteViewer.note.id != null" class="wri_article-viewer__footer__actions --updating mdl-shadow--8dp">
+            <div>
+                <button  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action --delete" ng-click="noteViewer.deleteNote()">
+                    Delete
+                </button>
+            </div>
+            <div>
+                <button ng-if="noteViewer.note.id != null" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="noteViewer.cancelEdition()">
+                    Cancel
+                </button>
+                <button ng-if="noteViewer.note.id != null" ng-class="{'--wri_disabled': noteViewer.note.text == null || noteViewer.note.text == ''}" ng-disabled="noteViewer.note.text == null || noteViewer.note.text == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="noteViewer.updateNote()">
+                    Update
+                </button>
+            </div>
+        </div>
+    </footer>
+</div>
