@@ -36,8 +36,27 @@ angular
     RestangularProvider.setBaseUrl('http://localhost:8888/api/');
 
     // [RESTANGuLAR CONFIG: END]
-
-    // ADD MATH FORMULA BUTTON TO NOTE EDITOR
+    
+    $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function(taRegisterTool, taOptions){
+      taRegisterTool('separator', {
+        iconclass: "ta-separator",
+        action: null
+      });
+      taOptions.toolbar = [
+        [ 
+          'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+          'p', 'pre', 'quote', 'separator',
+          'bold', 'italics', 'underline', 'strikeThrough' ,'separator',
+          'justifyLeft', 'justifyCenter', 'justifyRight', 'separator',
+          'ul', 'ol', 'indent', 'outdent', 'separator', 
+          'insertImage','insertLink', 'insertVideo','separator',
+          'html','separator',
+          'undo', 'redo', 'clear'
+        ]
+      ];
+      return taOptions;
+    }]);
+    // // ADD MATH FORMULA BUTTON TO NOTE EDITOR
     // $provide.decorator('taOptions', ['taRegisterTool', '$delegate', 'ngDialog', function(taRegisterTool, taOptions, ngDialog){
     //   taRegisterTool('mathForm', {
     //     iconclass: "fa fa-superscript",

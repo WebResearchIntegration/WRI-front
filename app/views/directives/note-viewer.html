@@ -5,31 +5,22 @@
                 <span class="mdl-layout__title --little-padding">Note {{noteViewer.editMode ? "Editor" : "Viewer"}}</span>
             </div>
         </div>
-        <div ng-if="!noteViewer.editMode" class="mdl-layout__header-row mdl-color--primary-dark interactive-row">
-            <div class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button" ng-click="noteViewer.turnEditMode()">
+        <div class="mdl-layout__header-row mdl-color--primary-dark interactive-row" ng-class="{'wri_editor__text-toolbar': noteViewer.editMode}">
+            <div ng-if="!noteViewer.editMode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button" ng-click="noteViewer.turnEditMode()">
                 <i class="material-icons">edit</i>
                 <span class="mdl-button__ripple-container">
                     <span class="mdl-ripple"></span>
                 </span>
             </div>
+            <text-angular-toolbar class="wri_text-toolbar" ng-if="noteViewer.editMode" name="note-toolbar"></text-angular-toolbar>
         </div>
     </header>
     <main class="mdl-layout__content --wri_scrollY-area" ng-class="{'--edit-mode': noteViewer.editMode}">
-        <section>
-            <div class="wri_article__main-informations">
-                <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-abstract">
-                    <div class="wri_article__main-informations__inside">
-                        <div class="wri_article__main-informations__title">
-                            <span>Note</span>
-                        </div>
-                        
-                        <text-angular-toolbar name="toolbar1"></text-angular-toolbar>
-            
-                        <text-angular ta-target-toolbars="toolbar1" ng-model="noteViewer.noteTmp.text"></text-angular>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div class="wri_note-editor__edit-area">
+            <text-angular ng-model="noteViewer.noteTmp.text" ta-target-toolbars="note-toolbar"  ta-focussed-class="no-style"></text-angular>
+            <!-- <div class="wri_article__main-informations__category mdl-shadow--4dp">
+            </div> -->
+        </div>
     </main>
     <footer ng-if="noteViewer.editMode">
         <div ng-if="!noteViewer.note.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">

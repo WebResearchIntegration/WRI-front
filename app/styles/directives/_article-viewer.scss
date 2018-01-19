@@ -547,13 +547,71 @@
     }
 }
 
+.viewer .mdl-layout__header .interactive-row {
+    &.wri_editor__text-toolbar {
+
+        
+        justify-content: center;
+        height: max-content;
+        padding: 10px;
+
+        .wri_text-toolbar {
+            .btn {
+                border-radius: 0;
+                padding: 5px 7px;
+                background: transparent;
+                border: none;
+                color: rgba(white, 0.6);
+                cursor: pointer;
+                font-size: 15px;
+
+                &:disabled {
+                    cursor: not-allowed;
+                }
+
+                &[name="separator"]{
+                    cursor: default;
+                }
+
+                &:disabled {
+                    opacity: 0.3;
+                }
+
+                &:not([name="separator"]):not(:disabled) {
+                    &:hover {
+                        color: white;
+                        background: darken($primary-dark, 15%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.wri_note-editor__edit-area {
+    padding: 5px;
+}
 .ta-editor.ta-html, .ta-scroll-window.form-control {
     background: white;
-    border: 1px solid #b4b4b4;
+    border: none;
+    width: calc(100% - 5px);
+    min-height: 350px;
+    
+    &:focus {
+        outline: none;
+    }
 }
 
 .ta-scroll-window > .ta-bind {
     &:focus {
         outline: none;
+    }
+}
+.ta-separator {
+    font-style: normal;
+    
+    &:before {
+        content: '|';
+        color: rgba(0,0,0,0.6);
     }
 }
