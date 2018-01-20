@@ -1,0 +1,71 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-block">
+            <div class="wri_author-picture">
+                <div 
+                    ng-if="authorViewer.author.photoUrl && authorViewer.author.photoUrl != ''" class="wri_author-picture__picture" 
+                    style="background-image: url({{authorViewer.author.photoUrl}});">
+                </div>
+                <div 
+                    ng-if="!authorViewer.author.photoUrl || authorViewer.author.photoUrl == ''" class="wri_author-picture__picture --no-picture">
+                </div>
+            </div>
+            <div class="wri_author-identity">
+                <div class="wri_article-infos">
+                    <div class="wri_article-title">
+                        <span class="wri_author-identity__name" ng-if="!authorViewer.editMode">{{authorViewer.author.name}}</span>
+                        <div ng-if="authorViewer.editMode" class="wri_form__textfield --no-focus mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input wri_author-identity__name" type="text" id="author-name" ng-model="authorViewer.authorTmp.name" placeholder="Name..." required>
+                            <label class="mdl-textfield__label" for="author-name"></label>
+                        </div>
+                    </div>
+                    <div class="wri_author-rating">
+                        <div ng-if="!authorViewer.editMode && authorViewer.author.rating" class="wri_article-score"><i class="material-icons">star</i>{{authorViewer.author.rating}}</div>
+                        <div ng-if="authorViewer.editMode" class="wri_article-score"><i class="material-icons">star</i>
+                            <span ng-if="authorViewer.editMode" class="wri_form__numberfield --no-focus mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="number" id="author-rating" ng-model="authorViewer.authorTmp.rating" placeholder="Score...">
+                                <label class="mdl-textfield__label" for="author-rating"></label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wri_author-identity__details">
+                    <div class="wri_author-birthdate">
+                        <span ng-if="!authorViewer.editMode && authorViewer.author.birthDate"><i class="material-icons wri_icon-label">cake</i>{{authorViewer.author.birthDate | date:'dd/MM/yyyy'}}</span>    
+                        <span ng-if="authorViewer.editMode" class="wri_form__datefield --no-focus mdl-textfield mdl-js-textfield">
+                            <i class="material-icons wri_icon-label">cake</i>
+                            <input class="mdl-textfield__input" type="date" id="article-birthDate" ng-model="authorViewer.authorTmp.birthDate">
+                        </span>
+                    </div>
+                    <div class="wri_author-gender">  
+                        <span ng-if="!authorViewer.editMode"><i class="material-icons wri_icon-label">wc</i>{{authorViewer.author.gender}}</span>    
+                        
+                        
+                        <span ng-if="authorViewer.editMode">
+                            <i class="material-icons wri_icon-label">wc</i>
+
+                            <input type="radio" 
+                            ng-model="authorViewer.authorTmp.gender" id="male" name="author-gender" class="mdl-radio__button" value="M" checked />
+                                <label class="mdl-radio__label" for="male">Male</label>
+
+                            <span class="wri_radio-separator">|</span>
+
+                            <input type="radio" ng-model="authorViewer.authorTmp.gender" id="female" name="author-gender"  class="mdl-radio__button" value="W"/>
+                                <label class="mdl-radio__label" for="female">Female</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mdl-layout__header-row mdl-color--primary-dark interactive-row">
+            <div ng-if="!authorViewer.editMode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button" ng-click="authorViewer.turnEditMode()">
+                <i class="material-icons">edit</i>
+                <span class="mdl-button__ripple-container">
+                    <span class="mdl-ripple"></span>
+                </span>
+            </div>
+        </div>
+    </header>
+</div>
