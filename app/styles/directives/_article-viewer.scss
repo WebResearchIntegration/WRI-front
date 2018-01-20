@@ -97,6 +97,7 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
+                list-style: none;
                 margin: 0;
                 padding: 0;
                 min-width: 310px;
@@ -561,6 +562,24 @@
 }
 // [AUTHOR HEADER : end]
 
+
+.viewer .mdl-layout__header .interactive-row .wri_article-viewer__status-list {
+    .mdl-button {
+        border: none;
+        &:hover {
+            background: darken($primary-dark, 15%);
+        }
+        transition: none;
+    }
+    .wri_linked-in {
+        background: url(../assets/icons/linkedin-box.svg);
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+        vertical-align: middle;
+    }
+}
+
 // [EXTRA STYLE - INPUTS : begin]
     .wri_article__main-informations {
         position: relative;
@@ -635,10 +654,8 @@
 // [EXTRA STYLE - INPUTS : end]
 
 // [TEXT ANGULAR EDITOR IN VIEWERS : begin]
-    .viewer .mdl-layout__header .interactive-row {
-        &.wri_editor__text-toolbar {
-
-            
+    .viewer .interactive-row {
+        &.wri_editor__text-toolbar {  
             justify-content: center;
             height: max-content;
             padding: 10px;

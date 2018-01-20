@@ -59,13 +59,31 @@
             </div>
         </div>
         
-        <div class="mdl-layout__header-row mdl-color--primary-dark interactive-row">
+        <div class="mdl-layout__header-row mdl-color--primary-dark interactive-row" ng-class="{'wri_editor__text-toolbar': authorViewer.editMode}">
             <div ng-if="!authorViewer.editMode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button" ng-click="authorViewer.turnEditMode()">
                 <i class="material-icons">edit</i>
                 <span class="mdl-button__ripple-container">
                     <span class="mdl-ripple"></span>
                 </span>
             </div>
+
+            
+            <ul ng-if="!authorViewer.editMode" class="wri_article-viewer__status-list">
+                <li>
+                    <a href="mailto:{{authorViewer.author.email}}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons">mail</i>
+                        <span>Send mail</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{authorViewer.author.linkedIn}}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        <i class="wri_linked-in"></i>
+                        <span>View Profile</span>
+                    </a>
+                </li>
+            </ul>
+
+            <text-angular-toolbar class="wri_text-toolbar" ng-if="authorViewer.editMode" name="author-toolbar"></text-angular-toolbar>
         </div>
     </header>
 </div>
