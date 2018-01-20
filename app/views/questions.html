@@ -1,4 +1,9 @@
-<div class="item" ng-repeat="question in questionsCtrl.questions | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(question, true)">{{question.problematic}}</div>
+<div 
+    class="item" 
+    ng-repeat="question in questionsCtrl.questions | filter : filter | orderBy : order" 
+    ng-bind-html="question.problematic"
+    ng-click="manageCtrl.selectItem(question)">
+</div>
 
 <button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="questionsCtrl.addQuestion()">
     <i class="material-icons">add</i>

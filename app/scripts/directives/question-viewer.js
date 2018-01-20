@@ -23,7 +23,7 @@
     };  
   }
   
-  function questionViewerCtrl($rootScope, $scope, Selector, Questions, $timeout) {
+  function questionViewerCtrl($rootScope, $scope, Questions, textToolbar) {
   
     var ctrl = this;
   
@@ -32,11 +32,11 @@
     // [PUBLIC VARIABLES]
     // All attributes are binded after $onInit(). They will be accessible as ctrl.[attributeName]
     ctrl.questionTmp;        // temporary question during edition
-    ctrl.showAbstract;      // boolean to know if we show abstract or not
-    ctrl.showProbSoluce;    // boolean to know if we show problematic and soluce or not
+    ctrl.textToolbar;        // toolbar for answer's text block
       
     // [INIT]
       // ctrl.$onInit = loadQuestion; /* Angular 1.5+ does not bind attributes until calling $onInit() */
+      init();
   
       // [PUBLIC METHODS]
       ctrl.createQuestion = createQuestion;
@@ -48,6 +48,15 @@
     ////////////
   
     // [METHODS : begin]
+      /**
+       * @name init
+       * @desc Will init question viewer
+       * @memberOf Directives.questionViewer
+       */
+      function init() {
+        ctrl.textToolbar = textToolbar.getAdvancedToolbar();
+      }
+
       /**
        * @name createQuestion
        * @desc Will create a new question
