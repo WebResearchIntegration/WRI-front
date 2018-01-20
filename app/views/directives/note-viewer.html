@@ -16,14 +16,25 @@
         </div>
     </header>
     <main class="mdl-layout__content --wri_scrollY-area" ng-class="{'--edit-mode': noteViewer.editMode}">
-        <div class="wri_note-editor__edit-area">
-            <text-angular ng-if="noteViewer.editMode" ng-model="noteViewer.noteTmp.text" ta-target-toolbars="note-toolbar"  ta-focussed-class="no-style"></text-angular>
-            <div 
-                class="wri_note-viewer__note-content"
-                ng-if="!noteViewer.editMode"
-                ng-bind-html="noteViewer.note.text">
+        <section>
+            <div class="wri_article__main-informations">
+                <div class="wri_article__main-informations__category mdl-shadow--4dp">
+                    <div class="wri_article__main-informations__inside">
+                        <text-angular 
+                            ta-target-toolbars="note-toolbar" 
+                            ta-focussed-class="no-style" 
+                            ng-if="noteViewer.editMode"
+                            ng-model="noteViewer.noteTmp.text">
+                        </text-angular>
+                        <div 
+                            class="wri_note-viewer__note-content"
+                            ng-if="!noteViewer.editMode"
+                            ng-bind-html="noteViewer.note.text">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     </main>
     <footer ng-if="noteViewer.editMode">
         <div ng-if="!noteViewer.note.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">

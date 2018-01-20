@@ -604,12 +604,16 @@
     background: white;
     border: none;
     width: calc(100% - 5px);
-    min-height: 350px;
-    
+    min-height: min-content;
+
+    > .ta-bind {
+        min-height: min-content;
+    }
+   
     &:focus {
         outline: none;
     }
-}
+} 
 
 .ta-scroll-window > .ta-bind {
     &:focus {
