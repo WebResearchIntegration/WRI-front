@@ -17,9 +17,12 @@
     </header>
     <main class="mdl-layout__content --wri_scrollY-area" ng-class="{'--edit-mode': noteViewer.editMode}">
         <div class="wri_note-editor__edit-area">
-            <text-angular ng-model="noteViewer.noteTmp.text" ta-target-toolbars="note-toolbar"  ta-focussed-class="no-style"></text-angular>
-            <!-- <div class="wri_article__main-informations__category mdl-shadow--4dp">
-            </div> -->
+            <text-angular ng-if="noteViewer.editMode" ng-model="noteViewer.noteTmp.text" ta-target-toolbars="note-toolbar"  ta-focussed-class="no-style"></text-angular>
+            <div 
+                class="wri_note-viewer__note-content"
+                ng-if="!noteViewer.editMode"
+                ng-bind-html="noteViewer.note.text">
+            </div>
         </div>
     </main>
     <footer ng-if="noteViewer.editMode">

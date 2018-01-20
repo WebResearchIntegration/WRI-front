@@ -1,4 +1,9 @@
-<div class="item" ng-repeat="note in notesCtrl.notes | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(note, true)">{{note.text}}</div>
+<div 
+    class="item" 
+    ng-repeat="note in notesCtrl.notes | filter : filter | orderBy : order" 
+    ng-click="manageCtrl.selectItem(note)"
+    ng-bind-html="note.text">
+</div>
 
 <button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="notesCtrl.addNote()">
     <i class="material-icons">add</i>
