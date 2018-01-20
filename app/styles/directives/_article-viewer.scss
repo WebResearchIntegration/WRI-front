@@ -435,7 +435,9 @@
     }
     
     footer {
+        z-index: 1;
         box-shadow: 0 0 10px -2px rgba(0,0,0,0.4);
+        background: white;
 
         .wri_article-viewer__footer__actions {
             padding: 10px 20px;
@@ -547,13 +549,84 @@
     }
 }
 
+.viewer .mdl-layout__header .interactive-row {
+    &.wri_editor__text-toolbar {
+
+        
+        justify-content: center;
+        height: max-content;
+        padding: 10px;
+
+        .wri_text-toolbar {
+            .btn {
+                border-radius: 0;
+                padding: 5px 7px;
+                background: transparent;
+                color: rgba(white, 0.6);
+                cursor: pointer;
+                font-size: 15px;
+                border:1px solid $primary-dark;
+
+                &:disabled {
+                    cursor: not-allowed;
+                }
+
+                &[name="separator"]{
+                    cursor: default;
+                }
+
+                &:disabled {
+                    opacity: 0.3;
+                }
+
+                &:not([name="separator"]):not(:disabled) {
+                    &:hover {
+                        color: white;
+                        background: darken($primary-dark, 15%);
+                    }
+                    &.active {
+                        color:$primary-dark;
+                        background: white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.wri_note-editor__edit-area {
+    padding: 5px;
+}
+
+.wri_note-viewer__note-content {
+    padding: 5px;
+}
+
 .ta-editor.ta-html, .ta-scroll-window.form-control {
     background: white;
-    border: 1px solid #b4b4b4;
-}
+    border: none;
+    width: calc(100% - 5px);
+    min-height: min-content;
+
+    > .ta-bind {
+        min-height: min-content;
+    }
+   
+    &:focus {
+        outline: none;
+    }
+} 
 
 .ta-scroll-window > .ta-bind {
     &:focus {
         outline: none;
+    }
+}
+.ta-separator {
+    font-style: normal;
+    
+    &:before {
+        content: '|';
+        color: rgba(0,0,0,0.6);
     }
 }

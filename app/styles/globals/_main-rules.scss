@@ -33,10 +33,15 @@ a {
     }
 }
 
+p {
+    margin: 0;
+}
+
 ::-webkit-scrollbar {
     border: none;
     background: transparent;
     width: 7px;
+    height: 7px;
 }
 
 ::-webkit-scrollbar-thumb{

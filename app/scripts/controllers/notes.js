@@ -12,61 +12,49 @@ angular.module('wriApp')
         
         var ctrl = this;
 
-        $scope.noteEdit = {};
+        // [PUBLIC VARIABLES]
+        ctrl.notes;
 
-        // $scope.selectedElementType = "note"
+        // [INIT]
+        init();
 
-        init()
+        // [PUBLIC METHODS]
+        ctrl.addNote = addNote;
+        
+        ///////////////////
 
-        ctrl.newNote = function(){
-            var targetId = _.maxBy(ctrl.notes, 'id')
-            var id = targetId.id + 1;
-
-            var obj = {
-                'id' : id,
-                'problematic' : '',
-            }
-
-            ctrl.notes.unshift(obj);
-            $scope.noteEdit.id = obj.id
-            $scope.noteEdit.text = obj.text;
-
-        }
-
-        ctrl.saveNote = function(note){
-            var obj = {};
-
-            var isDuplicate = _.find(ctrl.notes, ['id', note.id])
-
-            obj.text = note.text
-            isDuplicate.text = obj.text
-
-            var elToBind = document.getElementById(isDuplicate.id)
-            elToBind.innerHTML = angular.element(isDuplicate.text)[0].innerHTML
-
-        }
-
-        ctrl.editNote = function(note){
-            var obj = {
-                'id': note.id,
-                'text': note.text,
-            }
-
-            $scope.noteEdit.id = obj.id;
-            $scope.noteEdit.text = obj.text;
-
-        }
-
-        function initList(){
+        // [METHODS : begin]
+        /**
+        * @name init
+        * @desc Will init the controller with data from database
+        * @memberOf Directives.questionViewer
+        */
+        function init(){
             Notes.getAll().then(function(notes) {
                 ctrl.notes = notes;
             });
         }
 
-        function init(){
-            initList()
+        /**
+        * @name addNote
+        * @desc Will send an empty question into the question editor
+        * @memberOf Directives.questionViewer
+        */
+        function addNote() {
+            var newNote = {
+                text: ""
+            };
+            $scope.$emit('notes:new', newNote);
         }
+        // [METHODS : end]
 
+        // [PRIVATE METHODS : begin]
+        // [PRIVATE METHODS : end]
+
+        // [EVENTS]
+        $rootScope.$on('notes:refresh', function(event) {
+            init();
+        });
 
         $rootScope.$on('sendFilters', function(event, data) {
             if(data === 'reset'){
