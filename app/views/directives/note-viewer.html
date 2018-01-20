@@ -12,6 +12,9 @@
                     <span class="mdl-ripple"></span>
                 </span>
             </div>
+            <div ng-if="!noteViewer.editMode" >
+                <i>{{noteViewer.note.createdAt | date : "dd/MM/YYYY hh:mm:ss"}}</i>
+            </div>
             <text-angular-toolbar class="wri_text-toolbar" ng-if="noteViewer.editMode" name="note-toolbar"></text-angular-toolbar>
         </div>
     </header>
