@@ -1,5 +1,19 @@
-<div>
+<div class="wri_filter mdl-shadow--8dp">
     <div ng-if="availableType(type)" ng-include="'/views/directives/element-filter/includes/_'+type+'-filter.html'" class="mdl-layout mdl-js-layout mdl-layout--fixed-header"></div>
     <div ng-if="!availableType(type)">Vous ne pouvez pas afficher de {{type}} dans ce viewer</div>
-</div>
 
+
+    <!--     <div class="wrap-orderBy">
+        <label for="orderSelect"> Order by &nbsp; : &nbsp;</label>
+        <select name="orderSelect" class="orderBy" id="orderSelect" ng-model="orderValue.config" ng-options="order.name for order in orderBy" ng-change="sendOrderBy(orderValue.config.name)">
+        </select>
+    </div>-->
+    
+
+    <!-- RESET -->
+    <div class="reset--wri">
+        <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="resetFiltersAndOrder()">
+            RESET
+        </button>
+    </div>
+</div>

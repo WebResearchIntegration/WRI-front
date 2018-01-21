@@ -1,39 +1,55 @@
-<div class="mdl-textfield mdl-js-textfield" >
+<!-- NAME -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-author-name" 
+        class="mdl-textfield__input" 
+        ng-model="searchAuthor.name" 
+        ng-change="sendFilters(searchAuthor)"
+        placeholder="Name..." >
+    <label class="mdl-textfield__label" for="filter-author-name"></label> 
+</div>
 
-   <!-- NAME -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchAuthor.name" 
-           ng-change="sendFilters(searchAuthor)" 
-           placeholder="name" 
-           type="text" >
+<!-- EMAIL -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-author-email" 
+        class="mdl-textfield__input" 
+        ng-model="searchAuthor.email" 
+        ng-change="sendFilters(searchAuthor)"
+        placeholder="Email..." >
+    <label class="mdl-textfield__label" for="filter-author-email"></label> 
+</div>
+    
 
-    <!-- ARTICLE -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchAuthor.authors.name" 
-           ng-change="sendFilters(searchAuthor)" 
-           placeholder="authors" 
-           type="text" >
+<!-- ARTICLE -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-author-articles" 
+        class="mdl-textfield__input" 
+        ng-model="searchAuthor.articles.name" 
+        ng-change="sendFilters(searchAuthor)"
+        placeholder="Article..." >
+    <label class="mdl-textfield__label" for="filter-author-articles"></label> 
+</div>
 
-    <!-- DATE OF BIRTH -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchAuthor.score" 
-           ng-change="sendFilters(searchAuthor)" 
-           placeholder="score" 
-           type="text" >
+<!-- RATING -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-author-rating" 
+        class="mdl-textfield__input" 
+        ng-model="searchAuthor.rating" 
+        ng-change="sendFilters(searchAuthor)"
+        placeholder="Rating..." >
+    <label class="mdl-textfield__label" for="filter-author-rating"></label> 
+</div>
+
 
 <!--     <div class="wrap-orderBy">
-        <label for="orderSelect"> Order by &nbsp; : &nbsp;</label>
-        <select name="orderSelect" class="orderBy" id="orderSelect" ng-model="orderValue.config" ng-options="order.name for order in orderBy" ng-change="sendOrderBy(orderValue.config.name)">
-        </select>
-    </div> -->
-
-    <!-- RESET -->
-    <div class="reset--wri">
-        <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="resetFiltersAndOrder()">
-            RESET
-        </button>
-    </div>
-
-
-</div>
- 
+    <label for="orderSelect"> Order by &nbsp; : &nbsp;</label>
+    <select name="orderSelect" class="orderBy" id="orderSelect" ng-model="orderValue.config" ng-options="order.name for order in orderBy" ng-change="sendOrderBy(orderValue.config.name)">
+    </select>
+</div> -->

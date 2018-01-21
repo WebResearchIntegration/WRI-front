@@ -1,60 +1,71 @@
-<div class="mdl-textfield mdl-js-textfield" >
-
-   <!-- NAME -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchArticle.name" 
-           ng-change="sendFilters(searchArticle)" 
-           placeholder="name" 
-           type="text" >
-
-    <!-- AUTHORS -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchArticle.authors.name" 
-           ng-change="sendFilters(searchArticle)" 
-           placeholder="authors" 
-           type="text" >
-
-    <!-- SCORES -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchArticle.score" 
-           ng-change="sendFilters(searchArticle)" 
-           placeholder="score" 
-           type="text" >
-
-    <!-- KEYWORDS -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchArticle.keywords" 
-           ng-change="sendFilters(searchArticle)" 
-           placeholder="keywords" 
-           type="text" >
-
-    <!-- REFERENCES -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchArticle.references.name" 
-           ng-change="sendFilters(searchArticle)" 
-           placeholder="references" 
-           type="text" >
-
-    <!-- NOTES -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchArticle.notes.text" 
-           ng-change="sendFilters(searchArticle)" 
-           placeholder="notes" 
-           type="text" >
-
-<!--     <div class="wrap-orderBy">
-        <label for="orderSelect"> Order by &nbsp; : &nbsp;</label>
-        <select name="orderSelect" class="orderBy" id="orderSelect" ng-model="orderValue.config" ng-options="order.name for order in orderBy" ng-change="sendOrderBy(orderValue.config.name)">
-        </select>
-    </div>
- -->
-    <!-- RESET -->
-    <div class="reset--wri">
-        <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="resetFiltersAndOrder()">
-            RESET
-        </button>
-    </div>
-
-
+<!-- NAME -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-article-title" 
+        class="mdl-textfield__input" 
+        ng-model="searchArticle.name" 
+        ng-change="sendFilters(searchArticle)"
+        placeholder="Title..." >
+    <label class="mdl-textfield__label" for="filter-article-title"></label> 
 </div>
- 
+
+<!-- AUTHORS -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-article-authors" 
+        class="mdl-textfield__input" 
+        ng-model="searchArticle.authors.name" 
+        ng-change="sendFilters(searchArticle)"
+        placeholder="Author..." >
+    <label class="mdl-textfield__label" for="filter-article-authors"></label> 
+</div>
+
+<!-- SCORES -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-article-score" 
+        class="mdl-textfield__input" 
+        ng-model="searchArticle.score" 
+        ng-change="sendFilters(searchArticle)"
+        placeholder="Score..." >
+    <label class="mdl-textfield__label" for="filter-article-score"></label> 
+</div>
+
+<!-- KEYWORDS -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-article-keywords" 
+        class="mdl-textfield__input" 
+        ng-model="searchArticle.keywords" 
+        ng-change="sendFilters(searchArticle)"
+        placeholder="Keywords..." >
+    <label class="mdl-textfield__label" for="filter-article-keywords"></label> 
+</div>
+
+<!-- REFERENCES -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-article-references" 
+        class="mdl-textfield__input" 
+        ng-model="searchArticle.references.name" 
+        ng-change="sendFilters(searchArticle)"
+        placeholder="References..." >
+    <label class="mdl-textfield__label" for="filter-article-references"></label> 
+</div>
+
+<!-- NOTES -->
+<!-- <div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-article-notes" 
+        class="mdl-textfield__input" 
+        ng-model="searchArticle.notes.text" 
+        ng-change="sendFilters(searchArticle)"
+        placeholder="Note Content..." >
+    <label class="mdl-textfield__label" for="filter-article-notes"></label> 
+</div> -->

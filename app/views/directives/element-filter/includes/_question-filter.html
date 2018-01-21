@@ -1,18 +1,23 @@
-<div class="mdl-textfield mdl-js-textfield" >
-
-   <!-- PROBLEMATIC -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchNote.problematic" 
-           ng-change="sendFilters(searchNote)" 
-           placeholder="problematic" 
-           type="text" >
-
-    <!-- ANSWER -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchNote.answer" 
-           ng-change="sendFilters(searchNote)" 
-           placeholder="answer" 
-           type="text" >
-
+<!-- PROBLEMATIC -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-note-problematic" 
+        class="mdl-textfield__input" 
+        ng-model="searchNote.problematic" 
+        ng-change="sendFilters(searchNote)"
+        placeholder="Problematic..." >
+    <label class="mdl-textfield__label" for="filter-note-problematic"></label> 
 </div>
- 
+
+<!-- ANSWER -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-note-answer" 
+        class="mdl-textfield__input" 
+        ng-model="searchNote.answer" 
+        ng-change="sendFilters(searchNote)"
+        placeholder="Answer..." >
+    <label class="mdl-textfield__label" for="filter-note-answer"></label> 
+</div>
