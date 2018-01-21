@@ -173,13 +173,16 @@
                 </div>
                 <ul class="wri_article__references__list" ng-if="!authorViewer.editMode && authorViewer.author.articles.length > 0">
                     <li class="wri_article__references__list__reference" ng-repeat="article in authorViewer.author.articles | limitTo: 10">
-                        <span class="mdl-chip" ng-click="authorViewer.openAuthor(article)">
-                            <span class="mdl-chip__text">{{author.name}}</span>
+                        <span class="mdl-chip" ng-click="authorViewer.openArticle(article)">
+                            <span class="mdl-chip__text">{{article.name}}</span>
                         </span>
                     </li>
                 </ul>
-                <p class="wri_article__section__counter" ng-if="authorViewer.editMode || authorViewer.author.articles.length == 0"> 
+                <p class="wri_article__section__counter" ng-if="!authorViewer.editMode && authorViewer.author.articles.length == 0"> 
                     This author has {{authorViewer.author.articles.length}} {{ (authorViewer.author.articles.length > 1) ? "articles" : "article"}}
+                </p>
+                <p class="wri_article__section__counter" ng-if="authorViewer.editMode"> 
+                    This author has {{authorViewer.authorTmp.articles.length}} {{ (authorViewer.authorTmp.articles.length > 1) ? "articles" : "article"}}
                 </p>
                 <div class="wri_article__references__selector" ng-if="authorViewer.editMode">
                     <div class="wri_article__section__action">
@@ -193,7 +196,7 @@
     </main>
     <footer ng-if="authorViewer.editMode">
         <div ng-if="!authorViewer.author.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': authorViewer.author.name == null || authorViewer.author.name == ''}" ng-disabled="authorViewer.author.name == null || authorViewer.author.name == ''" ng-click="authorViewer.createAuthor(authorViewer.author.id != manageCtrl.viewer.itemToShow.id)">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': authorViewer.authorTmp.name == null || authorViewer.authorTmp.name == ''}" ng-disabled="authorViewer.authorTmp.name == null || authorViewer.authorTmp.name == ''" ng-click="authorViewer.createAuthor(authorViewer.authorTmp.id != manageCtrl.viewer.itemToShow.id)">
                 Create
             </button>
         </div>
@@ -207,7 +210,7 @@
                 <button ng-if="authorViewer.author.id != null" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="authorViewer.cancelEdition()">
                     Cancel
                 </button>
-                <button ng-if="authorViewer.author.id != null" ng-class="{'--wri_disabled': authorViewer.author.name == null || authorViewer.author.name == ''}" ng-disabled="authorViewer.author.name == null || authorViewer.author.name == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="authorViewer.updateAuthor()">
+                <button ng-if="authorViewer.author.id != null" ng-class="{'--wri_disabled': authorViewer.authorTmp.name == null || authorViewer.authorTmp.name == ''}" ng-disabled="authorViewer.authorTmp.name == null || authorViewer.authorTmp.name == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="authorViewer.updateAuthor()">
                     Update
                 </button>
             </div>
