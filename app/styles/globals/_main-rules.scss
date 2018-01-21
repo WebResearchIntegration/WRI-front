@@ -37,6 +37,10 @@ p {
     margin: 0;
 }
 
+.mdl-textfield__input {
+    border: none;
+}
+
 ::-webkit-scrollbar {
     border: none;
     background: transparent;

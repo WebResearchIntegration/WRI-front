@@ -3,18 +3,23 @@
         <div class="mdl-layout__header-block">
             <div class="wri_author-picture">
                 <div 
-                    ng-if="authorViewer.author.photoUrl && authorViewer.author.photoUrl != ''" class="wri_author-picture__picture" 
+                    ng-if="!authorViewer.editMode" 
+                    class="wri_author-picture__picture" 
+                    ng-class="{'--no-picture': !authorViewer.author.photoUrl || authorViewer.author.photoUrl == ''}" 
                     style="background-image: url({{authorViewer.author.photoUrl}});">
                 </div>
                 <div 
-                    ng-if="!authorViewer.author.photoUrl || authorViewer.author.photoUrl == ''" class="wri_author-picture__picture --no-picture">
+                    ng-if="authorViewer.editMode" 
+                    class="wri_author-picture__picture" 
+                    ng-class="{'--no-picture': !authorViewer.authorTmp.photoUrl || authorViewer.authorTmp.photoUrl == ''}" 
+                    style="background-image: url({{authorViewer.authorTmp.photoUrl}});">
                 </div>
             </div>
             <div class="wri_author-identity">
                 <div class="wri_article-infos">
                     <div class="wri_article-title">
                         <span class="wri_author-identity__name" ng-if="!authorViewer.editMode">{{authorViewer.author.name}}</span>
-                        <div ng-if="authorViewer.editMode" class="wri_form__textfield --no-focus mdl-textfield mdl-js-textfield">
+                        <div ng-if="authorViewer.editMode" class="wri_form__textfield --no-focus mdl-textfield">
                             <input class="mdl-textfield__input wri_author-identity__name" type="text" id="author-name" ng-model="authorViewer.authorTmp.name" placeholder="Name..." required>
                             <label class="mdl-textfield__label" for="author-name"></label>
                         </div>
@@ -22,7 +27,7 @@
                     <div class="wri_author-rating">
                         <div ng-if="!authorViewer.editMode && authorViewer.author.rating" class="wri_article-score"><i class="material-icons">star</i>{{authorViewer.author.rating}}</div>
                         <div ng-if="authorViewer.editMode" class="wri_article-score"><i class="material-icons">star</i>
-                            <span ng-if="authorViewer.editMode" class="wri_form__numberfield --no-focus mdl-textfield mdl-js-textfield">
+                            <span ng-if="authorViewer.editMode" class="wri_form__numberfield --no-focus mdl-textfield">
                                 <input class="mdl-textfield__input" type="number" id="author-rating" ng-model="authorViewer.authorTmp.rating" placeholder="Score...">
                                 <label class="mdl-textfield__label" for="author-rating"></label>
                             </span>
@@ -33,15 +38,18 @@
                 <div class="wri_author-identity__details">
                     <div class="wri_author-birthdate">
                         <span ng-if="!authorViewer.editMode && authorViewer.author.birthDate"><i class="material-icons wri_icon-label">cake</i>{{authorViewer.author.birthDate | date:'dd/MM/yyyy'}}</span>    
-                        <span ng-if="authorViewer.editMode" class="wri_form__datefield --no-focus mdl-textfield mdl-js-textfield">
+                        <span ng-if="authorViewer.editMode" class="wri_form__datefield --no-focus mdl-textfield">
                             <i class="material-icons wri_icon-label">cake</i>
                             <input class="mdl-textfield__input" type="date" id="article-birthDate" ng-model="authorViewer.authorTmp.birthDate">
                         </span>
                     </div>
                     <div class="wri_author-gender">  
-                        <span ng-if="!authorViewer.editMode"><i class="material-icons wri_icon-label">wc</i>{{authorViewer.author.gender}}</span>    
-                        
-                        
+                        <span ng-if="!authorViewer.editMode" ng-switch="authorViewer.author.gender">
+                            <i class="material-icons wri_icon-label">wc</i>
+                            <span ng-switch-when="M">Male</span>
+                            <span ng-switch-when="W">Female</span>
+                        </span>   
+
                         <span ng-if="authorViewer.editMode">
                             <i class="material-icons wri_icon-label">wc</i>
 
@@ -70,13 +78,19 @@
             
             <ul ng-if="!authorViewer.editMode" class="wri_article-viewer__status-list">
                 <li>
-                    <a href="mailto:{{authorViewer.author.email}}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                    <a href="mailto:{{authorViewer.author.email}}" 
+                    class="mdl-button mdl-js-button mdl-js-ripple-effect" 
+                    ng-class="{'--wri_disabled': !authorViewer.author.email}" 
+                    ng-disabled="!authorViewer.author.linkedIn">
                         <i class="material-icons">mail</i>
                         <span>Send mail</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{authorViewer.author.linkedIn}}" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                    <a href="{{authorViewer.author.linkedIn}}" 
+                    class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                    ng-class="{'--wri_disabled': !authorViewer.author.linkedIn}" 
+                    ng-disabled="!authorViewer.author.linkedIn">
                         <i class="wri_linked-in"></i>
                         <span>View Profile</span>
                     </a>
@@ -86,4 +100,117 @@
             <text-angular-toolbar class="wri_text-toolbar" ng-if="authorViewer.editMode" name="author-toolbar"></text-angular-toolbar>
         </div>
     </header>
+    <main class="mdl-layout__content --wri_scrollY-area" ng-class="{'--edit-mode': authorViewer.editMode}">
+        <section class="wri_article__keywords">
+            <div class="wri_article__keywords__inside" ng-if="authorViewer.editMode || authorViewer.showContact">
+                <div class="wri_article__section__header">
+                    <span class="wri_article__section__header__title --wri_space-bottom">Contact</span>
+                </div>
+                <div ng-if="authorViewer.editMode" class="wri_form__textfield --icon --icon-photo_camera mdl-textfield">
+                    <input class="mdl-textfield__input wri_author-photo__form" type="text" id="author-photo" ng-model="authorViewer.authorTmp.photoUrl" placeholder="Picture link...">
+                    <label class="mdl-textfield__label" for="author-photo"></label> 
+                </div>
+
+
+                <div ng-if="authorViewer.editMode" class="wri_form__textfield --icon --icon-email mdl-textfield">
+                    <input class="mdl-textfield__input wri_author-email__form" type="email" id="author-email" ng-model="authorViewer.authorTmp.email" placeholder="Email address...">
+                    <label class="mdl-textfield__label" for="author-email"></label> 
+                </div>
+                <div ng-if="!authorViewer.editMode" class="wri_form__textfield --icon --icon-email mdl-textfield">
+                    <span ng-if="authorViewer.author.email != null">{{authorViewer.author.email}}</span> 
+                    <span class="wri_empty-message" ng-if="!authorViewer.author.email">No email saved</span> 
+                </div>
+
+
+                <div ng-if="authorViewer.editMode" class="wri_form__textfield --icon-linked_in mdl-textfield">
+                    <i class="wri_icon__linked-in"></i>
+                    <input class="mdl-textfield__input wri_author-email__form" type="text" id="author-linked-in" ng-model="authorViewer.authorTmp.linkedIn" placeholder="LinkedIn URL profile...">
+                    <label class="mdl-textfield__label" for="author-linked-in"></label> 
+                </div>
+                <div ng-if="!authorViewer.editMode" class="wri_form__textfield --icon-linked_in mdl-textfield">
+                    <i class="wri_icon__linked-in"></i>
+                    <span ng-if="authorViewer.author.linkedIn != null">{{authorViewer.author.linkedIn}}</span> 
+                    <span class="wri_empty-message" ng-if="!authorViewer.author.linkedIn">No LinkedIn profile</span> 
+                </div>
+            </div>
+                <div class="wri_article__main-informations__action" ng-if="!authorViewer.editMode">
+                    <div class="wri_article__main-informations__action__toggle-abstract">
+                        <a ng-click="authorViewer.toggleContact()">
+                            <span ng-if="!authorViewer.showContact">Show</span>
+                            <span ng-if="authorViewer.showContact">Hide</span>
+                            Contact details
+                        </a>
+                    </div>
+                </div>
+        </section>
+        <section class="wri_article__main-informations">
+            <div class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-abstract">
+                <div class="wri_article__main-informations__inside">
+                    <div class="wri_article__main-informations__title">
+                        <span class="--wri_space-bottom">Description</span>
+                    </div>
+                    <text-angular 
+                        ta-target-toolbars="author-toolbar" 
+                        ta-focussed-class="no-style" 
+                        ng-if="authorViewer.editMode"
+                        ng-model="authorViewer.authorTmp.description">
+                    </text-angular>
+                    <div 
+                        class="wri_author-viewer__author-content"
+                        ng-if="!authorViewer.editMode"
+                        ng-bind-html="authorViewer.author.description">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="wri_article__references">
+            <div class="wri_article__references__inside">
+                <div class="wri_article__section__header">
+                    <span class="wri_article__section__header__title">Articles</span>
+                    <a ng-if="authorViewer.author.articles.length > 10" class="wri_article__section__header__show-all" ng-click="authorViewer.showAllArticles()">
+                        Show all articles
+                    </a>
+                </div>
+                <ul class="wri_article__references__list" ng-if="!authorViewer.editMode && authorViewer.author.articles.length > 0">
+                    <li class="wri_article__references__list__reference" ng-repeat="article in authorViewer.author.articles | limitTo: 10">
+                        <span class="mdl-chip" ng-click="authorViewer.openAuthor(article)">
+                            <span class="mdl-chip__text">{{author.name}}</span>
+                        </span>
+                    </li>
+                </ul>
+                <p class="wri_article__section__counter" ng-if="authorViewer.editMode || authorViewer.author.articles.length == 0"> 
+                    This author has {{authorViewer.author.articles.length}} {{ (authorViewer.author.articles.length > 1) ? "articles" : "article"}}
+                </p>
+                <div class="wri_article__references__selector" ng-if="authorViewer.editMode">
+                    <div class="wri_article__section__action">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="authorViewer.selectArticles()">
+                            Update articles
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer ng-if="authorViewer.editMode">
+        <div ng-if="!authorViewer.author.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': authorViewer.author.name == null || authorViewer.author.name == ''}" ng-disabled="authorViewer.author.name == null || authorViewer.author.name == ''" ng-click="authorViewer.createAuthor(authorViewer.author.id != manageCtrl.viewer.itemToShow.id)">
+                Create
+            </button>
+        </div>
+        <div ng-if="authorViewer.author.id != null" class="wri_article-viewer__footer__actions --updating mdl-shadow--8dp">
+            <div>
+                <button  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action --delete" ng-click="authorViewer.deleteAuthor()">
+                    Delete
+                </button>
+            </div>
+            <div>
+                <button ng-if="authorViewer.author.id != null" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="authorViewer.cancelEdition()">
+                    Cancel
+                </button>
+                <button ng-if="authorViewer.author.id != null" ng-class="{'--wri_disabled': authorViewer.author.name == null || authorViewer.author.name == ''}" ng-disabled="authorViewer.author.name == null || authorViewer.author.name == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="authorViewer.updateAuthor()">
+                    Update
+                </button>
+            </div>
+        </div>
+    </footer>
 </div>

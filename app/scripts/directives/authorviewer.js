@@ -40,6 +40,7 @@ function authorViewerCtrl($rootScope, $scope, Authors) {
   ctrl.createAuthor = createAuthor;
   ctrl.cancelEdition = cancelEdition;
   ctrl.deleteAuthor = deleteAuthor;
+  ctrl.toggleContact = toggleContact;
   ctrl.turnEditMode = turnEditMode;
   ctrl.updateAuthor = updateAuthor;
 
@@ -110,6 +111,15 @@ function authorViewerCtrl($rootScope, $scope, Authors) {
   function turnEditMode() {
     ctrl.editMode = true;
     ctrl.authorTmp = _.pick(ctrl.author, ctrl.authorFields);
+  }
+
+  /**
+   * @name toggleContact
+   * @desc Will show/hide contact fo the autor
+   * @memberOf Directives.authorViewer
+   */
+  function toggleContact() {
+    ctrl.showContact = !ctrl.showContact;
   }
   // [METHODS : end]
 
