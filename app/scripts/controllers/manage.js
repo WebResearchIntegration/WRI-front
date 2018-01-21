@@ -32,6 +32,7 @@
       ctrl.disableSelector = disableSelector;
       ctrl.getType = getType;
       ctrl.getCurrentTab = getCurrentTab;
+      ctrl.resetSelection = resetSelection;
       ctrl.selectItem = selectItem;
       ctrl.showCategory = showCategory;
       ctrl.toggleViewer = toggleViewer;
@@ -86,6 +87,17 @@
          */
         function getCurrentTab() {
             return _.findKey(ctrl.manageTabs, _.partial(_.isEqual, true));
+        }
+
+        /**
+         * @name resetSelection
+         * @desc reset selection in current selector
+         * @return {String} tab   the active tab on the page
+         */
+        function resetSelection() {
+            Selector.cleanList();
+            ctrl.selectionSize = Selector.getSelectionSize();
+            $scope.$broadcast('manage:reset-list');
         }
 
         /**
@@ -157,7 +169,7 @@
         function changeCloserIcon(){
             $timeout(function(){
                 ctrl.viewer.closerIcon = getViewerCloserIcon();
-            }, 400);
+            }, 200);
         }
 
         /**

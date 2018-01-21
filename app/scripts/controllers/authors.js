@@ -57,7 +57,15 @@ angular.module('wriApp')
         // [METHODS: end]
         
         // [PRIVATE METHODS: begin]
-
+            /**
+             * @name reinitSelection()
+             * @desc will unselect all authors
+             */
+            function reinitSelection() {
+                if (Selector.getSelectionType() == "authors"){
+                    Selector.reinitSelection(ctrl.authors); 
+                }
+            }
         // [PRIVATE METHODS: end]
 
 
@@ -65,6 +73,10 @@ angular.module('wriApp')
         $rootScope.$on("authors:refresh", function(event){
             // event.stopPropagation();
             init();
+        });
+
+        $scope.$on("manage:reset-list", function(event){
+            reinitSelection();
         });
 
         // [WATCHERS]
@@ -89,7 +101,7 @@ angular.module('wriApp')
         $rootScope.$on('sendFilters', function(event, data) {
             if(data === 'reset'){
                 $scope.filter = {};  
-                $scope.order = {};
+                $scope.order = 'id';
             } else {
                 $scope.filter = data;
             }

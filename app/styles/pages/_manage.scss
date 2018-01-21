@@ -21,10 +21,45 @@
         }
 
         .wri_manage-filter {
-            padding: 10px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding:15px 25px;
 
-            .wri_selector__indicator {
-                text-transform: capitalize;
+
+            .wri_selector {
+                display: flex;
+                flex-direction: column;
+                min-height: 120px;
+                
+                .wri_selector__header{
+                    padding: 10px;
+                } 
+                
+                .wri_selector__indicator {
+                    text-transform: capitalize;
+                }
+
+                .wri_selector__actions{
+                    flex: 1;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    background: #313231;
+                    color: grey;
+
+                    .material-icons {
+                        cursor: pointer;
+                    }
+                    
+                    .wri_selector__action {
+                        @each $category, $color in (cancel: #b11e1e, valid: #109510, reset: #3374c8) {
+                            &.--#{$category}:hover, &.--#{$category}:active {
+                                color: $color;
+                            }
+                        }
+                    }
+                } 
             }
         }
         

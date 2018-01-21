@@ -8,7 +8,7 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('notesCtrl', function ($scope, ngDialog, $rootScope, $compile, Notes) {
+    .controller('notesCtrl', function ($scope, ngDialog, $rootScope, $compile, Notes, Selector) {
         
         var ctrl = this;
 
@@ -49,11 +49,24 @@ angular.module('wriApp')
         // [METHODS : end]
 
         // [PRIVATE METHODS : begin]
+            /**
+             * @name reinitSelection()
+             * @desc will unselect all notes
+             */
+            function reinitSelection() {
+                if (Selector.getSelectionType() == "notes"){
+                    Selector.reinitSelection(ctrl.notes); 
+                }
+            }
         // [PRIVATE METHODS : end]
 
         // [EVENTS]
         $rootScope.$on('notes:refresh', function(event) {
             init();
+        });
+
+        $scope.$on("manage:reset-list", function(event){
+            reinitSelection();
         });
 
         $rootScope.$on('sendFilters', function(event, data) {
