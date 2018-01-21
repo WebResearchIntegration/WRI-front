@@ -27,12 +27,15 @@ angular
       .when('/manage', {
         templateUrl: 'views/manage.html',
         controller: 'manageCtrl',
-        controllerAs: 'manageCtrl' 
+        controllerAs: 'manageCtrl',
+        resolve: {
+          access: ["Auth", function(Auth) {return Auth.isAuthenticated()}]
+        }
       })
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
-        controllerAs: 'login' 
+        controllerAs: 'login'
       })
       .otherwise({
         redirectTo: '/'
