@@ -19,9 +19,10 @@ angular
     'restangular',
     'ngDialog',
     'textAngular',
-    'selectize'
+    'selectize',
+    'LocalStorageModule'
   ])
-  .config(function ($routeProvider, RestangularProvider, $provide) {
+  .config(function ($routeProvider, RestangularProvider, $provide, localStorageServiceProvider) {
     $routeProvider
       .when('/manage', {
         templateUrl: 'views/manage.html',
@@ -39,8 +40,11 @@ angular
 
     // [RESTANGuLAR CONFIG: START]
     RestangularProvider.setBaseUrl('http://localhost:8888/api/'); // FOR PROD: https://api-wri.herokuapp.com/api/
-
     // [RESTANGuLAR CONFIG: END]
+
+    // [LOCALSTORAGECONFIG]
+    localStorageServiceProvider.setStorageType('localStorage');
+    // [LOCALSTORAGECONFIG: END]
     
     $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function(taRegisterTool, taOptions){
       taRegisterTool('separator', {
