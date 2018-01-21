@@ -225,6 +225,10 @@
         $scope.$on("articles:new", function(event, emptyArticle){
             loadItemInViewer(emptyArticle, true);
         });
+
+        $scope.$on("authors:new", function(event, emptyAuthor){
+            loadItemInViewer(emptyAuthor, true);
+        });
         
         $scope.$on("notes:new", function(event, emptyNote){
             loadItemInViewer(emptyNote, true);
