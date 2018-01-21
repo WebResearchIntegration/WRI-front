@@ -23,7 +23,7 @@ function authorViewerDirective() {
   };
 }
 
-function authorViewerCtrl($rootScope, $scope, Authors) {
+function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector) {
 
   var ctrl = this;
 
@@ -40,6 +40,8 @@ function authorViewerCtrl($rootScope, $scope, Authors) {
   ctrl.createAuthor = createAuthor;
   ctrl.cancelEdition = cancelEdition;
   ctrl.deleteAuthor = deleteAuthor;
+  ctrl.selectArticles = selectArticles;
+  ctrl.showAllArticles = showAllArticles;
   ctrl.toggleContact = toggleContact;
   ctrl.turnEditMode = turnEditMode;
   ctrl.updateAuthor = updateAuthor;
@@ -61,7 +63,6 @@ function authorViewerCtrl($rootScope, $scope, Authors) {
    * @memberOf Directives.authorViewer
    */
   function createAuthor() {
-    ctrl.author = ctrl.authorTmp;
     Authors.create(ctrl.authorTmp).then(function (authorAdded) {
       ctrl.author = authorAdded;
       ctrl.editMode = false;
@@ -76,7 +77,7 @@ function authorViewerCtrl($rootScope, $scope, Authors) {
    */
   function cancelEdition() {
     ctrl.editMode = false;
-    ctrl.authorTmp = _.pick(ctrl.author, ctrl.authorFields);
+    ctrl.authorTmp = null;
   }
 
   /**
@@ -100,9 +101,36 @@ function authorViewerCtrl($rootScope, $scope, Authors) {
    */
   function loadAuthor(author) {
     ctrl.authorTmp = null;
-    ctrl.authorTmp = _.pick(ctrl.author, ctrl.authorFields);
+    ctrl.author = author;
+
+    if(!_.isArray(ctrl.author.articles)){
+      transformIntoArr("articles", true);
+    }
+
+    if(ctrl.editMode){
+      turnEditMode();
+    }
   }
 
+  /**
+   * @name selectArticles
+   * @desc Will turn on edit mode for author
+   * @memberOf Directives.authorViewer
+   */
+  function selectArticles() {
+    $scope.$emit('select:articles');
+    Selector.loadSelection(ctrl.author.articles);
+  }
+
+  /**
+   * @name showAllArticles
+   * @desc Will turn on edit mode for author
+   * @memberOf Directives.authorViewer
+   */
+  function showAllArticles() {
+    // filter list with all articles of current author
+  }
+  
   /**
    * @name turnEditMode
    * @desc Will turn on edit mode for author
@@ -124,6 +152,39 @@ function authorViewerCtrl($rootScope, $scope, Authors) {
   // [METHODS : end]
 
   // [PRIVATE FUNCTIONS : begin]
+    /**
+     * @name insertDataInto
+     * @desc Will update author property passed as param into an array
+     * @param {Boolean}  onlyObject   check if the current property has to be an object
+     * @memberOf Directives.authorViewer
+     */
+    function insertDataInto() {
+      var itemsSelected = Selector.getSelection();
+      ctrl.authorTmp.articles = itemsSelected;
+      Selector.disable();
+    }
+
+
+      /**
+     * @name transformIntoArr
+     * @desc Will update author property passed as param into an array
+     * @param {Object}  property   property to transform into an array
+     * @param {Boolean}  onlyObject   check if the current property has to be an object
+     * @memberOf Directives.authorViewer
+     */
+    function transformIntoArr(property, onlyObject) {
+      onlyObject = onlyObject || false;
+      var returnArr = [];
+      if (!_.isEmpty(ctrl.author[property])){
+        if (onlyObject && _.isObject(ctrl.author[property])){
+          returnArr.push(ctrl.author[property]);
+        }
+        else if (!onlyObject){
+          returnArr.push(ctrl.author[property]);
+        }
+      }
+      ctrl.author[property] = returnArr;
+    }
 
   /**
    * @name updateAuthor
@@ -133,7 +194,7 @@ function authorViewerCtrl($rootScope, $scope, Authors) {
    * @memberOf Directives.authorViewer
    */
   function updateAuthor() {
-    _.assignIn(ctrl.author, ctrl.authorTmp);
+    _.merge(ctrl.author, ctrl.authorTmp);
 
     Authors.updateById(ctrl.author.id, ctrl.author).then(function (authorUpdated) {
       ctrl.editMode = false;
@@ -150,5 +211,14 @@ function authorViewerCtrl($rootScope, $scope, Authors) {
       loadAuthor(ctrl.author);
     }
   });
+
+  $scope.$watch( function(){
+    return Selector.selectionValidated;
+  }, function(newVal, oldVal){
+    if (newVal){
+      insertDataInto();
+      Selector.receiptSelection();
+    }
+  }, true);
 }
 
