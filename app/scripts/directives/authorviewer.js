@@ -23,7 +23,7 @@ function authorViewerDirective() {
   };
 }
 
-function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector) {
+function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, textToolbar) {
 
   var ctrl = this;
 
@@ -31,6 +31,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector) {
   // All attributes are binded after $onInit(). They will be accessible as ctrl.[attributeName]
   ctrl.authorFields;    // author fields accessible
   ctrl.authorTmp;       // temporary author during edition
+  ctrl.textToolbar;     // toolbar for description's text block
 
   // [INIT]
   // ctrl.$onInit = loadAuthor; /* Angular 1.5+ does not bind attributes until calling $onInit() */
@@ -55,6 +56,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector) {
    */
   function init(){
     ctrl.authorFields = ['name', 'email', 'linkedIn', 'rating', 'birthDate', 'gender', 'photoUrl', 'description', 'articles'];
+    ctrl.textToolbar = textToolbar.getSimpleToolbar();
   }
 
   /**
