@@ -67,9 +67,4 @@ function viewerDrawerCtrl($scope, $compile){
     // [PRIVATE METHODS : end]
 
     // [EVENT]
-        $scope.$watch(function(){
-            return ctrl.type;
-        }, function(newVal, oldVal) {
-            console.log("type for viewer :", ctrl.type);
-        });
 }

@@ -50,7 +50,6 @@ angular.module('wriApp')
      */
     service.delete = function (id) {
       return service.getById(id).then(function(note) {
-              console.log(note);
               note.remove();
           });
     }
