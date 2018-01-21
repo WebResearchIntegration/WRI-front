@@ -8,10 +8,10 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-  .controller('HeaderCtrl', function () {
+  .controller('HeaderCtrl', function ($rootScope) {
     var ctrl = this;
 
     ctrl.isCurrentUserConnected =  function(){
       return false;
-     }  
+    };
 });
