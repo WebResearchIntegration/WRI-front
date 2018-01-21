@@ -88,4 +88,18 @@ angular
     //   }
     // });
 
+  }).run(function ($rootScope, $location) {
+    $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
+      if (rejection === 'Not Authenticated') {
+        console.log(">>> USER NOT AUTHENTICATED");
+        $location.path('/login');
+      }
+    });
+  }).run(function ($http, localStorageService, $location) {
+    if(localStorageService.get("token")) {
+      var token = localStorageService.get("token");
+      $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    } else {
+      $location.path('/login');
+    }
   });
