@@ -68,7 +68,7 @@
     bottom: 10px;
     left: 10px;
     z-index: 99;
-    height: 100px;
+    min-height: 100px;
     width: 300px;
     background: white;
     overflow: auto;
@@ -113,6 +113,7 @@
 }
 @import "_variables.scss";
 @import "globals/_main-rules.scss";
+@import "globals/_icons.scss";
 @import "globals/_forms.scss";
 @import "globals/_global-classes.scss";
 @import "globals/_grid-structure.scss";

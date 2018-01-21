@@ -126,6 +126,7 @@ angular.module('wriApp')
        */
       function receiptSelection(){
         factory.selectionValidated = false;
+        cleanList();
       }
 
       /**

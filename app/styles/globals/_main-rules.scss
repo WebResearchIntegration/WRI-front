@@ -37,6 +37,10 @@ p {
     margin: 0;
 }
 
+.mdl-textfield__input {
+    border: none;
+}
+
 ::-webkit-scrollbar {
     border: none;
     background: transparent;
@@ -57,7 +61,7 @@ p {
     display: none;
 }
 
-::-webkit-resizer {
-    background-image: url("../assets/expand.svg");
-    cursor: se-resize;
-}
+// ::-webkit-resizer {
+//     background-image: url("../assets/icons/expand.svg");
+//     cursor: se-resize;
+// }
