@@ -9,9 +9,7 @@
  */
 angular.module('wriApp')
   .controller('LoginCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    var ctrl = this;
+
+    
   });

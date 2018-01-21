@@ -28,12 +28,17 @@ angular
         controller: 'manageCtrl',
         controllerAs: 'manageCtrl' 
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login' 
+      })
       .otherwise({
         redirectTo: '/'
       });
 
     // [RESTANGuLAR CONFIG: START]
-    RestangularProvider.setBaseUrl('http://localhost:8888/api/');
+    RestangularProvider.setBaseUrl('http://localhost:8888/api/'); // FOR PROD: https://api-wri.herokuapp.com/api/
 
     // [RESTANGuLAR CONFIG: END]
     

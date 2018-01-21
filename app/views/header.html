@@ -1,15 +1,17 @@
 <!-- Always shows a header, even in smaller screens. -->
-<div class="mdl-layout wri-app-header">
+<div class="mdl-layout wri-app-header" ng-controller="HeaderCtrl as header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link" href="">Home</a>
-        <a class="mdl-navigation__link" href="#!manage">Manage</a>
+        <a class="mdl-navigation__link" ng-href="">Home</a>
+        <a class="mdl-navigation__link" ng-href="#!manage">Manage</a>
         <a class="mdl-navigation__link" href="">Discover</a>
         <a class="mdl-navigation__link" href="">Visualize</a>
+        <a class="mdl-navigation__link" ng-if="!header.isCurrentUserConnected()" ng-href="#!/login">Login</a>
+        <a class="mdl-navigation__link" ng-if="header.isCurrentUserConnected()" ng-href="#!/profile">Profile</a>
       </nav>
     </div>
   </header>
