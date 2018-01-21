@@ -42,7 +42,8 @@ angular
       });
 
     // [RESTANGuLAR CONFIG: START]
-    RestangularProvider.setBaseUrl('http://localhost:8888/api/'); // FOR PROD: https://api-wri.herokuapp.com/api/
+    RestangularProvider.setBaseUrl('http://localhost:3000/api/'); // FOR PROD: https://api-wri.herokuapp.com/api/
+    // FOR LOCAL: http://localhost:3000/api/
     // [RESTANGuLAR CONFIG: END]
 
     // [LOCALSTORAGECONFIG]

@@ -8,16 +8,22 @@
  * Factory in the wriApp.
  */
 angular.module('wriApp')
-  .factory('UserFactory', function () {
-    // Service logic
-    // ...
+  .factory('UserFactory', function (localStorageService) {
+    var UserFactory = this;
 
-    var meaningOfLife = 42;
+    UserFactory.currentUser = null;
 
-    // Public API here
-    return {
-      someMethod: function () {
-        return meaningOfLife;
+    UserFactory.getCurrentUser = function (callback) {
+      var user = localStorageService.get("user");
+
+      if (user) {
+        // console.log("Get the user: ", user);
+        callback(user);
+      } else {
+        callback(null);
       }
-    };
+    }
+
+    return UserFactory;
+
   });

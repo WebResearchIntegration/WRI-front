@@ -8,8 +8,14 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-  .controller('LoginCtrl', function (Auth) {
+  .controller('LoginCtrl', function ($location, Auth, UserFactory) {
     var ctrl = this;
+
+    Auth.isAuthenticated().then(function (result) {
+      $location.path('/manage');
+    }, function (err) {
+      console.log('Not connected');
+    });
 
     /**
      * @name handleRequest
@@ -22,13 +28,12 @@ angular.module('wriApp')
       console.log(event);
       Auth.signIn(ctrl.email, ctrl.password, function (err, authenticatedUser) {
         if (err) {
-          console.log('Voici', err);
           console.log(ctrl.notifError);
           ctrl.notifError = true;
         } else {
           console.log(authenticatedUser);
           UserFactory.currentUser = authenticatedUser;
-          $location.path('/manage');
+          $location.path('/');
           ctrl.notifError = false;
         }
       });

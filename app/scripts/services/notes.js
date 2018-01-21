@@ -15,14 +15,14 @@ angular.module('wriApp')
      * 
      */
     service.getAll = function () {
-      return Restangular.all('note').getList();
+      return Restangular.all('notes').getList();
     };
 
     /**
      * 
      */
     service.getById = function (id) {
-      return Restangular.one('note', id).get();
+      return Restangular.one('notes', id).get();
     };
 
     /**
@@ -31,7 +31,7 @@ angular.module('wriApp')
      */
     service.create = function (note) {
       // ADD OBJECT CONTROL
-      return Restangular.service('note').post(note);
+      return Restangular.service('notes').post(note);
     }
 
     /**

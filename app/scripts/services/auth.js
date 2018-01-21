@@ -69,5 +69,5 @@ angular.module('wriApp')
     // [PRIVATE METHODS]
 
     // [END PRIVATE METHODS]
-    return service;
+    return authService;
   });
