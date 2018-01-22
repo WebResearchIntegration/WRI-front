@@ -225,8 +225,9 @@
                 <div class="wri_article__notes__content" ng-if="!articleViewer.editMode">
                     <ul class="wri_article__notes__list" ng-if="articleViewer.article.notes.length > 0">
                         <article ng-repeat="note in articleViewer.article.notes | limitTo: 5" class="mdl-card mdl-shadow--4dp wri_article_notes_list_note"> 
-                            <div class="mdl-card__supporting-text">
-                                {{note.text}}
+                            <div 
+                                class="mdl-card__supporting-text"
+                                ng-bind-html="note.text">
                             </div>
                         </article>
                     </ul>
