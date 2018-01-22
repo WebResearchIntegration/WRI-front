@@ -21,7 +21,8 @@ angular
     'textAngular',
     'selectize',
     'LocalStorageModule',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'nvd3'
   ])
   .config(function ($routeProvider, RestangularProvider, $provide, localStorageServiceProvider) {
     $routeProvider
