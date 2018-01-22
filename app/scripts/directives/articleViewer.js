@@ -23,7 +23,7 @@ function articleViewerDirective() {
   };  
 }
 
-function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
+function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) {
 
   var ctrl = this;
 
@@ -35,6 +35,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
   ctrl.showAbstract;      // boolean to know if we show abstract or not
   ctrl.showProbSoluce;    // boolean to know if we show problematic and soluce or not
   ctrl.keywordsSelectize; // object to setup selectize for keywords
+  ctrl.textToolbar;       // text toolbar for edit problematic, solution, and abstract of article
     
   // [INIT]
     // ctrl.$onInit = onInit; /* Angular 1.5+ does not bind attributes until calling $onInit() */
@@ -126,7 +127,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
     function loadArticle(article) {
 
       // Main informations
-      if(!_.isEmpty(article.problematic) && !_.isEmpty(article.problematic)){
+      if(!_.isEmpty(_.trim(article.problematic)) && !_.isEmpty(_.trim(article.problematic))){
         ctrl.showProbSoluce = true;
         ctrl.showAbstract = false;
       }
@@ -169,6 +170,10 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
         },
         options: [{id:1, text: "interest"}] // get all keywords from database
       };
+
+      if(ctrl.editMode){
+        turnEditMode();
+      }
     }
     
     /**
@@ -207,6 +212,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
      */
     function turnEditMode() {
       ctrl.editMode = true;
+      ctrl.textToolbar = textToolbar.getSimpleToolbar();
       ctrl.articleTmp = angular.copy(ctrl.article);
     } 
 
