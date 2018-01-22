@@ -53,8 +53,7 @@
        * @memberOf Directives.questionViewer
        */
       function createQuestion() {
-        ctrl.question = ctrl.questionTmp;
-        Questions.create(ctrl.question).then(function(questionAdded){
+        Questions.create(ctrl.questionTmp).then(function(questionAdded){
             ctrl.question = questionAdded;
             ctrl.editMode = false;
             $rootScope.$emit("questions:refresh");

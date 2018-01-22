@@ -203,9 +203,14 @@
          * @param {Boolean}  inEditor    true if we want to load the item in editor
          * @memberOf Controllers.manage
          */
-        function loadItemInViewer(item, inEditor) {
+        function loadItemInViewer(item, inEditor, type) {
             ctrl.viewer.editMode = inEditor || false;
-            ctrl.viewer.itemToShowType = getType();
+            if (type) {
+                ctrl.viewer.itemToShowType = type;
+            }
+            else {
+                ctrl.viewer.itemToShowType = getType();
+            }
             ctrl.viewer.itemToShow = item;
             openViewerSafely();
         }
@@ -224,12 +229,28 @@
 
         /**
          * @name sliceBy
-         * @desc return the arrow in opposite direction of viewer expansion
+         * @desc 
          * @memberOf Controllers.manage
          */
         function sliceBy(string, separator, end) {
-            var startSliceAt = string.indexOf(separator)+separator.length;
-            return string.slice(startSliceAt, end);
+            var result = "";
+            var startSliceAt = string.indexOf(separator);
+
+            if (end !== 0) {
+                end = end || string.length;
+            }
+
+            if (end > startSliceAt){
+                result = string.slice(startSliceAt + separator.length, end);
+            }    
+            else if (startSliceAt == end){
+                result = string.slice(end);
+            }
+            else {
+                result = string.slice(end, startSliceAt);
+            }
+
+            return result;
         }
         // [PRIVATE FUNCTIONS : end]
 
@@ -251,7 +272,13 @@
         });
 
         $scope.$on("reference:open", function(event, article){
-            loadItemInViewer(article);
+            var category = sliceBy(event.name, ":", 0);
+            loadItemInViewer(article, false, category);
+        });
+
+        $scope.$on("author:open", function(event, author){
+            var category = sliceBy(event.name, ":", 0);
+            loadItemInViewer(author, false, category);
         });
 
         $scope.$on("select:articles", function(event){

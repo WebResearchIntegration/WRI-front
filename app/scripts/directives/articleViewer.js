@@ -47,6 +47,7 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
     ctrl.createNoteFor = createNoteFor;
     ctrl.deleteArticle = deleteArticle;
     ctrl.loadArticle = loadArticle;
+    ctrl.openAuthorProfile = openAuthorProfile;
     ctrl.openReference = openReference;
     ctrl.selectAuthors = selectAuthors;
     ctrl.selectNotes = selectNotes;
@@ -73,16 +74,13 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
     /**
      * @name createArticle
      * @desc Will create a new article
-     * @param {Boolean} duringEdition 
      * @memberOf Directives.articleViewer
      */
-    function createArticle(duringEdition) {
-      Articles.create(ctrl.article).then(function(article){
-        if(!duringEdition){
-          ctrl.article = article;
-          ctrl.editMode = false;
-        }
-        $scope.$emit("articles:refresh");
+    function createArticle() {
+      Articles.create(ctrl.articleTmp).then(function(articleAdded){
+        ctrl.article = articleAdded;
+        ctrl.editMode = false;
+        $rootScope.$emit("articles:refresh");
       });
     }
 
@@ -101,9 +99,11 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
      * @memberOf Directives.articleViewer
      */
     function cancelEdition(){
-      ctrl.article = ctrl.articleTmp;
       ctrl.editMode = false;
-      $scope.$emit("articles:refresh");
+      ctrl.articleTmp = null;
+      if(!ctrl.article.id){
+        ctrl.article = null;
+      }
     }
 
     /**
@@ -113,9 +113,9 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
      */
     function deleteArticle() {
       var articleID = ctrl.article.id;
-      ctrl.article = null;
       Articles.delete(articleID).then(function(){
           $scope.$emit("articles:refresh");
+          ctrl.article = null;
       });
     }
 
@@ -158,34 +158,26 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
       }
 
       ctrl.articleTmp = null;
-      ctrl.keywordsSelectize = {
-        config: {
-          create: true,
-          valueField: 'text',
-          labelField: 'text',
-          delimiter: ',',
-          placeholder: 'Add keywords',
-          onInitialize: function(selectize){
-            // receives the selectize object as an argument
-          },
-          render: {
-            item: function(data, escape) {
-              return '<span class="mdl-chip"><span class="mdl-chip__text">#' + escape(data.text) + '</span></span>';
-            }
-          }
-        },
-        options: [{id:1, text: "interest"}] // get all keywords from database
-      };
-
+      ctrl.article = article;
       if(ctrl.editMode){
         turnEditMode();
       }
     }
     
     /**
+     * @name openAuthorProfile
+     * @desc Will load the author in the viewer
+     * @param {Object}  author   author to load in viewer
+     * @memberOf Directives.articleViewer
+     */
+    function openAuthorProfile(author) {
+      $scope.$emit("author:open", author);
+    } 
+
+    /**
      * @name openReference
-     * @desc Will load the reference in the second viewer in readonly mode
-     * @param {Object}  article   article to load in second viewer
+     * @desc Will load the reference in the viewer
+     * @param {Object}  article   article to load in viewer
      * @memberOf Directives.articleViewer
      */
     function openReference(article) {
@@ -219,6 +211,24 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
     function turnEditMode() {
       ctrl.editMode = true;
       ctrl.textToolbar = textToolbar.getSimpleToolbar();
+      ctrl.keywordsSelectize = {
+        config: {
+          create: true,
+          valueField: 'text',
+          labelField: 'text',
+          delimiter: ',',
+          placeholder: 'Add keywords',
+          onInitialize: function(selectize){
+            // receives the selectize object as an argument
+          },
+          render: {
+            item: function(data, escape) {
+              return '<span class="mdl-chip"><span class="mdl-chip__text">#' + escape(data.text) + '</span></span>';
+            }
+          }
+        },
+        options: [{id:1, text: "interest"}] // get all keywords from database
+      };
       ctrl.articleTmp = angular.copy(ctrl.article);
     } 
 

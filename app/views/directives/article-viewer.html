@@ -146,7 +146,7 @@
                 </div>
                 <ul ng-if="!articleViewer.editMode && articleViewer.article.authors.length > 0" class="wri_article__authors__list">
                     <li class="wri_article__authors__list__author" ng-repeat="author in articleViewer.article.authors | limitTo: 10">
-                        <span class="mdl-chip mdl-chip--contact" ng-click="openAuthorProfile(author.id)">
+                        <span class="mdl-chip mdl-chip--contact" ng-click="articleViewer.openAuthorProfile(author)">
                             <img ng-if="author.photoUrl" class="mdl-chip__contact" src="{{author.photoUrl}}"></img>
                             <span ng-if="!author.photoUrl" class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{author.name | limitTo: 1}}</span>
                             <span class="mdl-chip__text">{{author.name}}</span>
