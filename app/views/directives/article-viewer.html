@@ -41,7 +41,7 @@
             </div>
             <ul ng-if="!articleViewer.editMode" class="wri_article-viewer__status-list">
                 <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isSaved}" ng-click="articleViewer.toggleStatus('isSaved')">
-                    <span class="mdl-chip__contact"><i class="material-icons">check</i></span>
+                    <span class="mdl-chip__contact"><i class="material-icons">save</i></span>
                     <span class="mdl-chip__text">Saved</span>
                 </li>
                 <li class="mdl-chip mdl-chip--contact" ng-class="{'status-checked': articleViewer.article.isRead}" ng-click="articleViewer.toggleStatus('isRead')">

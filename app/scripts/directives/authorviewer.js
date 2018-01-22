@@ -137,7 +137,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    */
   function selectArticles() {
     $scope.$emit('select:articles');
-    Selector.loadSelection(ctrl.author.articles);
+    Selector.loadSelection(ctrl.authorTmp.articles);
   }
 
   /**
@@ -215,7 +215,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
   function updateAuthor() {
     var authorEdited = _.merge(ctrl.author, ctrl.authorTmp);
 
-    Authors.updateById(ctrl.author.id, ctrl.author).then(function (authorUpdated) {
+    Authors.updateById(authorEdited._id, authorEdited).then(function (authorUpdated) {
       ctrl.editMode = false;
       // TODO: update article viewer with last version from database
       loadAuthor(authorUpdated);

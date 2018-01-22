@@ -12,6 +12,10 @@ angular.module('wriApp')
         
         var ctrl = this;
 
+        // [PRIVATE VARIABLES]
+        var needToReinitList;
+        var needToSetList;
+
         // [PUBLIC VARIABLES]
         ctrl.notes;
 
@@ -32,6 +36,15 @@ angular.module('wriApp')
         function init(){
             Notes.getAll().then(function(notes) {
                 ctrl.notes = notes;
+
+                if(needToReinitList){
+                    needToReinitList = false;
+                    reinitSelection();
+                }
+                if (needToSetList){
+                    needToSetList = false;
+                    setSelection();
+                }
             });
         }
 
@@ -58,6 +71,16 @@ angular.module('wriApp')
                     Selector.reinitSelection(ctrl.notes); 
                 }
             }
+
+            /**
+             * @name setSelection()
+             * @desc will select all notes already present in the item which is being edited
+             */
+            function setSelection() {
+                if (Selector.getSelectionType() == "notes") {
+                    Selector.setSelectionInCtrl(ctrl.notes);
+                }
+            }
         // [PRIVATE METHODS : end]
 
         // [EVENTS]
@@ -69,9 +92,35 @@ angular.module('wriApp')
             reinitSelection();
         });
 
+        // [WATCHERS]
+        $scope.$watch(function(){
+            return Selector.isEnabled;
+        }, function(newVal, oldVal){
+            if (!ctrl.authors) {
+                needToReinitList = true;
+            }
+            else {
+                reinitSelection();
+            }
+        });
+
+        $scope.$watch(function(){
+            return Selector.itemsAlreadySelectedSize;
+        }, function(newVal, oldVal){
+            if(newVal != 0){
+                if(!ctrl.authors){
+                    needToSetList = true;
+                }
+                else {
+                    setSelection();
+                }
+            }
+        });
+
+        // [FILTER / ORDER]
         $rootScope.$on('sendFilters', function(event, data) {
             if(data === 'reset'){
-                $scope.filter = {}    
+                $scope.filter = {};   
                 $scope.order = {};
             } else {
                 $scope.filter = data;

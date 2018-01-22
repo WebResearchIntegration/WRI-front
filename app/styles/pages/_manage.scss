@@ -65,8 +65,65 @@
         
         .wri_manage-select {
             position: relative;
-            padding: 0 10px;
+            padding: 15px;
 
+            .wri_manage-select__item {
+                border-radius: 2px;
+                min-height: 160px;
+                background: white;
+                border: 3px solid transparent;
+
+                .wri_item-list__validator {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    z-index: 1;
+                    color: white;
+                }
+                
+                &.--selectable {
+                    position: relative;
+                    border: 3px solid #d4d7e4;
+
+                    &::before,
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        border-color: transparent;
+                        border-style: solid;
+                    }
+
+                    &:before {
+                        border-width: 1.5em;
+                        border-right-color: #d4d7e4;
+                        border-top-color: #d4d7e4;
+                    }
+
+                    &:after {
+                        border-radius: 0.4em;
+                        border-width: 1.35em;
+                        border-right-color: #d4d7e4;
+                        border-top-color: #d4d7e4;
+                    }
+                }
+
+                &.--selected {
+                    border-color: $primary;
+
+                    &:before, &:after {
+                        border-right-color:$primary;
+                        border-top-color:$primary;
+                    }
+                }
+                
+            }
+            .wri_item {
+
+            }
+
+            // NEW BUTTON
             .wri_manage-select__add-btn {
                 position: fixed;
                 right: calc(33% + 40px);

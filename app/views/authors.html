@@ -1,4 +1,9 @@
-<div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': author.isSelected}" ng-repeat="author in authorsCtrl.authors | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(author)">
+<div 
+ class="wri_manage-select__item wri_item-list__author --wri_interactive mdl-shadow--4dp" 
+ ng-class="{'--selectable': manageCtrl.selectMode, '--selected': author.isSelected}" 
+ ng-repeat="author in authorsCtrl.authors | filter : filter | orderBy : order" 
+ ng-click="manageCtrl.selectItem(author)">
+    <i class="material-icons wri_item-list__validator" ng-if="manageCtrl.selectMode"> {{author.isSelected? "check" : "add"}}</i>
     <span>{{author.name}}</span>
     <div class="validator" ng-class="{'selected-item-validator': author.isSelected, 'selected-item-validator-disabled': !author.isSelected}"
         ng-if="manageCtrl.selectMode">

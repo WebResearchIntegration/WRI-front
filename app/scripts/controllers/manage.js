@@ -78,6 +78,7 @@
          */
         function disableSelector() {
             Selector.disable();
+            $scope.$broadcast("manage:reset-list");
         }
 
         /**

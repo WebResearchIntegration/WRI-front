@@ -121,7 +121,7 @@ angular.module('wriApp')
         $scope.$watch(function(){
             return Selector.itemsAlreadySelectedSize;
         }, function(newVal, oldVal){
-            if(newVal != 0 ){
+            if(newVal != 0){
                 if(!ctrl.articles){
                     needToSetList = true;
                 }
