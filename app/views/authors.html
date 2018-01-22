@@ -4,11 +4,20 @@
  ng-repeat="author in authorsCtrl.authors | filter : filter | orderBy : order" 
  ng-click="manageCtrl.selectItem(author)">
     <i class="material-icons wri_item-list__validator" ng-if="manageCtrl.selectMode"> {{author.isSelected? "check" : "add"}}</i>
-    <span>{{author.name}}</span>
-    <div class="validator" ng-class="{'selected-item-validator': author.isSelected, 'selected-item-validator-disabled': !author.isSelected}"
-        ng-if="manageCtrl.selectMode">
-        <i class="material-icons" ng-if="author.isSelected">done</i>
-        <i class="material-icons" ng-if="!author.isSelected">add</i>
+    <div class="wri_item-list__author__picture">
+        <div 
+            class="wri_item-list__author__picture-content" 
+            ng-class="{'--no-picture': !author.photoUrl || author.photoUrl == ''}" 
+            style="background-image: url({{author.photoUrl}});">
+        </div>
+    </div>
+    <div class="wri_item-list__author__identity">
+        <h4 class="wri_item-list__authors__identity__name">{{author.name}}</h4>
+        <p class="wri_item-list__authors__identity__email">{{author.email}}</p>
+    </div>
+    <div class="wri_item-list__author__articles">
+        <i class="material-icons">description</i>
+        <span class="wri_item-list__authors__identity__articles-counter">{{author.articles.length}}</span>
     </div>
 </div>
 

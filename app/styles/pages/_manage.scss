@@ -71,6 +71,7 @@
                 margin: 15px 0;
                 background: white;
                 border: 3px solid transparent;
+                color: #757575;
                 transition: box-shadow .3s linear;
                 
 
@@ -191,6 +192,83 @@
                         + .wri_item-list__article__status {
                             margin-top: 20px;
                         }
+                    }
+                }
+            }
+
+            .wri_item-list__author {
+                display: flex;
+                height: 100px;
+
+                .wri_item-list__author__picture {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 20px;
+                    width: max-content;
+
+                    .wri_item-list__author__picture-content {
+                        position: relative;
+                        height: 80px;
+                        width: 80px;
+                        border-radius: 100%;
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-color: rgba(0,0,0,0.4);
+                
+                        &.--no-picture {
+                            &:after {
+                                z-index: 1;
+                            }
+                        }
+                
+                        &:after {
+                            content: '';
+                            z-index: -1;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            height: 80px;
+                            width: 80px;
+                            border-radius: 100%;
+                            background-image: url("../assets/images/default-picture-profile.jpg");
+                            background-size: cover;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                        }
+                    }
+                }
+                
+                .wri_item-list__author__identity {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    flex-grow: 1;
+                    padding: 10px 20px;
+
+                    .wri_item-list__authors__identity__name {
+                        font-size: 22px;
+                        margin: 0px;
+                        margin-bottom: 15px;
+                    }
+                    .wri_item-list__author__identity__email {
+                        font-style: italic;
+                    }
+                }
+
+                .wri_item-list__author__articles {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0 20px;
+
+                    .material-icons {
+                        display: block;
+                        font-size: 28px;
+                        margin-bottom: 10px;
+                        color: #AFAFAF;
                     }
                 }
             }
