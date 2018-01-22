@@ -16,8 +16,8 @@
             <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Log in</button>
           </form>
         </div>
-        <div class="mdl-card__actions mdl-card--border">
-          
+        <div class="mdl-card__actions mdl-card--border" ng-if="login.notifError" style="color: red">
+          Unable to authenticate the user, please try again.
         </div>
       </div>
 </div>
