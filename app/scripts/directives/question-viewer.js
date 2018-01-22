@@ -23,7 +23,7 @@
     };  
   }
   
-  function questionViewerCtrl($rootScope, $scope, Questions, textToolbar) {
+  function questionViewerCtrl($rootScope, $scope, Questions, textToolbar, ngDialog) {
   
     var ctrl = this;
   
@@ -36,7 +36,6 @@
       
     // [INIT]
       // ctrl.$onInit = loadQuestion; /* Angular 1.5+ does not bind attributes until calling $onInit() */
-      init();
   
       // [PUBLIC METHODS]
       ctrl.createQuestion = createQuestion;
@@ -49,22 +48,12 @@
   
     // [METHODS : begin]
       /**
-       * @name init
-       * @desc Will init question viewer
-       * @memberOf Directives.questionViewer
-       */
-      function init() {
-        ctrl.textToolbar = textToolbar.getAdvancedToolbar();
-      }
-
-      /**
        * @name createQuestion
        * @desc Will create a new question
        * @memberOf Directives.questionViewer
        */
       function createQuestion() {
-        ctrl.question = ctrl.questionTmp;
-        Questions.create(ctrl.question).then(function(questionAdded){
+        Questions.create(ctrl.questionTmp).then(function(questionAdded){
             ctrl.question = questionAdded;
             ctrl.editMode = false;
             $rootScope.$emit("questions:refresh");
@@ -78,8 +67,10 @@
        */
       function cancelEdition(){
         ctrl.editMode = false;
-        ctrl.questionTmp = _.pick(ctrl.question, ['problematic', 'answer']);
-        $scope.$emit("questions:refresh");
+        ctrl.questionTmp = null;
+        if(!ctrl.question.id){
+          ctrl.question = null;
+        }
       }
   
       /**
@@ -88,22 +79,21 @@
        * @memberOf Directives.questionViewer
        */
       function deleteQuestion() {
-        var questionID = ctrl.question.id;
-        Questions.delete(questionID).then(function(){
-          $scope.$emit("questions:refresh");
-          ctrl.question = null;
+        ngDialog.openConfirm({
+          template: "views/_confirm.html",
+          appendClassName: "wri_dialog",
+          showClose:false,
+          data: {
+            action: "delete",
+            itemType: "question"
+          }
+        }).then(function(){
+          var questionID = ctrl.question.id;
+          Questions.delete(questionID).then(function(){
+              $scope.$emit("questions:refresh");
+              ctrl.question = null;
+          });
         });
-      }
-  
-      /**
-       * @name loadQuestion
-       * @desc Will load question in viewer
-       * @param {Object}  question   question to load in question viewer
-       * @memberOf Directives.questionViewer
-       */
-      function loadQuestion(question) {
-        ctrl.questionTmp = null;
-        ctrl.questionTmp = _.pick(ctrl.question, ['problematic', 'answer']);
       }
       
       /**
@@ -112,13 +102,27 @@
        * @memberOf Directives.questionViewer
        */
       function turnEditMode() {
-        ctrl.editMode = true;
+        ctrl.textToolbar = textToolbar.getAdvancedToolbar();
         ctrl.questionTmp = _.pick(ctrl.question, ['problematic', 'answer']);
+        ctrl.editMode = true;
       } 
     // [METHODS : end]
   
     // [PRIVATE FUNCTIONS : begin]
-  
+      /**
+       * @name loadQuestion
+       * @desc Will load question in viewer
+       * @param {Object}  question   question to load in question viewer
+       * @memberOf Directives.questionViewer
+       */
+      function loadQuestion(question) {
+        ctrl.questionTmp = null;
+        ctrl.question = question;
+        if (ctrl.editMode){
+          turnEditMode();
+        }
+      }
+
       /**
        * @name updateQuestion
        * @desc Will update current question
@@ -139,7 +143,7 @@
     // [EVENTS]
       $scope.$watch( function(){
         return ctrl.question;
-      }, function(newQuestion, previousQuestion){
+      }, function(){
         if (ctrl.question != null){
           loadQuestion(ctrl.question);
         }

@@ -40,7 +40,7 @@ angular.module('wriApp')
     service.updateById = function (id, newNote) {
       return service.getById(id).then(function (note) {
         note = newNote;
-        note.save();
+        return note.save();
       });
     }
 

@@ -41,6 +41,9 @@
     </main>
     <footer ng-if="noteViewer.editMode">
         <div ng-if="!noteViewer.note.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="noteViewer.cancelEdition()">
+                Cancel
+            </button>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': noteViewer.noteTmp.text == null || noteViewer.noteTmp.text == ''}" ng-disabled="noteViewer.noteTmp.text == null || noteViewer.noteTmp.text == ''" ng-click="noteViewer.createNote()">
                 Create
             </button>
@@ -52,10 +55,10 @@
                 </button>
             </div>
             <div>
-                <button ng-if="noteViewer.note.id != null" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="noteViewer.cancelEdition()">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="noteViewer.cancelEdition()">
                     Cancel
                 </button>
-                <button ng-if="noteViewer.note.id != null" ng-class="{'--wri_disabled': noteViewer.note.text == null || noteViewer.note.text == ''}" ng-disabled="noteViewer.note.text == null || noteViewer.note.text == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="noteViewer.updateNote()">
+                <button ng-class="{'--wri_disabled': noteViewer.note.text == null || noteViewer.note.text == ''}" ng-disabled="noteViewer.note.text == null || noteViewer.note.text == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="noteViewer.updateNote()">
                     Update
                 </button>
             </div>

@@ -23,7 +23,7 @@ function articleViewerDirective() {
   };  
 }
 
-function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, localStorageService) {
+function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Articles, textToolbar, Selector, ngDialog) {
 
   var ctrl = this;
 
@@ -35,9 +35,12 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
   ctrl.showAbstract;      // boolean to know if we show abstract or not
   ctrl.showProbSoluce;    // boolean to know if we show problematic and soluce or not
   ctrl.keywordsSelectize; // object to setup selectize for keywords
+  ctrl.textToolbar;       // text toolbar for edit problematic, solution, and abstract of article
+  ctrl.articleFields;     // article fields
     
   // [INIT]
     // ctrl.$onInit = onInit; /* Angular 1.5+ does not bind attributes until calling $onInit() */
+    init();
 
     // [PUBLIC METHODS]
     ctrl.applyKeywordFilter = applyKeywordFilter;
@@ -46,9 +49,11 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
     ctrl.createNoteFor = createNoteFor;
     ctrl.deleteArticle = deleteArticle;
     ctrl.loadArticle = loadArticle;
+    ctrl.openAuthorProfile = openAuthorProfile;
     ctrl.openReference = openReference;
     ctrl.selectAuthors = selectAuthors;
     ctrl.selectNotes = selectNotes;
+    ctrl.selectQuestions = selectQuestions;
     ctrl.selectReferences = selectReferences;
     ctrl.toggleAbstract = toggleAbstract;
     ctrl.toggleStatus = toggleStatus;
@@ -59,32 +64,36 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
 
   // [METHODS : begin]
     /**
+     * @name init
+     * @desc will init article viewer
+     */
+    function init(){
+      ctrl.articleFields = ['name', 'conference', 'publishedDate', 'score', 'isSaved', 'isRead', 'isPrinted', 'problematic', 'solution', 'abstract', 'authors', 'keywords', 'references', 'notes', 'questions'];
+    }
+    
+    /**
      * @name applyKeywordFilter
      * @desc Will load article in viewer
      * @param {String}  keyword   article to load in article viewer
      * @memberOf Directives.articleViewer
      */
     function applyKeywordFilter(keyword){
-      console.log("apply filter keywords on articles : ", keyword);
+      console.log('apply filter keywords on articles : ', keyword);
     }
 
     /**
      * @name createArticle
      * @desc Will create a new article
-     * @param {Boolean} duringEdition 
      * @memberOf Directives.articleViewer
      */
-    function createArticle(duringEdition) {
-      console.log(localStorageService.get("user"));
+    function createArticle() {
       var sendingElement = {
         user: localStorageService.get("user").id,
-        article: ctrl.article
-      }
-      Articles.create(sendingElement).then(function(article){
-        if(!duringEdition){
-          ctrl.article = article;
-          ctrl.editMode = false;
-        }
+        article: ctrl.articleTmp
+      };
+      Articles.create(sendingElement).then(function(articleAdded){
+        ctrl.article = articleAdded;
+        ctrl.editMode = false;
         $scope.$emit("articles:refresh");
       });
     }
@@ -95,7 +104,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
      * @memberOf Directives.articleViewer
      */
     function createNoteFor(){
-      console.log("add a note for article #", ctrl.article.id);
+      console.log("add a note for article #", ctrl.article._id);
     }
 
     /**
@@ -104,9 +113,11 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
      * @memberOf Directives.articleViewer
      */
     function cancelEdition(){
-      ctrl.article = ctrl.articleTmp;
       ctrl.editMode = false;
-      $scope.$emit("articles:refresh");
+      ctrl.articleTmp = null;
+      if(!ctrl.article._id){
+        ctrl.article = null;
+      }
     }
 
     /**
@@ -115,10 +126,21 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
      * @memberOf Directives.articleViewer
      */
     function deleteArticle() {
-      var articleID = ctrl.article.id;
-      ctrl.article = null;
-      Articles.delete(articleID).then(function(){
-          $scope.$emit("articles:refresh");
+      ngDialog.openConfirm({
+        template: "views/_confirm.html",
+        appendClassName: "wri_dialog",
+        showClose:false,
+        data: {
+          action: "delete",
+          itemType: "article"
+        }
+      }).then(function(){
+        var articleID = ctrl.article._id;
+        // check article.id (because of RESTangular)
+        Articles.delete(articleID).then(function(){
+            $scope.$emit("articles:refresh");
+            ctrl.article = null;
+        });
       });
     }
 
@@ -131,7 +153,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
     function loadArticle(article) {
 
       // Main informations
-      if(!_.isEmpty(article.problematic) && !_.isEmpty(article.problematic)){
+      if(!_.isEmpty(_.trim(article.problematic)) && !_.isEmpty(_.trim(article.problematic))){
         ctrl.showProbSoluce = true;
         ctrl.showAbstract = false;
       }
@@ -155,31 +177,32 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
         transformIntoArr("notes", true);
       }
 
+      // Questions 
+      if(!_.isArray(ctrl.article.questions)){
+        transformIntoArr("questions", true);
+      }
+
       ctrl.articleTmp = null;
-      ctrl.keywordsSelectize = {
-        config: {
-          create: true,
-          valueField: 'text',
-          labelField: 'text',
-          delimiter: ',',
-          placeholder: 'Add keywords',
-          onInitialize: function(selectize){
-            // receives the selectize object as an argument
-          },
-          render: {
-            item: function(data, escape) {
-              return '<span class="mdl-chip"><span class="mdl-chip__text">#' + escape(data.text) + '</span></span>';
-            }
-          }
-        },
-        options: [{id:1, text: "interest"}] // get all keywords from database
-      };
+      ctrl.article = article;
+      if(ctrl.editMode){
+        turnEditMode();
+      }
     }
     
     /**
+     * @name openAuthorProfile
+     * @desc Will load the author in the viewer
+     * @param {Object}  author   author to load in viewer
+     * @memberOf Directives.articleViewer
+     */
+    function openAuthorProfile(author) {
+      $scope.$emit("author:open", author);
+    } 
+
+    /**
      * @name openReference
-     * @desc Will load the reference in the second viewer in readonly mode
-     * @param {Object}  article   article to load in second viewer
+     * @desc Will load the reference in the viewer
+     * @param {Object}  article   article to load in viewer
      * @memberOf Directives.articleViewer
      */
     function openReference(article) {
@@ -211,8 +234,29 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
      * @memberOf Directives.articleViewer
      */
     function turnEditMode() {
+      ctrl.articleTmp = _.pick(ctrl.article, ctrl.articleFields);
+
+      ctrl.textToolbar = textToolbar.getSimpleToolbar();
+      ctrl.keywordsSelectize = {
+        config: {
+          create: true,
+          valueField: 'text',
+          labelField: 'text',
+          delimiter: ',',
+          placeholder: 'Add keywords',
+          onInitialize: function(selectize){
+            // receives the selectize object as an argument
+          },
+          render: {
+            item: function(data, escape) {
+              return '<span class="mdl-chip"><span class="mdl-chip__text">#' + escape(data.text) + '</span></span>';
+            }
+          }
+        },
+        options: [{id:1, text: "interest"}] // get all keywords from database
+      };
+
       ctrl.editMode = true;
-      ctrl.articleTmp = angular.copy(ctrl.article);
     } 
 
     /**
@@ -238,6 +282,17 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
     }
 
     /**
+     * @name selectQuestions
+     * @desc Will turn on selector mode for questions of the article
+     * @memberOf Directives.articleViewer
+     */
+    function selectQuestions() {
+      selectedProperty = "questions";
+      $scope.$emit('select:questions');
+      Selector.loadSelection(ctrl.article.questions);
+    }
+
+    /**
      * @name selectReferences
      * @desc Will turn on selector mode for references of the article
      * @memberOf Directives.articleViewer
@@ -259,9 +314,7 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
      */
     function insertDataInto() {
       var itemsSelected = Selector.getSelection();
-      if(_.isArray(ctrl.article[selectedProperty])){
-        ctrl.article[selectedProperty] = itemsSelected;
-      }
+      ctrl.articleTmp[selectedProperty] = itemsSelected;
       Selector.disable();
     }
 
@@ -292,8 +345,11 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, loc
      * @memberOf Directives.articleViewer
      */
     function updateArticle() {
-      Articles.updateById(ctrl.article.id, ctrl.article).then(function(articleUpdated){
+      var articleEdited = _.assignIn(ctrl.article, ctrl.articleTmp);
+
+      Articles.updateById(articleEdited._id, articleEdited).then(function(articleUpdated){
           ctrl.editMode = false;
+          // Can't get last version updated from db articleUpdated
           loadArticle(articleUpdated);
       });
     }

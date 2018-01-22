@@ -67,6 +67,9 @@
     </main>
     <footer ng-if="questionViewer.editMode">
         <div ng-if="!questionViewer.question.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="questionViewer.cancelEdition()">
+                Cancel
+            </button>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': questionViewer.questionTmp.problematic == null || questionViewer.questionTmp.problematic == ''}" ng-disabled="questionViewer.questionTmp.problematic == null || questionViewer.questionTmp.problematic == ''" ng-click="questionViewer.createQuestion()">
                 Create
             </button>
@@ -78,10 +81,10 @@
                 </button>
             </div>
             <div>
-                <button ng-if="questionViewer.question.id != null" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="questionViewer.cancelEdition()">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="questionViewer.cancelEdition()">
                     Cancel
                 </button>
-                <button ng-if="questionViewer.question.id != null" ng-class="{'--wri_disabled': questionViewer.question.problematic == null || questionViewer.question.problematic == ''}" ng-disabled="questionViewer.question.problematic == null || questionViewer.question.problematic == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="questionViewer.updateQuestion()">
+                <button ng-class="{'--wri_disabled': questionViewer.question.problematic == null || questionViewer.question.problematic == ''}" ng-disabled="questionViewer.question.problematic == null || questionViewer.question.problematic == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="questionViewer.updateQuestion()">
                     Update
                 </button>
             </div>

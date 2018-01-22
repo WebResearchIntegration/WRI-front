@@ -23,7 +23,7 @@ function authorViewerDirective() {
   };
 }
 
-function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, textToolbar) {
+function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, textToolbar, ngDialog) {
 
   var ctrl = this;
 
@@ -56,7 +56,6 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    */
   function init(){
     ctrl.authorFields = ['name', 'email', 'linkedIn', 'rating', 'birthDate', 'gender', 'photoUrl', 'description', 'articles'];
-    ctrl.textToolbar = textToolbar.getSimpleToolbar();
   }
 
   /**
@@ -80,6 +79,9 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
   function cancelEdition() {
     ctrl.editMode = false;
     ctrl.authorTmp = null;
+    if(!ctrl.author.id){
+      ctrl.author = null;
+    }
   }
 
   /**
@@ -88,10 +90,20 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    * @memberOf Directives.authorViewer
    */
   function deleteAuthor() {
-    var authorID = ctrl.author.id;
-    Authors.delete(authorID).then(function () {
-      $scope.$emit("authors:refresh");
-      ctrl.author = null;
+    ngDialog.openConfirm({
+      template: "views/_confirm.html",
+      appendClassName: "wri_dialog",
+      showClose:false,
+      data: {
+        action: "delete",
+        itemType: "author"
+      }
+    }).then(function(){
+      var authorID = ctrl.author.id;
+      Authors.delete(authorID).then(function(){
+          $scope.$emit("authors:refresh");
+          ctrl.author = null;
+      });
     });
   }
 
@@ -139,8 +151,9 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    * @memberOf Directives.authorViewer
    */
   function turnEditMode() {
-    ctrl.editMode = true;
+    ctrl.textToolbar = textToolbar.getSimpleToolbar();
     ctrl.authorTmp = _.pick(ctrl.author, ctrl.authorFields);
+    ctrl.editMode = true;
   }
 
   /**
