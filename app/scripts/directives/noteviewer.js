@@ -66,7 +66,10 @@ function noteViewerCtrl($rootScope, $scope, Notes) {
    */
   function cancelEdition() {
     ctrl.editMode = false;
-    ctrl.noteTmp = _.pick(ctrl.note, ['text']);
+    ctrl.noteTmp = null;
+    if(!ctrl.note.id){
+      ctrl.note = null;
+    }
   }
 
   /**
@@ -90,7 +93,10 @@ function noteViewerCtrl($rootScope, $scope, Notes) {
    */
   function loadNote(note) {
     ctrl.noteTmp = null;
-    ctrl.noteTmp = _.pick(ctrl.note, ['text']);
+    ctrl.note = note;
+    if(ctrl.editMode){
+      turnEditMode();
+    }
   }
 
   /**
@@ -99,8 +105,8 @@ function noteViewerCtrl($rootScope, $scope, Notes) {
    * @memberOf Directives.noteViewer
    */
   function turnEditMode() {
-    ctrl.editMode = true;
     ctrl.noteTmp = _.pick(ctrl.note, ['text']);
+    ctrl.editMode = true;
   }
   // [METHODS : end]
 

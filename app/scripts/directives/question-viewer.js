@@ -36,7 +36,6 @@
       
     // [INIT]
       // ctrl.$onInit = loadQuestion; /* Angular 1.5+ does not bind attributes until calling $onInit() */
-      init();
   
       // [PUBLIC METHODS]
       ctrl.createQuestion = createQuestion;
@@ -48,15 +47,6 @@
     ////////////
   
     // [METHODS : begin]
-      /**
-       * @name init
-       * @desc Will init question viewer
-       * @memberOf Directives.questionViewer
-       */
-      function init() {
-        ctrl.textToolbar = textToolbar.getAdvancedToolbar();
-      }
-
       /**
        * @name createQuestion
        * @desc Will create a new question
@@ -78,8 +68,10 @@
        */
       function cancelEdition(){
         ctrl.editMode = false;
-        ctrl.questionTmp = _.pick(ctrl.question, ['problematic', 'answer']);
-        $scope.$emit("questions:refresh");
+        ctrl.questionTmp = null;
+        if(!ctrl.question.id){
+          ctrl.question = null;
+        }
       }
   
       /**
@@ -94,7 +86,20 @@
           ctrl.question = null;
         });
       }
+      
+      /**
+       * @name turnEditMode
+       * @desc Will turn on edit mode for question
+       * @memberOf Directives.questionViewer
+       */
+      function turnEditMode() {
+        ctrl.textToolbar = textToolbar.getAdvancedToolbar();
+        ctrl.questionTmp = _.pick(ctrl.question, ['problematic', 'answer']);
+        ctrl.editMode = true;
+      } 
+    // [METHODS : end]
   
+    // [PRIVATE FUNCTIONS : begin]
       /**
        * @name loadQuestion
        * @desc Will load question in viewer
@@ -103,22 +108,12 @@
        */
       function loadQuestion(question) {
         ctrl.questionTmp = null;
-        ctrl.questionTmp = _.pick(ctrl.question, ['problematic', 'answer']);
+        ctrl.question = question;
+        if (ctrl.editMode){
+          turnEditMode();
+        }
       }
-      
-      /**
-       * @name turnEditMode
-       * @desc Will turn on edit mode for question
-       * @memberOf Directives.questionViewer
-       */
-      function turnEditMode() {
-        ctrl.editMode = true;
-        ctrl.questionTmp = _.pick(ctrl.question, ['problematic', 'answer']);
-      } 
-    // [METHODS : end]
-  
-    // [PRIVATE FUNCTIONS : begin]
-  
+
       /**
        * @name updateQuestion
        * @desc Will update current question
@@ -139,7 +134,7 @@
     // [EVENTS]
       $scope.$watch( function(){
         return ctrl.question;
-      }, function(newQuestion, previousQuestion){
+      }, function(){
         if (ctrl.question != null){
           loadQuestion(ctrl.question);
         }

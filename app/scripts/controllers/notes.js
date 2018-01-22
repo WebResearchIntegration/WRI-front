@@ -8,7 +8,7 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('notesCtrl', function ($scope, ngDialog, $rootScope, $compile, Notes, Selector) {
+    .controller('notesCtrl', function ($scope, $rootScope, $compile, Notes, Selector) {
         
         var ctrl = this;
 
