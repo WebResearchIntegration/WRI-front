@@ -1,5 +1,5 @@
 <div class="wri_filter mdl-shadow--8dp">
-    <div ng-if="availableType(type)" ng-include="'/views/directives/element-filter/includes/_'+type+'-filter.html'" class="mdl-layout mdl-js-layout mdl-layout--fixed-header"></div>
+    <div ng-if="availableType(type)" ng-include="'views/directives/_'+type+'-filter.html'" class="mdl-layout mdl-js-layout mdl-layout--fixed-header"></div>
     <div ng-if="!availableType(type)">Vous ne pouvez pas afficher de {{type}} dans ce viewer</div>
 
 

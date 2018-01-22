@@ -12,7 +12,7 @@ angular.module('wriApp')
 function viewerDrawerDirective() {
     return {
         restrict: 'E',
-        templateUrl: '/views/directives/viewer-drawer.html',
+        templateUrl: 'views/directives/viewer-drawer.html',
         scope: {
             type: '=',
             element: '=',
