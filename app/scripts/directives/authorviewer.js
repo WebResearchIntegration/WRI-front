@@ -179,7 +179,12 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
      */
     function insertDataInto() {
       var itemsSelected = Selector.getSelection();
-      ctrl.authorTmp.articles = itemsSelected;
+      var obj;
+      _.forEach(itemsSelected, function(article){
+        obj = {};
+        obj = _.pick(article, ["_id"]);
+        ctrl.authorTmp.articles.push(obj);
+      });
       Selector.disable();
     }
 

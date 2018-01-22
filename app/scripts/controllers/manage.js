@@ -274,8 +274,7 @@
         });
 
         $scope.$on("reference:open", function(event, article){
-            var category = sliceBy(event.name, ":", 0);
-            loadItemInViewer(article, false, category);
+            loadItemInViewer(article, false, "article");
         });
 
         $scope.$on("author:open", function(event, author){

@@ -206,7 +206,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      * @memberOf Directives.articleViewer
      */
     function openReference(article) {
-      $scope.$emit("reference:open",article);
+      $scope.$emit("reference:open", article);
     }
     
     /**
@@ -314,7 +314,13 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      */
     function insertDataInto() {
       var itemsSelected = Selector.getSelection();
-      ctrl.articleTmp[selectedProperty] = itemsSelected;
+      var obj;
+      _.forEach(itemsSelected, function(item){
+        obj = {};
+        obj = _.pick(item, ["_id"]);
+        ctrl.articleTmp[selectedProperty].push(obj);
+      });
+      console.log(ctrl.articleTmp[selectedProperty]);
       Selector.disable();
     }
 
