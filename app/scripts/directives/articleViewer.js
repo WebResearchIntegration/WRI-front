@@ -23,7 +23,7 @@ function articleViewerDirective() {
   };  
 }
 
-function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
+function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout, localStorageService) {
 
   var ctrl = this;
 
@@ -75,7 +75,12 @@ function articleViewerCtrl($rootScope, $scope, Selector, Articles, $timeout) {
      * @memberOf Directives.articleViewer
      */
     function createArticle(duringEdition) {
-      Articles.create(ctrl.article).then(function(article){
+      console.log(localStorageService.get("user"));
+      var sendingElement = {
+        user: localStorageService.get("user").id,
+        article: ctrl.article
+      }
+      Articles.create(sendingElement).then(function(article){
         if(!duringEdition){
           ctrl.article = article;
           ctrl.editMode = false;
