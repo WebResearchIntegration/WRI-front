@@ -1,13 +1,17 @@
 <div class="wri_manage-select__item wri_item-list__article --wri_interactive mdl-shadow--4dp" 
-    ng-class="{'--selectable': manageCtrl.selectMode, '--selected': article.isSelected}" 
+    ng-class="{'--selectable': manageCtrl.selectMode, '--selected': article.isSelected, '--active': article._id == manageCtrl.viewer.itemToShow._id}" 
     ng-repeat="article in articlesCtrl.articles | filter : filter | orderBy : order" 
     ng-click="manageCtrl.selectItem(article)" 
     ng-if="manageCtrl.selectMode && article._id != manageCtrl.viewer.itemToShow._id || !manageCtrl.selectMode">
     <i class="material-icons wri_item-list__validator" ng-if="manageCtrl.selectMode"> {{article.isSelected? "check" : "add"}}</i>
-    <div class="wri_item-list__article__published-date">{{article.publishedDate}}</div>
+    <div class="wri_item-list__article__published-date">
+        <div class="wri_item-list__article__published-date__day">{{article.publishedDate | date:'dd'}}</div>
+        <div class="wri_item-list__article__published-date__month">{{article.publishedDate | date:'MMMM'}}</div>
+        <div class="wri_item-list__article__published-date__year">{{article.publishedDate | date:'yyyy'}}</div>
+    </div>
     <div class="wri_item-list__article__main-informations">
-        <div class="wri_item-list__article__title">{{article.name}}</div>
-        <div class="wri_item-list__article__conference">{{article.conference}}</div>
+        <h2 class="wri_item-list__article__title">{{article.name}}</h2>
+        <p class="wri_item-list__article__conference">{{article.conference}}</p>
     </div>
     <div class="wri_item-list__article__statuses">
         <ul>

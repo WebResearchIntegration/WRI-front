@@ -1,6 +1,6 @@
 <div 
     class="wri_manage-select__item wri_item-list__question --wri_interactive mdl-shadow--4dp" 
-    ng-class="{'--selectable': manageCtrl.selectMode, '--selected': question.isSelected}" 
+    ng-class="{'--selectable': manageCtrl.selectMode, '--selected': question.isSelected,  '--active': question._id == manageCtrl.viewer.itemToShow._id}" 
     ng-repeat="question in questionsCtrl.questions | filter : filter | orderBy : order" 
     ng-click="manageCtrl.selectItem(question)" >
     <i class="material-icons wri_item-list__validator" ng-if="manageCtrl.selectMode"> {{question.isSelected? "check" : "add"}}</i>

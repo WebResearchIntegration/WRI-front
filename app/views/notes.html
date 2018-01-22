@@ -1,6 +1,6 @@
 <div 
     class="wri_manage-select__item wri_item-list__note --wri_interactive mdl-shadow--4dp"
-    ng-class="{'--selectable': manageCtrl.selectMode, '--selected': note.isSelected}"
+    ng-class="{'--selectable': manageCtrl.selectMode, '--selected': note.isSelected,  '--active': note._id == manageCtrl.viewer.itemToShow._id}"
     ng-repeat="note in notesCtrl.notes | filter : filter | orderBy : order" 
     ng-click="manageCtrl.selectItem(note)"
     >
