@@ -36,9 +36,11 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
   ctrl.showProbSoluce;    // boolean to know if we show problematic and soluce or not
   ctrl.keywordsSelectize; // object to setup selectize for keywords
   ctrl.textToolbar;       // text toolbar for edit problematic, solution, and abstract of article
+  ctrl.articleFields;     // article fields
     
   // [INIT]
     // ctrl.$onInit = onInit; /* Angular 1.5+ does not bind attributes until calling $onInit() */
+    init();
 
     // [PUBLIC METHODS]
     ctrl.applyKeywordFilter = applyKeywordFilter;
@@ -62,13 +64,21 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
 
   // [METHODS : begin]
     /**
+     * @name init
+     * @desc will init article viewer
+     */
+    function init(){
+      ctrl.articleFields = ['name', 'conference', 'publishedDate', 'score', 'isSaved', 'isRead', 'isPrinted', 'problematic', 'solution', 'abstract', 'authors', 'keywords', 'references', 'notes', 'questions'];
+    }
+    
+    /**
      * @name applyKeywordFilter
      * @desc Will load article in viewer
      * @param {String}  keyword   article to load in article viewer
      * @memberOf Directives.articleViewer
      */
     function applyKeywordFilter(keyword){
-      console.log("apply filter keywords on articles : ", keyword);
+      console.log('apply filter keywords on articles : ', keyword);
     }
 
     /**
@@ -209,7 +219,8 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
      * @memberOf Directives.articleViewer
      */
     function turnEditMode() {
-      ctrl.editMode = true;
+      ctrl.articleTmp = _.pick(ctrl.article, ctrl.articleFields);
+
       ctrl.textToolbar = textToolbar.getSimpleToolbar();
       ctrl.keywordsSelectize = {
         config: {
@@ -229,7 +240,8 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
         },
         options: [{id:1, text: "interest"}] // get all keywords from database
       };
-      ctrl.articleTmp = angular.copy(ctrl.article);
+
+      ctrl.editMode = true;
     } 
 
     /**
@@ -287,8 +299,8 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
      */
     function insertDataInto() {
       var itemsSelected = Selector.getSelection();
-      if(_.isArray(ctrl.article[selectedProperty])){
-        ctrl.article[selectedProperty] = itemsSelected;
+      if(_.isArray(ctrl.articleTmp[selectedProperty])){
+        ctrl.articleTmp[selectedProperty] = itemsSelected;
       }
       Selector.disable();
     }
@@ -320,6 +332,8 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
      * @memberOf Directives.articleViewer
      */
     function updateArticle() {
+      _.assignIn(ctrl.article, ctrl.articleTmp);
+
       Articles.updateById(ctrl.article.id, ctrl.article).then(function(articleUpdated){
           ctrl.editMode = false;
           loadArticle(articleUpdated);
