@@ -1,12 +1,36 @@
-<div class="item" ng-class="{'selected-mode-item': manageCtrl.selectMode, 'selected-item': article.isSelected}" ng-repeat="article in articlesCtrl.articles | filter : filter | orderBy : order" ng-click="manageCtrl.selectItem(article)" ng-if="manageCtrl.selectMode && article.id != manageCtrl.viewer.itemToShow.id || !manageCtrl.selectMode">
-    <span>{{article.name}} with id: {{article.id}}</span>
-    <div class="validator" ng-class="{'selected-item-validator': article.isSelected, 'selected-item-validator-disabled': !article.isSelected}"
+<div class="wri_manage-select__item wri_item-list__article --wri_interactive mdl-shadow--4dp" 
+    ng-class="{'--selectable': manageCtrl.selectMode, '--selected': article.isSelected}" 
+    ng-repeat="article in articlesCtrl.articles | filter : filter | orderBy : order" 
+    ng-click="manageCtrl.selectItem(article)" 
+    ng-if="manageCtrl.selectMode && article._id != manageCtrl.viewer.itemToShow._id || !manageCtrl.selectMode">
+    <i class="material-icons wri_item-list__validator" ng-if="manageCtrl.selectMode"> {{article.isSelected? "check" : "add"}}</i>
+    <div class="wri_item-list__article__published-date">{{article.publishedDate}}</div>
+    <div class="wri_item-list__article__main-informations">
+        <div class="wri_item-list__article__title">{{article.name}}</div>
+        <div class="wri_item-list__article__conference">{{article.conference}}</div>
+    </div>
+    <div class="wri_item-list__article__statuses">
+        <ul>
+            <li class="wri_item-list__article__status" ng-class="{'--checked': article.isSaved}">
+                <i class="material-icons">save</i>
+            </li>
+            <li class="wri_item-list__article__status" ng-class="{'--checked': article.isRead}">
+                <i class="material-icons">visibility</i>
+            </li>
+            <li class="wri_item-list__article__status" ng-class="{'--checked': article.isPrinted}">
+                <i class="material-icons">print</i>
+            </li>
+        </ul>
+    </div>
+    <!-- <div 
+        class="validator" 
+        ng-class="{'selected-item-validator': article.isSelected, 'selected-item-validator-disabled': !article.isSelected}"
         ng-if="manageCtrl.selectMode">
         <i class="material-icons" ng-if="article.isSelected">done</i>
         <i class="material-icons" ng-if="!article.isSelected">add</i>
-    </div>
+    </div> -->
 </div>
 
-<button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="articlesCtrl.addArticle()">
+<button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--16dp" ng-click="articlesCtrl.addArticle()">
     <i class="material-icons">add</i>
 </button>
