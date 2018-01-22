@@ -71,7 +71,7 @@ function noteViewerCtrl($rootScope, $scope, Notes, ngDialog, localStorageService
   function cancelEdition() {
     ctrl.editMode = false;
     ctrl.noteTmp = null;
-    if(!ctrl.note.id){
+    if(!ctrl.note._id){
       ctrl.note = null;
     }
   }

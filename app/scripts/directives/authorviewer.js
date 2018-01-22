@@ -83,7 +83,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
   function cancelEdition() {
     ctrl.editMode = false;
     ctrl.authorTmp = null;
-    if(!ctrl.author.id){
+    if(!ctrl.author._id){
       ctrl.author = null;
     }
   }

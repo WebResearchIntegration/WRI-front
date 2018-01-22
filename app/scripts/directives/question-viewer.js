@@ -72,7 +72,7 @@
       function cancelEdition(){
         ctrl.editMode = false;
         ctrl.questionTmp = null;
-        if(!ctrl.question.id){
+        if(!ctrl.question._id){
           ctrl.question = null;
         }
       }
