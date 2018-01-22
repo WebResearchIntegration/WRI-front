@@ -49,6 +49,9 @@ module.exports = function(config) {
       'bower_components/angular-selectize2/dist/angular-selectize.js',
       'bower_components/angular-local-storage/dist/angular-local-storage.js',
       'bower_components/angular-loading-bar/build/loading-bar.js',
+      'bower_components/d3/d3.js',
+      'bower_components/nvd3/build/nv.d3.js',
+      'bower_components/angular-nvd3/dist/angular-nvd3.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

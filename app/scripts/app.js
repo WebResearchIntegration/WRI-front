@@ -39,6 +39,11 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
+      .when('/dataviz', {
+        templateUrl: 'views/dataviz.html',
+        controller: 'DatavizCtrl',
+        controllerAs: 'dataviz'
+      })
       .otherwise({
         redirectTo: '/'
       });
