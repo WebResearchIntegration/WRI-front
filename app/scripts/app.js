@@ -42,14 +42,16 @@ angular
         redirectTo: '/'
       });
 
-    // [RESTANGuLAR CONFIG: START]
-    RestangularProvider.setBaseUrl('https://api-wri.herokuapp.com/api/'); // FOR PROD: https://api-wri.herokuapp.com/api/
-    // FOR LOCAL: http://localhost:3000/api/
-    // [RESTANGuLAR CONFIG: END]
-
     // [LOCALSTORAGECONFIG]
     localStorageServiceProvider.setStorageType('localStorage');
     // [LOCALSTORAGECONFIG: END]
+
+
+    // [RESTANGuLAR CONFIG: START]
+    RestangularProvider.setBaseUrl('https://api-wri.herokuapp.com/api/'); // FOR PROD: https://api-wri.herokuapp.com/api/
+    // FOR LOCAL: http://localhost:3000/api/
+    
+    // [RESTANGuLAR CONFIG: END]
     
     $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function(taRegisterTool, taOptions){
       taRegisterTool('separator', {
@@ -101,9 +103,11 @@ angular
       }
     });
   }).run(function ($http, localStorageService, $location) {
+    console.log('here');
     if(localStorageService.get("token")) {
+      console.log(localStorageService.get("token"))
       var token = localStorageService.get("token");
-      $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+      $http.defaults.headers.common['Authorization'] = token;
     } else {
       $location.path('/login');
     }
