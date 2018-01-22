@@ -12,7 +12,7 @@ angular.module('wriApp')
 function noteViewerDirective() {
   return {
     restrict: 'E',
-    templateUrl: '/views/directives/note-viewer.html',
+    templateUrl: 'views/directives/note-viewer.html',
     scope: {
       note: '=',
       editMode: '='

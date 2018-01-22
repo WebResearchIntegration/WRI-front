@@ -12,7 +12,7 @@
   function questionViewerDirective() {
     return {
       restrict: 'E',
-      templateUrl: '/views/directives/question-viewer.html',
+      templateUrl: 'views/directives/question-viewer.html',
       scope: {
         question: '=',
         editMode: '='

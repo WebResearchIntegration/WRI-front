@@ -12,7 +12,7 @@ angular.module('wriApp')
 function authorViewerDirective() {
   return {
     restrict: 'E',
-    templateUrl: '/views/directives/author-viewer.html',
+    templateUrl: 'views/directives/author-viewer.html',
     scope: {
       author: '=',
       editMode: '='

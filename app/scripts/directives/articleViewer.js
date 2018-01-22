@@ -12,7 +12,7 @@ angular.module('wriApp')
 function articleViewerDirective() {
   return {
     restrict: 'E',
-    templateUrl: '/views/directives/article-viewer.html',
+    templateUrl: 'views/directives/article-viewer.html',
     scope: {
       article: '=',
       editMode: '='
