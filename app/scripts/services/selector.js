@@ -114,7 +114,7 @@ angular.module('wriApp')
        * @return {void} 
        */
       function reinitSelection(listOfItem){
-        listOfItem.forEach(element => {
+        listOfItem.forEach(function(element) {
           delete element.isSelected;
         });
       }
