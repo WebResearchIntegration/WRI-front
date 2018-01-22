@@ -12,6 +12,10 @@ angular.module('wriApp')
         
         var ctrl = this;
 
+        // [PRIVATE VARIABLES]
+        var needToReinitList;
+        var needToSetList;
+        
         // [PUBLIC VARIABLES]
         ctrl.authors;
 
@@ -32,6 +36,15 @@ angular.module('wriApp')
             function init() {
                 Authors.getAll().then(function(authors) {
                     ctrl.authors = authors;
+
+                    if(needToReinitList){
+                        needToReinitList = false;
+                        reinitSelection();
+                    }
+                    if (needToSetList){
+                        needToSetList = false;
+                        setSelection();
+                    }
                 });
             }
 
@@ -66,12 +79,22 @@ angular.module('wriApp')
                     Selector.reinitSelection(ctrl.authors); 
                 }
             }
+
+            /**
+             * @name setSelection()
+             * @desc will select all authors already present in the item which is being edited
+             */
+            function setSelection() {
+                if (Selector.getSelectionType() == "authors") {
+                    Selector.setSelectionInCtrl(ctrl.authors);
+                }
+            }
+
         // [PRIVATE METHODS: end]
 
 
         // [EVENTS]
         $rootScope.$on("authors:refresh", function(event){
-            // event.stopPropagation();
             init();
         });
 
@@ -83,16 +106,24 @@ angular.module('wriApp')
         $scope.$watch(function(){
             return Selector.isEnabled;
         }, function(newVal, oldVal){
-            if (Selector.getSelectionType() == "authors"){
-                Selector.reinitSelection(ctrl.authors); 
+            if (!ctrl.authors) {
+                needToReinitList = true;
+            }
+            else {
+                reinitSelection();
             }
         });
 
         $scope.$watch(function(){
             return Selector.itemsAlreadySelectedSize;
         }, function(newVal, oldVal){
-            if (Selector.getSelectionType() == "authors") {
-                Selector.setSelectionInCtrl(ctrl.authors);
+            if(newVal != 0){
+                if(!ctrl.authors){
+                    needToSetList = true;
+                }
+                else {
+                    setSelection();
+                }
             }
         });
 

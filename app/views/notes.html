@@ -1,10 +1,13 @@
 <div 
-    class="item" 
+    class="wri_manage-select__item wri_item-list__note --wri_interactive mdl-shadow--4dp"
+    ng-class="{'--selectable': manageCtrl.selectMode, '--selected': note.isSelected,  '--active': note._id == manageCtrl.viewer.itemToShow._id}"
     ng-repeat="note in notesCtrl.notes | filter : filter | orderBy : order" 
     ng-click="manageCtrl.selectItem(note)"
-    ng-bind-html="note.text">
+    >
+    <i class="material-icons wri_item-list__validator" ng-if="manageCtrl.selectMode"> {{note.isSelected? "check" : "add"}}</i>
+    <div class="wri_item-list__note__content" ng-bind-html="note.text"></div>
+    <div class="wri_item-list__note__created-at">{{note.createdAt}}</div>
 </div>
-
 <button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-shadow--8dp" ng-click="notesCtrl.addNote()">
     <i class="material-icons">add</i>
 </button>
