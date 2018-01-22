@@ -246,6 +246,38 @@
                 </div>
             </div>
         </section>
+        <section  class="wri_article__questions">
+            <div class="wri_article__questions__inside">
+                <div class="wri_article__section__header">
+                    <span class="wri_article__section__header__title">Questions</span>
+                    <a ng-if="articleViewer.article.questions.length > 5" class="wri_article__section__header__show-all" ng-click="articleViewer.showAllQuestions()">
+                        Show all questions
+                    </a>
+                </div>
+                <div class="wri_article__questions__content" ng-if="!articleViewer.editMode">
+                    <ul class="wri_article__questions__list" ng-if="articleViewer.article.questions.length > 0">
+                        <article ng-repeat="question in articleViewer.article.questions | limitTo: 5" class="mdl-card mdl-shadow--4dp wri_article_questions_list_question"> 
+                            <div class="mdl-card__supporting-text">
+                                {{question.problematic}}
+                            </div>
+                        </article>
+                    </ul>
+                </div>
+                <p class="wri_article__section__counter" ng-if="articleViewer.editMode || articleViewer.article.questions.length == 0"> 
+                    This article has {{articleViewer.article.questions.length}} {{ (articleViewer.article.questions.length > 1) ? "questions" : "question"}}
+                </p>
+                <div class="wri_article__section__action" ng-if="!articleViewer.editMode">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="articleViewer.createNoteFor()">
+                        Add a question
+                    </button>
+                </div>
+                <div class="wri_article__section__action" ng-if="articleViewer.editMode">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="articleViewer.selectQuestions()">
+                        Update questions
+                    </button>
+                </div>
+            </div>
+        </section>
     </main>
     <footer ng-if="articleViewer.editMode">
         <div ng-if="!articleViewer.article.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">

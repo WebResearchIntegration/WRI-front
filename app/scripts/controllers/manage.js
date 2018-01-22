@@ -281,6 +281,15 @@
             });
         });
 
+        $scope.$on("select:questions", function(event){
+            var category = sliceBy(event.name, ":");
+            showCategory(category);
+            Selector.enable("questions");
+            $timeout(function(){
+                ctrl.selectionSize = Selector.getSelectionSize();
+            });
+        });
+
         // [WATCHERS]
         $scope.$watch(function(){
             return Selector.isEnabled;

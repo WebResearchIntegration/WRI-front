@@ -50,6 +50,7 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
     ctrl.openReference = openReference;
     ctrl.selectAuthors = selectAuthors;
     ctrl.selectNotes = selectNotes;
+    ctrl.selectQuestions = selectQuestions;
     ctrl.selectReferences = selectReferences;
     ctrl.toggleAbstract = toggleAbstract;
     ctrl.toggleStatus = toggleStatus;
@@ -151,6 +152,11 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
         transformIntoArr("notes", true);
       }
 
+      // Questions 
+      if(!_.isArray(ctrl.article.questions)){
+        transformIntoArr("questions", true);
+      }
+
       ctrl.articleTmp = null;
       ctrl.keywordsSelectize = {
         config: {
@@ -236,6 +242,17 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
       selectedProperty = "notes";
       $scope.$emit('select:notes');
       Selector.loadSelection(ctrl.article.notes);
+    }
+
+    /**
+     * @name selectQuestions
+     * @desc Will turn on selector mode for questions of the article
+     * @memberOf Directives.articleViewer
+     */
+    function selectQuestions() {
+      selectedProperty = "questions";
+      $scope.$emit('select:questions');
+      Selector.loadSelection(ctrl.article.questions);
     }
 
     /**
