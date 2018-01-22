@@ -9,7 +9,7 @@ angular.module('wriApp')
          * @param NoParam
          */
         service.getAll = function() {
-            return Restangular.all('article').getList();
+            return Restangular.all('articles').getList();
         };
 
         /**
@@ -17,7 +17,7 @@ angular.module('wriApp')
          * This method is async so you'll be able to use the then() method.
          */
         service.getById =  function(id) {
-            return Restangular.one('article', id).get();
+            return Restangular.one('articles', id).get();
         };
 
         /**
@@ -37,7 +37,7 @@ angular.module('wriApp')
         */
         service.create = function (article) {
             // ADD OBJECT CONTROL
-            return Restangular.service('article').post(article);
+            return Restangular.service('articles').post(article);
         };
 
         /**

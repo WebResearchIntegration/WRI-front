@@ -19,23 +19,36 @@ angular
     'restangular',
     'ngDialog',
     'textAngular',
-    'selectize'
+    'selectize',
+    'LocalStorageModule'
   ])
-  .config(function ($routeProvider, RestangularProvider, $provide) {
+  .config(function ($routeProvider, RestangularProvider, $provide, localStorageServiceProvider) {
     $routeProvider
       .when('/manage', {
         templateUrl: 'views/manage.html',
         controller: 'manageCtrl',
-        controllerAs: 'manageCtrl' 
+        controllerAs: 'manageCtrl',
+        resolve: {
+          access: ["Auth", function(Auth) {return Auth.isAuthenticated()}]
+        }
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
       })
       .otherwise({
         redirectTo: '/'
       });
 
     // [RESTANGuLAR CONFIG: START]
-    RestangularProvider.setBaseUrl('http://localhost:8888/api/');
-
+    RestangularProvider.setBaseUrl('https://api-wri.herokuapp.com/api/'); // FOR PROD: https://api-wri.herokuapp.com/api/
+    // FOR LOCAL: http://localhost:3000/api/
     // [RESTANGuLAR CONFIG: END]
+
+    // [LOCALSTORAGECONFIG]
+    localStorageServiceProvider.setStorageType('localStorage');
+    // [LOCALSTORAGECONFIG: END]
     
     $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function(taRegisterTool, taOptions){
       taRegisterTool('separator', {
@@ -79,4 +92,18 @@ angular
     //   }
     // });
 
+  }).run(function ($rootScope, $location) {
+    $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
+      if (rejection === 'Not Authenticated') {
+        console.log(">>> USER NOT AUTHENTICATED");
+        $location.path('/login');
+      }
+    });
+  }).run(function ($http, localStorageService, $location) {
+    if(localStorageService.get("token")) {
+      var token = localStorageService.get("token");
+      $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    } else {
+      $location.path('/login');
+    }
   });

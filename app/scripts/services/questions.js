@@ -15,14 +15,14 @@ angular.module('wriApp')
      * 
      */
     service.getAll = function () {
-      return Restangular.all('question').getList();
+      return Restangular.all('questions').getList();
     };
 
     /**
      * 
      */
     service.getById = function (id) {
-      return Restangular.one('question', id).get();
+      return Restangular.one('questions', id).get();
     };
 
     /**
@@ -41,7 +41,7 @@ angular.module('wriApp')
     */
     service.create = function (question) {
       // ADD OBJECT CONTROL
-      return Restangular.service('question').post(question);
+      return Restangular.service('questions').post(question);
     };
 
     /**

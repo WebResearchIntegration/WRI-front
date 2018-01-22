@@ -15,14 +15,14 @@ angular.module('wriApp')
      * Will get all authors from the database
      */
     service.getAll = function () {
-      return Restangular.all('author').getList();
+      return Restangular.all('authors').getList();
     };
 
     /** 
      * Will get one author from the database.
      */
     service.getById = function (id) {
-      return Restangular.one('author', id).get();
+      return Restangular.one('authors', id).get();
     };
 
     /**
@@ -49,7 +49,7 @@ angular.module('wriApp')
      * Will create a new author inside the database
      */
     service.create = function(author) {
-      return Restangular.service('author').post(author);
+      return Restangular.service('authors').post(author);
     };
 
     return service;

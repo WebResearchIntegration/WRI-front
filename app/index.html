@@ -32,7 +32,6 @@
 
     <!-- Add your site or application content here -->
     
-    <div ng-include="'views/header.html'"></div>
     <div class="--wri_full-height" ng-view=""></div>
 
 
@@ -76,6 +75,7 @@
     <script src="bower_components/microplugin/src/microplugin.js"></script>
     <script src="bower_components/selectize/dist/js/selectize.js"></script>
     <script src="bower_components/angular-selectize2/dist/angular-selectize.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -99,6 +99,10 @@
         <script src="scripts/directives/question-viewer.js"></script>
         <script src="scripts/directives/noteviewer.js"></script>
         <script src="scripts/services/texttoolbar.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/header.js"></script>
+        <script src="scripts/services/auth.js"></script>
+        <script src="scripts/services/userfactory.js"></script>
         <!-- endbuild -->
 
 </body>
