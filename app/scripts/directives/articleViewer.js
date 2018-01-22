@@ -299,9 +299,7 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
      */
     function insertDataInto() {
       var itemsSelected = Selector.getSelection();
-      if(_.isArray(ctrl.articleTmp[selectedProperty])){
-        ctrl.articleTmp[selectedProperty] = itemsSelected;
-      }
+      ctrl.articleTmp[selectedProperty] = itemsSelected;
       Selector.disable();
     }
 
