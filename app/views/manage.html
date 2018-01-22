@@ -16,16 +16,17 @@
                 <element-filter ng-if="manageCtrl.getType() == 'note'" type="note" element="notesCtrl.notes"></element-filter>
                 <element-filter ng-if="manageCtrl.getType() == 'question'" type="question" element="questionsCtrl.questions"></element-filter>
                 
-                <div class="selection-panel" ng-if="manageCtrl.selectMode">
-                    <div>
+                <div class="wri_selector mdl-shadow--8dp" ng-if="manageCtrl.selectMode">
+                    <div class="wri_selector__header">
                         <span class="mdl-chip mdl-chip--contact">
                             <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{manageCtrl.selectionSize}}</span>
-                            <span class="mdl-chip__text wri_selector__indicator">{{manageCtrl.getCurrentTab()}} added</span>
+                            <span class="mdl-chip__text wri_selector__indicator">{{manageCtrl.getCurrentTab()}}</span>
                         </span>
                     </div>
-                    <div class="actions">
-                        <i class="material-icons" ng-click="manageCtrl.validateSelection()">done</i>
-                        <i class="material-icons" ng-click="manageCtrl.disableSelector()">clear</i>
+                    <div class="wri_selector__actions">
+                        <i class="material-icons wri_selector__action --reset" ng-click="manageCtrl.resetSelection()">delete</i>
+                        <i class="material-icons wri_selector__action --valid" ng-click="manageCtrl.validateSelection()">done</i>
+                        <i class="material-icons wri_selector__action --cancel" ng-click="manageCtrl.disableSelector()">clear</i>
                     </div>
                 </div>
             </div>

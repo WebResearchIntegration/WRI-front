@@ -64,7 +64,15 @@ angular.module('wriApp')
         // [METHODS: end]
         
         // [PRIVATE METHODS: begin]
-
+            /**
+             * @name reinitSelection()
+             * @desc will unselect all articles
+             */
+            function reinitSelection() {
+                if (Selector.getSelectionType() == "articles"){
+                    Selector.reinitSelection(ctrl.articles); 
+                }
+            }
         // [PRIVATE METHODS: end]
 
 
@@ -74,13 +82,15 @@ angular.module('wriApp')
             init();
         });
 
+        $scope.$on("manage:reset-list", function(event){
+            reinitSelection();
+        });
+
         // [WATCHERS]
         $scope.$watch(function(){
             return Selector.isEnabled;
-        }, function(newVal, oldVal){
-            if (Selector.getSelectionType() == "articles"){
-                Selector.reinitSelection(ctrl.articles); 
-            }
+        }, function(){
+            reinitSelection();
         });
 
         $scope.$watch(function(){

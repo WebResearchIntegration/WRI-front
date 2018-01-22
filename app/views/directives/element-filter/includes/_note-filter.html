@@ -1,11 +1,12 @@
-<div class="mdl-textfield mdl-js-textfield" >
-
-    <!-- TEXT -->
-    <input class="mdl-textfield__input" 
-           ng-model="searchNote.text" 
-           ng-change="sendFilters(searchNote)" 
-           placeholder="content" 
-           type="text" >
-
+<!-- CONTENT -->
+<div class="wri_form__textfield mdl-textfield">
+    <input 
+        type="text"
+        id="filter-note-content" 
+        class="mdl-textfield__input" 
+        ng-model="searchNote.text" 
+        ng-change="sendFilters(searchNote)"
+        placeholder="Content..." >
+    <label class="mdl-textfield__label" for="filter-note-content"></label> 
 </div>
  

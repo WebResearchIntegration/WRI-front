@@ -18,6 +18,16 @@ span {
     
     &:not(.--no-focus) input {
         + label {
+            &:before {
+                content :'';
+                position: absolute;
+                top: 24px;
+                left: 0;
+                height: 1px;
+                width: 100%;
+                background-color: #E0E0E0;
+            }
+
             &:after {
                 visibility: visible;
                 content :'';
@@ -40,6 +50,21 @@ span {
                     transform: scaleX(1);
                 }
             }
+        }
+    }
+
+    &.--icon {
+        &:before {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            vertical-align: middle;
+            margin-right: 20px;
+            font-family: 'Material Icons';
+            font-size: 24px;
+            color: #A3A3A7;
+            transform: translateY(-50%);
         }
     }
 }

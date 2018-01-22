@@ -8,7 +8,7 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('questionsCtrl', function ($scope, Questions, $rootScope) {
+    .controller('questionsCtrl', function ($scope, Questions, $rootScope, Selector) {
         
         var ctrl = this;
 
@@ -50,11 +50,24 @@ angular.module('wriApp')
         // [METHODS : end]
 
         // [PRIVATE METHODS : begin]
+            /**
+             * @name reinitSelection()
+             * @desc will unselect all questions
+             */
+            function reinitSelection() {
+                if (Selector.getSelectionType() == "questions"){
+                    Selector.reinitSelection(ctrl.questions); 
+                }
+            }
         // [PRIVATE METHODS : end]
 
         // [EVENTS]
         $rootScope.$on('questions:refresh', function(event) {
             init();
+        });
+
+        $scope.$on("manage:reset-list", function(event){
+            reinitSelection();
         });
 
         $rootScope.$on('sendFilters', function(event, data) {
