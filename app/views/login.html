@@ -5,13 +5,13 @@
         </div>
         <div class="mdl-card__supporting-text">
           <form ng-submit="login.handleRequest($event)">
-            <div class="mdl-textfield mdl-js-textfield">
-              <input class="mdl-textfield__input" type="text" id="username" ng-model="login.email"/>
-              <label class="mdl-textfield__label" for="username">Email</label>
+            <div class="wri_form__textfield mdl-textfield mdl-js-textfield">
+              <input placeholder="Email" class="mdl-textfield__input" type="text" id="username" ng-model="login.email"/>
+              <label class="mdl-textfield__label" for="username"></label>
             </div>
-            <div class="mdl-textfield mdl-js-textfield">
-              <input class="mdl-textfield__input" type="password" id="userpass" ng-model="login.password"/>
-              <label class="mdl-textfield__label" for="userpass">Password</label>
+            <div class="wri_form__textfield mdl-textfield mdl-js-textfield">
+              <input placeholder="Password" class="mdl-textfield__input" type="password" id="userpass" ng-model="login.password"/>
+              <label class="mdl-textfield__label" for="userpass"></label>
             </div>
             <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Log in</button>
           </form>

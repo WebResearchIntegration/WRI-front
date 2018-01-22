@@ -20,7 +20,8 @@ angular
     'ngDialog',
     'textAngular',
     'selectize',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'angular-loading-bar'
   ])
   .config(function ($routeProvider, RestangularProvider, $provide, localStorageServiceProvider) {
     $routeProvider
@@ -42,7 +43,7 @@ angular
       });
 
     // [RESTANGuLAR CONFIG: START]
-    RestangularProvider.setBaseUrl('https://api-wri.herokuapp.com/api/'); // FOR PROD: https://api-wri.herokuapp.com/api/
+    RestangularProvider.setBaseUrl('http://localhost:3000/api/'); // FOR PROD: https://api-wri.herokuapp.com/api/
     // FOR LOCAL: http://localhost:3000/api/
     // [RESTANGuLAR CONFIG: END]
 
