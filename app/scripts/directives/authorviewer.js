@@ -23,7 +23,7 @@ function authorViewerDirective() {
   };
 }
 
-function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, textToolbar, ngDialog) {
+function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, textToolbar, ngDialog, localStorageService) {
 
   var ctrl = this;
 
@@ -64,7 +64,11 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    * @memberOf Directives.authorViewer
    */
   function createAuthor() {
-    Authors.create(ctrl.authorTmp).then(function (authorAdded) {
+    var sendingElement = {
+      user: localStorageService.get("user").id,
+      author: ctrl.authorTmp
+    };
+    Authors.create(sendingElement).then(function (authorAdded) {
       ctrl.author = authorAdded;
       ctrl.editMode = false;
       $rootScope.$emit("authors:refresh");
@@ -209,10 +213,11 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    * @memberOf Directives.authorViewer
    */
   function updateAuthor() {
-    _.merge(ctrl.author, ctrl.authorTmp);
+    var authorEdited = _.merge(ctrl.author, ctrl.authorTmp);
 
     Authors.updateById(ctrl.author.id, ctrl.author).then(function (authorUpdated) {
       ctrl.editMode = false;
+      // TODO: update article viewer with last version from database
       loadAuthor(authorUpdated);
     });
   }

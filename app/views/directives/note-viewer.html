@@ -40,7 +40,7 @@
         </section>
     </main>
     <footer ng-if="noteViewer.editMode">
-        <div ng-if="!noteViewer.note.id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
+        <div ng-if="!noteViewer.note._id" class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="noteViewer.cancelEdition()">
                 Cancel
             </button>
@@ -48,7 +48,7 @@
                 Create
             </button>
         </div>
-        <div ng-if="noteViewer.note.id != null" class="wri_article-viewer__footer__actions --updating mdl-shadow--8dp">
+        <div ng-if="noteViewer.note._id != null" class="wri_article-viewer__footer__actions --updating mdl-shadow--8dp">
             <div>
                 <button  class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action --delete" ng-click="noteViewer.deleteNote()">
                     Delete

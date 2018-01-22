@@ -23,7 +23,7 @@
     };  
   }
   
-  function questionViewerCtrl($rootScope, $scope, Questions, textToolbar, ngDialog) {
+  function questionViewerCtrl($rootScope, $scope, Questions, textToolbar, ngDialog, localStorageService) {
   
     var ctrl = this;
   
@@ -53,7 +53,11 @@
        * @memberOf Directives.questionViewer
        */
       function createQuestion() {
-        Questions.create(ctrl.questionTmp).then(function(questionAdded){
+        var sendingElement = {
+          user: localStorageService.get("user").id,
+          question: ctrl.questionTmp
+        };
+        Questions.create(sendingElement).then(function(questionAdded){
             ctrl.question = questionAdded;
             ctrl.editMode = false;
             $rootScope.$emit("questions:refresh");
@@ -131,10 +135,11 @@
        * @memberOf Directives.questionViewer
        */
       function updateQuestion() {    
-        _.assignIn(ctrl.question, ctrl.questionTmp);
+        var questionEdited = _.assignIn(ctrl.question, ctrl.questionTmp);
 
-        Questions.updateById(ctrl.question.id, ctrl.question).then(function(questionUpdated){
+        Questions.updateById(questionEdited._id,questionEdited).then(function(questionUpdated){
             ctrl.editMode = false;
+            // TODO : sync viewer with last version from database
             loadQuestion(questionUpdated);
         });
       }

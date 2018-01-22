@@ -23,7 +23,7 @@ function noteViewerDirective() {
   };
 }
 
-function noteViewerCtrl($rootScope, $scope, Notes, ngDialog) {
+function noteViewerCtrl($rootScope, $scope, Notes, ngDialog, localStorageService) {
 
   var ctrl = this;
 
@@ -50,9 +50,13 @@ function noteViewerCtrl($rootScope, $scope, Notes, ngDialog) {
    * @memberOf Directives.noteViewer
    */
   function createNote() {
-    ctrl.note = ctrl.noteTmp;
-    ctrl.note.isDocument = false; // specify that the current note is not a document
-    Notes.create(ctrl.noteTmp).then(function (noteAdded) {
+    var sendingElement = {
+      user: localStorageService.get("user").id,
+      note: ctrl.noteTmp
+    };
+    sendingElement.note.isDocument = false;// specify that the current note is not a document
+
+    Notes.create(sendingElement).then(function (noteAdded) {
 		ctrl.note = noteAdded;
 		ctrl.editMode = false;
 		$rootScope.$emit("notes:refresh");
@@ -130,10 +134,11 @@ function noteViewerCtrl($rootScope, $scope, Notes, ngDialog) {
    * @memberOf Directives.noteViewer
    */
   function updateNote() {
-    _.assignIn(ctrl.note, ctrl.noteTmp);
+    var noteEdited = _.assignIn(ctrl.note, ctrl.noteTmp);
 
-    Notes.updateById(ctrl.note.id, ctrl.note).then(function (noteUpdated) {
+    Notes.updateById(noteEdited._id, noteEdited).then(function (noteUpdated) {
       ctrl.editMode = false;
+      // TODO : sync viewer with last version from database
       loadNote(noteUpdated);
     });
   }

@@ -40,6 +40,7 @@ angular.module('wriApp')
     service.updateById = function (id, newNote) {
       return service.getById(id).then(function (note) {
         note = newNote;
+        note.id = newNote._id;
         return note.save();
       });
     }
@@ -50,8 +51,9 @@ angular.module('wriApp')
      */
     service.delete = function (id) {
       return service.getById(id).then(function(note) {
-              note.remove();
-          });
+          note.id = id;
+          note.remove();
+      });
     }
 
     return service;

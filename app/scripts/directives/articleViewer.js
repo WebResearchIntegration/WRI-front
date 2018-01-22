@@ -349,7 +349,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
 
       Articles.updateById(articleEdited._id, articleEdited).then(function(articleUpdated){
           ctrl.editMode = false;
-          // Can't get last version updated from db articleUpdated
+          // TODO : sync viewer with last version from database
           loadArticle(articleUpdated);
       });
     }

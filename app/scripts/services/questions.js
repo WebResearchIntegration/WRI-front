@@ -31,6 +31,7 @@ angular.module('wriApp')
     service.updateById = function (id, newQuestion) {
       return service.getById(id).then(function (question) {
         question = newQuestion;
+        question.id = newQuestion._id;
         return question.save();
       });
     };
@@ -49,6 +50,7 @@ angular.module('wriApp')
      */
     service.delete = function (id) {
       return service.getById(id).then(function(question) {
+        question.id = id;
         question.remove();
       });
     };
