@@ -157,6 +157,7 @@
          */
         function validateSelection() {
             Selector.validate();
+            $scope.$broadcast('manage:reset-list');
         }
       // [METHODS : end]
 

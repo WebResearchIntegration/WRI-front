@@ -8,9 +8,12 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('articlesCtrl', function ($rootScope, $scope, Articles, Selector) {
+    .controller('articlesCtrl', function ($rootScope, $scope, $q, Articles, Selector) {
         
         var ctrl = this;
+
+        var needToReinitList;
+        var needToSetList;
 
         // [PUBLIC VARIABLES]
         ctrl.articles;
@@ -32,6 +35,14 @@ angular.module('wriApp')
             function init() {
                 Articles.getAll().then(function(articles) {
                     ctrl.articles = articles;
+                    if(needToReinitList){
+                        needToReinitList = false;
+                        reinitSelection();
+                    }
+                    if (needToSetList){
+                        needToSetList = false;
+                        setSelection();
+                    }
                 });
             }
 
@@ -70,7 +81,17 @@ angular.module('wriApp')
              */
             function reinitSelection() {
                 if (Selector.getSelectionType() == "articles"){
-                    Selector.reinitSelection(ctrl.articles); 
+                    Selector.reinitSelection(ctrl.articles);
+                }
+            }
+
+            /**
+             * @name setSelection()
+             * @desc will select all articles already present in the item which is being edited
+             */
+            function setSelection() {
+                if (Selector.getSelectionType() == "articles") {
+                    Selector.setSelectionInCtrl(ctrl.articles);
                 }
             }
         // [PRIVATE METHODS: end]
@@ -78,7 +99,6 @@ angular.module('wriApp')
 
         // [EVENTS]
         $rootScope.$on("articles:refresh", function(event){
-            // event.stopPropagation();
             init();
         });
 
@@ -90,14 +110,24 @@ angular.module('wriApp')
         $scope.$watch(function(){
             return Selector.isEnabled;
         }, function(){
-            reinitSelection();
+            if (!ctrl.articles) {
+                needToReinitList = true;
+            }
+            else {
+                reinitSelection();
+            }
         });
 
         $scope.$watch(function(){
             return Selector.itemsAlreadySelectedSize;
         }, function(newVal, oldVal){
-            if (Selector.getSelectionType() == "articles") {
-                Selector.setSelectionInCtrl(ctrl.articles);
+            if(newVal != 0 ){
+                if(!ctrl.articles){
+                    needToSetList = true;
+                }
+                else {
+                    setSelection();
+                }
             }
         });
 

@@ -17,7 +17,7 @@ angular.module('wriApp')
     var selectedType = "";
     
     // [PUBLIC PROPERTIES]
-    factory.itemsAlreadySelectedSize = false;
+    factory.itemsAlreadySelectedSize = 0;
     factory.isEnabled = false;
     factory.selectionValidated = false;
 
@@ -53,7 +53,6 @@ angular.module('wriApp')
        * @return {void}
        */
       function disable(){
-        selectedType = "";
         factory.isEnabled = false;
         factory.itemsAlreadySelectedSize = 0;
         cleanList();
@@ -105,7 +104,7 @@ angular.module('wriApp')
       function loadSelection(itemsAlreadySelected){
         factory.itemsAlreadySelectedSize = itemsAlreadySelected.length;
         selectedItems = _.union(selectedItems, itemsAlreadySelected);
-        factory.itemsAlreadySelectedSize = true;
+        //factory.itemsAlreadySelectedSize = true;
       }
 
       /**
@@ -125,6 +124,7 @@ angular.module('wriApp')
        * @return {void}
        */
       function receiptSelection(){
+        selectedType = "";
         factory.selectionValidated = false;
         cleanList();
       }
@@ -138,7 +138,8 @@ angular.module('wriApp')
       function setSelectionInCtrl(collection){
         var tmp;
         _.forEach(selectedItems, function(itemToSelect){
-          tmp = _.find(collection, ['id', itemToSelect.id]);
+          // tmp = _.find(collection, ['_id', itemToSelect]);
+          tmp = _.find(collection, ['_id', itemToSelect]); // to bind current back...
           if (tmp != undefined){
               tmp.isSelected = true;
           }
@@ -153,7 +154,7 @@ angular.module('wriApp')
        */
       function toggleInList(item){
         var lengthBefore = selectedItems.length;
-        var itemFound = _.find(selectedItems, ['id', item.id]);
+        var itemFound = _.find(selectedItems, ['_id', item._id]);
         if (!itemFound){
           selectedItems.push(item);
         }
