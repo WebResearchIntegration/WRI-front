@@ -23,7 +23,7 @@ function articleViewerDirective() {
   };  
 }
 
-function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) {
+function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector, ngDialog) {
 
   var ctrl = this;
 
@@ -122,10 +122,20 @@ function articleViewerCtrl($rootScope, $scope, Articles, textToolbar, Selector) 
      * @memberOf Directives.articleViewer
      */
     function deleteArticle() {
-      var articleID = ctrl.article.id;
-      Articles.delete(articleID).then(function(){
-          $scope.$emit("articles:refresh");
-          ctrl.article = null;
+      ngDialog.openConfirm({
+        template: "views/_confirm.html",
+        appendClassName: "wri_dialog",
+        showClose:false,
+        data: {
+          action: "delete",
+          itemType: "article"
+        }
+      }).then(function(){
+        var articleID = ctrl.article.id;
+        Articles.delete(articleID).then(function(){
+            $scope.$emit("articles:refresh");
+            ctrl.article = null;
+        });
       });
     }
 

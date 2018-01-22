@@ -23,7 +23,7 @@ function authorViewerDirective() {
   };
 }
 
-function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, textToolbar) {
+function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, textToolbar, ngDialog) {
 
   var ctrl = this;
 
@@ -90,10 +90,20 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    * @memberOf Directives.authorViewer
    */
   function deleteAuthor() {
-    var authorID = ctrl.author.id;
-    Authors.delete(authorID).then(function () {
-      $scope.$emit("authors:refresh");
-      ctrl.author = null;
+    ngDialog.openConfirm({
+      template: "views/_confirm.html",
+      appendClassName: "wri_dialog",
+      showClose:false,
+      data: {
+        action: "delete",
+        itemType: "author"
+      }
+    }).then(function(){
+      var authorID = ctrl.author.id;
+      Authors.delete(authorID).then(function(){
+          $scope.$emit("authors:refresh");
+          ctrl.author = null;
+      });
     });
   }
 

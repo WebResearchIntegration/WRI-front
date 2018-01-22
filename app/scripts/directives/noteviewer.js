@@ -23,7 +23,7 @@ function noteViewerDirective() {
   };
 }
 
-function noteViewerCtrl($rootScope, $scope, Notes) {
+function noteViewerCtrl($rootScope, $scope, Notes, ngDialog) {
 
   var ctrl = this;
 
@@ -78,10 +78,20 @@ function noteViewerCtrl($rootScope, $scope, Notes) {
    * @memberOf Directives.noteViewer
    */
   function deleteNote() {
-    var noteID = ctrl.note.id;
-    Notes.delete(noteID).then(function () {
-      $scope.$emit("notes:refresh");
-      ctrl.note = null;
+    ngDialog.openConfirm({
+      template: "views/_confirm.html",
+      appendClassName: "wri_dialog",
+      showClose:false,
+      data: {
+        action: "delete",
+        itemType: "note"
+      }
+    }).then(function(){
+      var noteID = ctrl.note.id;
+      Notes.delete(noteID).then(function(){
+          $scope.$emit("notes:refresh");
+          ctrl.note = null;
+      });
     });
   }
 

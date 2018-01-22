@@ -23,7 +23,7 @@
     };  
   }
   
-  function questionViewerCtrl($rootScope, $scope, Questions, textToolbar) {
+  function questionViewerCtrl($rootScope, $scope, Questions, textToolbar, ngDialog) {
   
     var ctrl = this;
   
@@ -79,10 +79,20 @@
        * @memberOf Directives.questionViewer
        */
       function deleteQuestion() {
-        var questionID = ctrl.question.id;
-        Questions.delete(questionID).then(function(){
-          $scope.$emit("questions:refresh");
-          ctrl.question = null;
+        ngDialog.openConfirm({
+          template: "views/_confirm.html",
+          appendClassName: "wri_dialog",
+          showClose:false,
+          data: {
+            action: "delete",
+            itemType: "question"
+          }
+        }).then(function(){
+          var questionID = ctrl.question.id;
+          Questions.delete(questionID).then(function(){
+              $scope.$emit("questions:refresh");
+              ctrl.question = null;
+          });
         });
       }
       
