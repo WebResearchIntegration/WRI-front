@@ -127,13 +127,13 @@
                     }
     
                     &.status-checked {
-                        background: #DEDEDE;
+                        background: white;
                         border: 1px solid transparent;
-                        color: #000;
+                        color: $primary-dark;
                         transition: background 0.2s linear, color 0.2s linear; 
 
                         .mdl-chip__contact {
-                            background: #07ca00;
+                            background: #17a312;
                             transition: background 0.2s linear; 
 
                         }
@@ -258,7 +258,7 @@
                         margin-top: 10px;
                     }
                 }
-                @each $category, $color in (problematic: #b11e1e, solution: #109510, abstract: #3374c8) {
+                @each $category, $color in (problematic: #ce1818, solution: #199219, abstract: #2f64aa) {
                     &.--wri_article-#{$category} {
                         &:before {
                             border-left: 1px solid $color;
@@ -453,12 +453,12 @@
 
             .wri_article-viewer__footer__actions__action {
                 &.--delete {
-                    background: #ca4040;
+                    background: #811c1c;
                     color: white;
                     justify-self: left;
                 }
                 &.--update, &.--create  {
-                    background-color: #2b9c5e;
+                    background-color: #147214;
                 }
 
                 + .wri_article-viewer__footer__actions__action {
@@ -579,6 +579,12 @@
 }
 // [AUTHOR HEADER : end]
 
+.wri_article-viewer__status-list .mdl-chip.mdl-chip--contact {
+    .status-checked {
+
+    }
+}
+
 // [INTERACTIVE ROW : begin]
 .viewer .mdl-layout__header .interactive-row .wri_article-viewer__status-list {
     .mdl-button {
@@ -644,7 +650,7 @@
                     margin-top: 10px;
                 }
             }
-            @each $category, $color in (problematic: #b11e1e, solution: #109510, abstract: #3374c8) {
+            @each $category, $color in (problematic: #ce1818, solution: #199219, abstract: #2f64aa) {
                 &.--wri_article-#{$category} {
                     &:before {
                         border-left: 1px solid $color;

@@ -1,12 +1,12 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
+        <div class="mdl-layout__header-row --wri_background--primary">
             <div class="wri_article-title">
                 <span class="mdl-layout__title --little-padding">Question {{questionViewer.editMode ? "Editor" : "Viewer"}}</span>
             </div>
         </div>
-        <div class="mdl-layout__header-row mdl-color--primary-dark interactive-row" ng-class="{'wri_editor__text-toolbar': questionViewer.editMode}">
-            <div ng-if="!questionViewer.editMode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent edit-button" ng-click="questionViewer.turnEditMode()">
+        <div class="mdl-layout__header-row --wri_background--primary-dark interactive-row" ng-class="{'wri_editor__text-toolbar': questionViewer.editMode}">
+            <div ng-if="!questionViewer.editMode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect --wri_background--contrast mdl-color-text--white mdl-shadow--4dp   edit-button" ng-click="questionViewer.turnEditMode()">
                 <i class="material-icons">edit</i>
                 <span class="mdl-button__ripple-container">
                     <span class="mdl-ripple"></span>
@@ -70,7 +70,7 @@
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="questionViewer.cancelEdition()">
                 Cancel
             </button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': questionViewer.questionTmp.problematic == null || questionViewer.questionTmp.problematic == ''}" ng-disabled="questionViewer.questionTmp.problematic == null || questionViewer.questionTmp.problematic == ''" ng-click="questionViewer.createQuestion()">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect --wri_background--contrast mdl-color-text--white wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': questionViewer.questionTmp.problematic == null || questionViewer.questionTmp.problematic == ''}" ng-disabled="questionViewer.questionTmp.problematic == null || questionViewer.questionTmp.problematic == ''" ng-click="questionViewer.createQuestion()">
                 Create
             </button>
         </div>
@@ -84,7 +84,7 @@
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="questionViewer.cancelEdition()">
                     Cancel
                 </button>
-                <button ng-class="{'--wri_disabled': questionViewer.question.problematic == null || questionViewer.question.problematic == ''}" ng-disabled="questionViewer.question.problematic == null || questionViewer.question.problematic == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent wri_article-viewer__footer__actions__action --update" ng-click="questionViewer.updateQuestion()">
+                <button ng-class="{'--wri_disabled': questionViewer.question.problematic == null || questionViewer.question.problematic == ''}" ng-disabled="questionViewer.question.problematic == null || questionViewer.question.problematic == ''"   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect --wri_background--contrast mdl-color-text--white wri_article-viewer__footer__actions__action --update" ng-click="questionViewer.updateQuestion()">
                     Update
                 </button>
             </div>

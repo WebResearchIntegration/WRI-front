@@ -354,7 +354,7 @@
                             margin-top: 10px;
                         }
                     }
-                    @each $category, $color in (problematic: #b11e1e, solution: #109510, abstract: #3374c8) {
+                    @each $category, $color in (problematic: #ce1818, solution: #199219, abstract: #2f64aa) {
                         &.--wri_article-#{$category} {
                             &:before {
                                 border-left: 1px solid $color;

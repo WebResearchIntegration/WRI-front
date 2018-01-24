@@ -131,8 +131,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
         appendClassName: "wri_dialog",
         showClose:false,
         data: {
-          action: "delete",
-          itemType: "article"
+          message: "delete article"
         }
       }).then(function(){
         var articleID = ctrl.article._id;
@@ -368,6 +367,24 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
+    $scope.$on("manage:load-while-editing", function(){
+      ngDialog.openConfirm({
+        template: "views/_confirm.html",
+        appendClassName: "wri_dialog",
+        showClose:false,
+        data: {
+          message: "cancel current article without saving ?"
+        }
+      }).then(function(){
+        var articleID = ctrl.article._id;
+        // check article.id (because of RESTangular)
+        Articles.delete(articleID).then(function(){
+            $scope.$emit("articles:refresh");
+            ctrl.article = null;
+        });
+      });
+    });
+
     $scope.$watch( function(){
       return ctrl.article;
     }, function(newArticle, previousArticle){

@@ -103,14 +103,18 @@
 
         /**
          * @name selectItem
-         * @desc Two cases are available for this method.
-         * Will send the item to the viewer.
+         * @desc Three cases are available for this method.
+         * Will send the item to the viewer (if not in edit mode)
+         * Will send the item to the viewer after confirm (if in edit mode)
          * Will add the item to the list of selected items if selection mode is on.
          * @param {Object} item   item from the list got from the database.
          * @param {Boolean}  inEditor    true if we want to load the item in editor
          */
         function selectItem(item, inEditor) {
-            if(ctrl.selectMode) {
+            if (ctrl.viewer.editMode && !ctrl.selectMode){
+                $scope.$broadcast("manage:load-while-editing", item, inEditor);
+            }
+            else if(ctrl.selectMode) {
                 item.isSelected = !item.isSelected;
                 Selector.toggleInList(item);
                 ctrl.selectionSize = Selector.getSelectionSize();
