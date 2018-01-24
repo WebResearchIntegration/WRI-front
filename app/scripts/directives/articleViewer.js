@@ -23,7 +23,7 @@ function articleViewerDirective() {
   };  
 }
 
-function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Articles, textToolbar, Selector, ngDialog) {
+function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Articles, textToolbar, Selector, ngDialog, DataCollect) {
 
   var ctrl = this;
 
@@ -237,6 +237,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
       ctrl.articleTmp = _.pick(ctrl.article, ctrl.articleFields);
 
       ctrl.textToolbar = textToolbar.getSimpleToolbar();
+
       ctrl.keywordsSelectize = {
         config: {
           create: true,
@@ -253,7 +254,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
             }
           }
         },
-        options: [{id:1, text: "interest"}] // get all keywords from database
+        options: DataCollect.getKeywordsAsOptions() // get all keywords from database
       };
 
       ctrl.editMode = true;
@@ -356,7 +357,12 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
       Articles.updateById(articleEdited._id, articleEdited).then(function(articleUpdated){
           ctrl.editMode = false;
           // TODO : sync viewer with last version from database
-          loadArticle(articleUpdated);
+          // console.log("new article" , articleUpdated);
+          Articles.getById(articleUpdated._id).then(function(updatedArticle){
+              DataCollect.extractKeywordsOf(updatedArticle);
+              loadArticle(updatedArticle);
+            }
+          );
       });
     }
   // [PRIVATE FUNCTIONS : end]

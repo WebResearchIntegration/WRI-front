@@ -8,7 +8,7 @@
  * Controller of the wriApp
  */
 angular.module('wriApp')
-    .controller('articlesCtrl', function ($rootScope, $scope, $q, Articles, Selector) {
+    .controller('articlesCtrl', function ($rootScope, $scope, $q, Articles, Selector, DataCollect) {
         
         var ctrl = this;
 
@@ -35,14 +35,22 @@ angular.module('wriApp')
             function init() {
                 Articles.getAll().then(function(articles) {
                     ctrl.articles = articles;
+
                     if(needToReinitList){
                         needToReinitList = false;
                         reinitSelection();
                     }
+
                     if (needToSetList){
                         needToSetList = false;
                         setSelection();
                     }
+
+                    _.forEach(articles, function(article){
+                        DataCollect.extractKeywordsOf(article);
+                    });
+
+                    console.log("result :", DataCollect.getKeywordsList());
                 });
             }
 
