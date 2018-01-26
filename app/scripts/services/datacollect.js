@@ -81,24 +81,25 @@
             function setKeywordsList(list) {
                 keywords = list;
             }
+
+            /**
+             * @name getKeywordsAsOptions
+             * @desc will return an array of object to match 'options' attribute in selectize directive.
+             * @returns {Array} selectizeOptions, array of object of type : {text: "keyword"}
+             * @memberOf Factories.DataCollect
+             */
+            function getKeywordsAsOptions()  {
+                var selectizeOptions = [];
+                for (var i = 0; i < keywords.length; i++){
+                    selectizeOptions.push({
+                        text: keywords[i]
+                    });
+                }
+                return selectizeOptions;
+            }
         // [METHODS : end]
 
         // [PRIVATE FUNCTIONS : begin]
-                /**
-                 * @name getKeywordsAsOptions
-                 * @desc will return an array of object to match 'options' attribute in selectize directive.
-                 * @returns {Array} selectizeOptions, array of object of type : {text: "keyword"}
-                 * @memberOf Factories.DataCollect
-                 */
-                function getKeywordsAsOptions()  {
-                    var selectizeOptions = [];
-                    for (var i = 0; i < keywords.length; i++){
-                        selectizeOptions.push({
-                            text: keywords[i]
-                        });
-                    }
-                    return selectizeOptions;
-                }
         // [PRIVATE FUNCTIONS : end]
 
         ////////////
