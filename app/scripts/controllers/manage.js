@@ -322,29 +322,31 @@
             }
         });
 
-        $scope.$on("items-list_manage:open", function(event, item, inEditor, type){
+        $scope.$on("viewer_manage:open", function(event, item, inEditor, type){
             loadItemInViewer(item, inEditor, type);
         });
         
-        $scope.$on("article:open", function(event, article, inEditor){
-            var category = sliceBy(event.name, ":", 0);
-            loadItemInViewer(article, inEditor, category);
-        });
+        // [TO REMOVE : begin]
+            $scope.$on("article:open", function(event, article, inEditor){
+                var category = sliceBy(event.name, ":", 0);
+                loadItemInViewer(article, inEditor, category);
+            });
 
-        $scope.$on("author:open", function(event, author, inEditor){
-            var category = sliceBy(event.name, ":", 0);
-            loadItemInViewer(author, inEditor, category);
-        });
+            $scope.$on("author:open", function(event, author, inEditor){
+                var category = sliceBy(event.name, ":", 0);
+                loadItemInViewer(author, inEditor, category);
+            });
 
-        $scope.$on("note:open", function(event, note, inEditor){
-            var category = sliceBy(event.name, ":", 0);
-            loadItemInViewer(note, inEditor, category);
-        });
+            $scope.$on("note:open", function(event, note, inEditor){
+                var category = sliceBy(event.name, ":", 0);
+                loadItemInViewer(note, inEditor, category);
+            });
 
-        $scope.$on("question:open", function(event, question, inEditor){
-            var category = sliceBy(event.name, ":", 0);
-            loadItemInViewer(question, inEditor, category);
-        });
+            $scope.$on("question:open", function(event, question, inEditor){
+                var category = sliceBy(event.name, ":", 0);
+                loadItemInViewer(question, inEditor, category);
+            });
+        // [TO REMOVE : end]
 
         $scope.$on("select:articles", function(event){
             var category = sliceBy(event.name, ":");

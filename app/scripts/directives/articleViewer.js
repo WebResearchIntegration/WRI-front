@@ -198,7 +198,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      * @memberOf Directives.articleViewer
      */
     function openAuthorProfile(author) {
-      $scope.$emit("author:open", author);
+      $scope.$emit("viewer_manage:open", author, false, "author");
     } 
 
     /**
@@ -208,7 +208,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      * @memberOf Directives.articleViewer
      */
     function openReference(article) {
-      $scope.$emit("article:open", article);
+      $scope.$emit("viewer_manage:open", article, false, "article");
     }
     
     /**
@@ -328,13 +328,13 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
             message: "Are you sure you want to quit current article without saving ?"
           }
         }).then(function(){
-          $scope.$emit("article:open", article, inEditor);
+          $scope.$emit("viewer_manage:open", article, inEditor, "article");
         }).catch(function(){
           console.log("continue current edition");
         });
       } 
       else {
-        $scope.$emit("article:open", article, inEditor);
+        $scope.$emit("viewer_manage:open", article, inEditor, "article");
       }
     }
 
