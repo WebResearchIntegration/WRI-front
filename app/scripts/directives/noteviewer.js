@@ -87,14 +87,14 @@ function noteViewerCtrl($rootScope, $scope, Notes, ngDialog, localStorageService
       appendClassName: "wri_dialog",
       showClose:false,
       data: {
-        action: "delete",
-        itemType: "note"
+        message: "Are you sure you want to delete this note ?"
       }
     }).then(function(){
-      var noteID = ctrl.note.id;
+      var noteID = ctrl.note._id;
       Notes.delete(noteID).then(function(){
           $scope.$emit("notes:refresh");
           ctrl.note = null;
+          ctrl.editMode = false;
       });
     });
   }
@@ -125,26 +125,60 @@ function noteViewerCtrl($rootScope, $scope, Notes, ngDialog, localStorageService
   // [METHODS : end]
 
   // [PRIVATE FUNCTIONS : begin]
+    /**
+     * @name  confirmBeforeSwitch
+     * @desc  Will open a confirm box to ask user to confirm choice before load another note in viewer, if currently was being edited
+     * @param   note  new note to load in viewer
+     * @param   inEditor  to know if we need to turn edit mode or not
+     * @return  {Event} 'note:open'   if confirmed 
+     */
+    function confirmBeforeSwitch(note, inEditor){
+      inEditor = inEditor || false;
+      var originalData = _.pick(ctrl.note, ctrl.noteFields);
+      
+      if (!_.isEqual(ctrl.noteTmp, originalData)){
+        ngDialog.openConfirm({
+          template: "views/_confirm.html",
+          appendClassName: "wri_dialog",
+          showClose:false,
+          data: {
+            message: "Are you sure you want to quit current note without saving ?"
+          }
+        }).then(function(){
+          $scope.$emit("note:open", note, inEditor);
+        }).catch(function(){
+          console.log("continue current edition");
+        });
+      } 
+      else {
+        $scope.$emit("note:open", note, inEditor);
+      }
+    }
 
-  /**
-   * @name updateNote
-   * @desc Will update current note
-   * @param {Object}  property   property to transform into an array
-   * @param {Boolean}  onlyObject   check if the current property has to be an object
-   * @memberOf Directives.noteViewer
-   */
-  function updateNote() {
-    var noteEdited = _.assignIn(ctrl.note, ctrl.noteTmp);
+    /**
+     * @name updateNote
+     * @desc Will update current note
+     * @param {Object}  property   property to transform into an array
+     * @param {Boolean}  onlyObject   check if the current property has to be an object
+     * @memberOf Directives.noteViewer
+     */
+    function updateNote() {
+      var noteEdited = _.assignIn(ctrl.note, ctrl.noteTmp);
 
-    Notes.updateById(noteEdited._id, noteEdited).then(function (noteUpdated) {
-      ctrl.editMode = false;
-      // TODO : sync viewer with last version from database
-      loadNote(noteUpdated);
-    });
-  }
+      Notes.updateById(noteEdited._id, noteEdited).then(function (noteUpdated) {
+        ctrl.editMode = false;
+        // TODO : sync viewer with last version from database
+        loadNote(noteUpdated);
+      });
+    }
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
+  $scope.$on("manage:load-while-editing", function(event, item, inEditor){
+    confirmBeforeSwitch(item, inEditor);
+  });
+
+  // [WATCHERS]
   $scope.$watch(function () {
     return ctrl.note;
   }, function (newNote, previousNote) {

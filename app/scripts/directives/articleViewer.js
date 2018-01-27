@@ -131,7 +131,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
         appendClassName: "wri_dialog",
         showClose:false,
         data: {
-          message: "delete article"
+          message: "Are you sure you want to delete this article ?"
         }
       }).then(function(){
         var articleID = ctrl.article._id;
@@ -139,7 +139,10 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
         Articles.delete(articleID).then(function(){
             $scope.$emit("articles:refresh");
             ctrl.article = null;
+            ctrl.editMode = false;
         });
+      }).catch(function(){
+        console.log("cancel delete ");
       });
     }
 
@@ -205,7 +208,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      * @memberOf Directives.articleViewer
      */
     function openReference(article) {
-      $scope.$emit("reference:open", article);
+      $scope.$emit("article:open", article);
     }
     
     /**
@@ -306,6 +309,36 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
 
   // [PRIVATE FUNCTIONS : begin]
     /**
+     * @name  confirmBeforeSwitch
+     * @desc  Will open a confirm box to ask user to confirm choice before load another article in viewer, if currently was being edited
+     * @param   article  new article to load in viewer
+     * @param   inEditor  to know if we need to turn edit mode or not
+     * @return  {Event} 'article:open'   if confirmed 
+     */
+    function confirmBeforeSwitch(article, inEditor){
+      inEditor = inEditor || false;
+      var originalData = _.pick(ctrl.article, ctrl.articleFields);
+
+      if (!_.isEqual(ctrl.articleTmp, originalData)){
+        ngDialog.openConfirm({
+          template: "views/_confirm.html",
+          appendClassName: "wri_dialog",
+          showClose:false,
+          data: {
+            message: "Are you sure you want to quit current article without saving ?"
+          }
+        }).then(function(){
+          $scope.$emit("article:open", article, inEditor);
+        }).catch(function(){
+          console.log("continue current edition");
+        });
+      } 
+      else {
+        $scope.$emit("article:open", article, inEditor);
+      }
+    }
+
+    /**
      * @name insertDataInto
      * @desc Will update article property passed as param into an array
      * @param {Object}  property   property to transform into an array
@@ -320,7 +353,6 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
         obj = _.pick(item, ["_id"]);
         ctrl.articleTmp[selectedProperty].push(obj);
       });
-      console.log(ctrl.articleTmp[selectedProperty]);
       Selector.disable();
     }
 
@@ -367,24 +399,11 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
-    $scope.$on("manage:load-while-editing", function(){
-      ngDialog.openConfirm({
-        template: "views/_confirm.html",
-        appendClassName: "wri_dialog",
-        showClose:false,
-        data: {
-          message: "cancel current article without saving ?"
-        }
-      }).then(function(){
-        var articleID = ctrl.article._id;
-        // check article.id (because of RESTangular)
-        Articles.delete(articleID).then(function(){
-            $scope.$emit("articles:refresh");
-            ctrl.article = null;
-        });
-      });
+    $scope.$on("manage:load-while-editing", function(event, item, inEditor){
+      confirmBeforeSwitch(item, inEditor);
     });
 
+  // [WATCHERS]
     $scope.$watch( function(){
       return ctrl.article;
     }, function(newArticle, previousArticle){

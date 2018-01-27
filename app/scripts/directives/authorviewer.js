@@ -99,14 +99,14 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
       appendClassName: "wri_dialog",
       showClose:false,
       data: {
-        action: "delete",
-        itemType: "author"
+        message: "Are you sure you want to delete this author ?"
       }
     }).then(function(){
-      var authorID = ctrl.author.id;
+      var authorID = ctrl.author._id;
       Authors.delete(authorID).then(function(){
           $scope.$emit("authors:refresh");
           ctrl.author = null;
+          ctrl.editMode = false;
       });
     });
   }
@@ -172,9 +172,38 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
 
   // [PRIVATE FUNCTIONS : begin]
     /**
+     * @name  confirmBeforeSwitch
+     * @desc  Will open a confirm box to ask user to confirm choice before load another author in viewer, if currently was being edited
+     * @param   author  new author to load in viewer
+     * @param   inEditor  to know if we need to turn edit mode or not
+     * @return  {Event} 'author:open'   if confirmed 
+     */
+    function confirmBeforeSwitch(author, inEditor){
+      inEditor = inEditor || false;
+      var originalData = _.pick(ctrl.author, ctrl.authorFields);
+
+      if (!_.isEqual(ctrl.authorTmp, originalData)){
+        ngDialog.openConfirm({
+          template: "views/_confirm.html",
+          appendClassName: "wri_dialog",
+          showClose:false,
+          data: {
+            message: "Are you sure you want to quit current author without saving ?"
+          }
+        }).then(function(){
+          $scope.$emit("author:open", author, inEditor);
+        }).catch(function(){
+          console.log("continue current edition");
+        });
+      } 
+      else {
+        $scope.$emit("author:open", author, inEditor);
+      }
+    }
+
+    /**
      * @name insertDataInto
      * @desc Will update author property passed as param into an array
-     * @param {Boolean}  onlyObject   check if the current property has to be an object
      * @memberOf Directives.authorViewer
      */
     function insertDataInto() {
@@ -189,7 +218,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
     }
 
 
-      /**
+    /**
      * @name transformIntoArr
      * @desc Will update author property passed as param into an array
      * @param {Object}  property   property to transform into an array
@@ -229,6 +258,11 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
+  $scope.$on("manage:load-while-editing", function(event, item, inEditor){
+    confirmBeforeSwitch(item, inEditor);
+  });
+
+  // [WATCHERS]
   $scope.$watch(function () {
     return ctrl.author;
   }, function (newAuthor, previousAuthor) {
