@@ -72,3 +72,10 @@ p {
 //     background-image: url("../assets/icons/expand.svg");
 //     cursor: se-resize;
 // }
+#loading-bar .bar {
+    background: $contrast;
+}
+#loading-bar-spinner .spinner-icon {
+    border-top-color: $contrast;
+    border-left-color: $contrast;
+}
