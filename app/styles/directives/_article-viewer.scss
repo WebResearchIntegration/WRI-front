@@ -398,10 +398,11 @@
 
                     .mdl-chip {
                         border-radius: initial;
-                        max-width: calc(100% - 12px);
+                        max-width: calc(100% - 15px);
 
                         .mdl-chip__text {
                             overflow: hidden;
+                            max-width: 340px;
                             width: 100%;
                             white-space: nowrap;
                             text-overflow: ellipsis;
