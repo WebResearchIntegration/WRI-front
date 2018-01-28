@@ -136,7 +136,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    * @memberOf Directives.authorViewer
    */
   function selectArticles() {
-    $scope.$emit('select:articles');
+    $scope.$emit('viewer_manage:select', "articles");
     Selector.loadSelection(ctrl.authorTmp.articles);
   }
 

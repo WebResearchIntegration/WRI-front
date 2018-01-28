@@ -277,37 +277,9 @@
             loadItemInViewer(item, inEditor, type);
         });
 
-        $scope.$on("select:articles", function(event){
-            var category = sliceBy(event.name, ":");
-            showCategory(category);
-            Selector.enable("articles");
-            $timeout(function(){
-                ctrl.selectionSize = Selector.getSelectionSize();
-            });
-        });
-
-        $scope.$on("select:authors", function(event){
-            var category = sliceBy(event.name, ":");
-            showCategory(category);
-            Selector.enable("authors");
-            $timeout(function(){
-                ctrl.selectionSize = Selector.getSelectionSize();
-            });
-        });
-
-        $scope.$on("select:notes", function(event){
-            var category = sliceBy(event.name, ":");
-            showCategory(category);
-            Selector.enable("notes");
-            $timeout(function(){
-                ctrl.selectionSize = Selector.getSelectionSize();
-            });
-        });
-
-        $scope.$on("select:questions", function(event){
-            var category = sliceBy(event.name, ":");
-            showCategory(category);
-            Selector.enable("questions");
+        $scope.$on("viewer_manage:select", function(event, type){
+            showCategory(type);
+            Selector.enable(type);
             $timeout(function(){
                 ctrl.selectionSize = Selector.getSelectionSize();
             });

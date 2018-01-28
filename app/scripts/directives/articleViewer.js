@@ -269,7 +269,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      */
     function selectAuthors() {
       selectedProperty = "authors";
-      $scope.$emit('select:authors');
+      $scope.$emit('viewer_manage:select', selectedProperty);
       Selector.loadSelection(ctrl.articleTmp.authors);
     }
 
@@ -280,7 +280,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      */
     function selectNotes() {
       selectedProperty = "notes";
-      $scope.$emit('select:notes');
+      $scope.$emit('viewer_manage:select', selectedProperty);
       Selector.loadSelection(ctrl.articleTmp.notes);
     }
 
@@ -291,7 +291,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      */
     function selectQuestions() {
       selectedProperty = "questions";
-      $scope.$emit('select:questions');
+      $scope.$emit('viewer_manage:select', selectedProperty);
       Selector.loadSelection(ctrl.articleTmp.questions);
     }
 
@@ -302,7 +302,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      */
     function selectReferences() {
       selectedProperty = "references";
-      $scope.$emit('select:articles');
+      $scope.$emit('viewer_manage:select', "articles");
       Selector.loadSelection(ctrl.articleTmp.references);
     }
   // [METHODS : end]
