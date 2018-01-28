@@ -150,13 +150,12 @@
                 .wri_item-list__article__main-informations {
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
+                    justify-content: space-around;
                     flex-grow: 1;
                     padding: 0 20px;
 
                     .wri_item-list__article__title {
-                        margin-top: 10px;
-                        line-height: 26px;
+                        line-height: 25px;
                         font-size: 20px;
                     }
 
