@@ -114,10 +114,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      */
     function cancelEdition(){
       ctrl.editMode = false;
-      console.log("tmp before:", ctrl.articleTmp);
       ctrl.articleTmp = null;
-      console.log("tmp after:", ctrl.articleTmp);
-      console.log("article:", ctrl.article);
       if(!ctrl.article._id){
         ctrl.article = null;
       }

@@ -17,7 +17,6 @@ angular.module('wriApp')
       var user = localStorageService.get("user");
 
       if (user) {
-        // console.log("Get the user: ", user);
         callback(user);
       } else {
         callback(null);
