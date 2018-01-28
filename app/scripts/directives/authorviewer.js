@@ -155,8 +155,9 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    * @memberOf Directives.authorViewer
    */
   function turnEditMode() {
+    var clonedAuthor = _.cloneDeep(ctrl.author);
+    ctrl.authorTmp = _.pick(clonedAuthor, ctrl.authorFields);
     ctrl.textToolbar = textToolbar.getSimpleToolbar();
-    ctrl.authorTmp = _.pick(ctrl.author, ctrl.authorFields);
     ctrl.editMode = true;
   }
 
