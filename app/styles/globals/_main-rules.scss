@@ -34,7 +34,7 @@ a {
     }
 }
 
-.mdl-button--fab.--wri_background--contrast {
+.mdl-button--fab.--wri_background--contrast, .mdl-button.--wri_background--contrast{
     &:hover, &:active, &:focus {
         background: $contrast;
     }
