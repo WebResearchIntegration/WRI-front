@@ -173,12 +173,12 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
   // [PRIVATE FUNCTIONS : begin]
     /**
      * @name  confirmBeforeSwitch
-     * @desc  Will open a confirm box to ask user to confirm choice before load another author in viewer, if currently was being edited
-     * @param   author  new author to load in viewer
+     * @desc  Will open a confirm box to ask user to confirm choice before load another item in viewer, if currently was being edited
+     * @param   item  item to load in viewer
      * @param   inEditor  to know if we need to turn edit mode or not
-     * @return  {Event} 'author:open'   if confirmed 
+     * @return  {Event} 'viewer_manage:open'   if confirmed 
      */
-    function confirmBeforeSwitch(author, inEditor){
+    function confirmBeforeSwitch(item, inEditor, type){
       inEditor = inEditor || false;
       var originalData = _.pick(ctrl.author, ctrl.authorFields);
 
@@ -191,13 +191,13 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
             message: "Are you sure you want to quit current author without saving ?"
           }
         }).then(function(){
-          $scope.$emit("author:open", author, inEditor);
+          $scope.$emit("viewer_manage:open", item, inEditor, type);
         }).catch(function(){
           console.log("continue current edition");
         });
       } 
       else {
-        $scope.$emit("author:open", author, inEditor);
+        $scope.$emit("viewer_manage:open", item, inEditor, type);
       }
     }
 
@@ -258,8 +258,8 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
-  $scope.$on("manage:load-while-editing", function(event, item, inEditor){
-    confirmBeforeSwitch(item, inEditor);
+  $scope.$on("manage:load-while-editing", function(event, item, inEditor, type){
+      confirmBeforeSwitch(item, inEditor, type);
   });
 
   // [WATCHERS]

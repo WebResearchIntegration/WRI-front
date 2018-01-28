@@ -58,7 +58,7 @@ angular.module('wriApp')
                 problematic: "",
                 answer: ""
             };
-            $scope.$emit('questions:new', newQuestion);
+            $scope.$emit('items-list_manage:new', "question", newQuestion);
         }
         // [METHODS : end]
 

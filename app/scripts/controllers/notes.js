@@ -57,7 +57,7 @@ angular.module('wriApp')
             var newNote = {
                 text: ""
             };
-            $scope.$emit('notes:new', newNote);
+            $scope.$emit('items-list_manage:new', "note", newNote);
         }
         // [METHODS : end]
 

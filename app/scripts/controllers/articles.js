@@ -78,7 +78,7 @@ angular.module('wriApp')
                     notes : [],
                     link : ''
                 };
-                $scope.$emit('articles:new', newArticle);
+                $scope.$emit('items-list_manage:new', "article", newArticle);
             }
         // [METHODS: end]
         

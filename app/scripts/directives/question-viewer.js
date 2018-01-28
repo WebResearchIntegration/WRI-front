@@ -116,12 +116,12 @@
 
       /**
        * @name  confirmBeforeSwitch
-       * @desc  Will open a confirm box to ask user to confirm choice before load another question in viewer, if currently was being edited
-       * @param   question  new question to load in viewer
+       * @desc  Will open a confirm box to ask user to confirm choice before load another item in viewer, if currently was being edited
+       * @param   item  item to load in viewer
        * @param   inEditor  to know if we need to turn edit mode or not
-       * @return  {Event} 'question:open'   if confirmed 
+       * @return  {Event} 'viewer_manage:open'   if confirmed 
        */
-      function confirmBeforeSwitch(question, inEditor){
+      function confirmBeforeSwitch(question, inEditor, type){
         inEditor = inEditor || false;
         var originalData = _.pick(ctrl.question, ctrl.questionFields);
         
@@ -134,7 +134,7 @@
               message: "Are you sure you want to quit current question without saving ?"
             }
           }).then(function(){
-            $scope.$emit("question:open", question, inEditor);
+            $scope.$emit("viewer_manage:open", question, inEditor, type);
           }).catch(function(){
             console.log("continue current edition");
           });

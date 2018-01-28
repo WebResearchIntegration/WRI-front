@@ -127,12 +127,12 @@ function noteViewerCtrl($rootScope, $scope, Notes, ngDialog, localStorageService
   // [PRIVATE FUNCTIONS : begin]
     /**
      * @name  confirmBeforeSwitch
-     * @desc  Will open a confirm box to ask user to confirm choice before load another note in viewer, if currently was being edited
-     * @param   note  new note to load in viewer
+     * @desc  Will open a confirm box to ask user to confirm choice before load another item in viewer, if currently was being edited
+     * @param   item  item to load in viewer
      * @param   inEditor  to know if we need to turn edit mode or not
-     * @return  {Event} 'note:open'   if confirmed 
+     * @return  {Event} 'viewer_manage:open'   if confirmed 
      */
-    function confirmBeforeSwitch(note, inEditor){
+    function confirmBeforeSwitch(item, inEditor, type){
       inEditor = inEditor || false;
       var originalData = _.pick(ctrl.note, ctrl.noteFields);
       
@@ -145,13 +145,13 @@ function noteViewerCtrl($rootScope, $scope, Notes, ngDialog, localStorageService
             message: "Are you sure you want to quit current note without saving ?"
           }
         }).then(function(){
-          $scope.$emit("note:open", note, inEditor);
+          $scope.$emit("viewer_manage:open", item, inEditor, type);
         }).catch(function(){
           console.log("continue current edition");
         });
       } 
       else {
-        $scope.$emit("note:open", note, inEditor);
+        $scope.$emit("viewer_manage:open", item, inEditor, type);
       }
     }
 
@@ -174,8 +174,8 @@ function noteViewerCtrl($rootScope, $scope, Notes, ngDialog, localStorageService
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
-  $scope.$on("manage:load-while-editing", function(event, item, inEditor){
-    confirmBeforeSwitch(item, inEditor);
+  $scope.$on("manage:load-while-editing", function(event, item, inEditor, type){
+    confirmBeforeSwitch(item, inEditor, type);
   });
 
   // [WATCHERS]

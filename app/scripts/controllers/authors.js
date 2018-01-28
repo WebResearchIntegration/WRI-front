@@ -65,7 +65,7 @@ angular.module('wriApp')
                     description : "",
                     articles : []
                 };
-                $scope.$emit('authors:new', newAuthor);
+                $scope.$emit('items-list_manage:new', "author", newAuthor);
             }
         // [METHODS: end]
         

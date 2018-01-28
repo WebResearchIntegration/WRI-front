@@ -310,12 +310,12 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
   // [PRIVATE FUNCTIONS : begin]
     /**
      * @name  confirmBeforeSwitch
-     * @desc  Will open a confirm box to ask user to confirm choice before load another article in viewer, if currently was being edited
-     * @param   article  new article to load in viewer
+     * @desc  Will open a confirm box to ask user to confirm choice before load another item in viewer, if currently was being edited
+     * @param   item  item to load in viewer
      * @param   inEditor  to know if we need to turn edit mode or not
-     * @return  {Event} 'article:open'   if confirmed 
+     * @return  {Event} 'viewer_manage:open'   if confirmed 
      */
-    function confirmBeforeSwitch(article, inEditor){
+    function confirmBeforeSwitch(item, inEditor, type){
       inEditor = inEditor || false;
       var originalData = _.pick(ctrl.article, ctrl.articleFields);
 
@@ -328,13 +328,13 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
             message: "Are you sure you want to quit current article without saving ?"
           }
         }).then(function(){
-          $scope.$emit("viewer_manage:open", article, inEditor, "article");
+          $scope.$emit("viewer_manage:open", item, inEditor, type);
         }).catch(function(){
           console.log("continue current edition");
         });
       } 
       else {
-        $scope.$emit("viewer_manage:open", article, inEditor, "article");
+        $scope.$emit("viewer_manage:open", item, inEditor, type);
       }
     }
 
@@ -399,8 +399,8 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
-    $scope.$on("manage:load-while-editing", function(event, item, inEditor){
-      confirmBeforeSwitch(item, inEditor);
+    $scope.$on("manage:load-while-editing", function(event, item, inEditor, type){
+      confirmBeforeSwitch(item, inEditor, type);
     });
 
   // [WATCHERS]

@@ -261,9 +261,9 @@
         // [PRIVATE FUNCTIONS : end]
 
         // [EVENTS]
-        $scope.$on("items-list_manage:new", function(event, emptyModel, type){
+        $scope.$on("items-list_manage:new", function(event, type, emptyModel){
             if (ctrl.viewer.editMode && !ctrl.selectMode){
-                $scope.$broadcast("manage:load-while-editing", emptyModel, true);
+                $scope.$broadcast("manage:load-while-editing", emptyModel, true, type);
             }
             else if (ctrl.selectMode){
                 // not implemented yet
@@ -273,80 +273,9 @@
             }
         });
 
-
-        $scope.$on("articles:new", function(event, emptyArticle){
-            if (ctrl.viewer.editMode && !ctrl.selectMode){
-                $scope.$broadcast("manage:load-while-editing", emptyArticle, true);
-            }
-            else if (ctrl.selectMode){
-                // not implemented yet
-            }
-            else {
-                loadItemInViewer(emptyArticle, true);
-            }
-        });
-
-        $scope.$on("authors:new", function(event, emptyAuthor){
-            if (ctrl.viewer.editMode && !ctrl.selectMode){
-                $scope.$broadcast("manage:load-while-editing", emptyAuthor, true);
-            }
-            else if (ctrl.selectMode){
-                // not implemented yet
-            }
-            else {
-                loadItemInViewer(emptyAuthor, true);
-            }
-        });
-        
-        $scope.$on("notes:new", function(event, emptyNote){
-            if (ctrl.viewer.editMode && !ctrl.selectMode){
-                $scope.$broadcast("manage:load-while-editing", emptyNote, true);
-            }
-            else if (ctrl.selectMode){
-                // not implemented yet
-            }
-            else {
-                loadItemInViewer(emptyNote, true);
-            }
-        });
-
-        $scope.$on("questions:new", function(event, emptyQuestion){
-            if (ctrl.viewer.editMode && !ctrl.selectMode){
-                $scope.$broadcast("manage:load-while-editing", emptyQuestion, true);
-            }
-            else if (ctrl.selectMode){
-                // not implemented yet
-            }
-            else {
-                loadItemInViewer(emptyQuestion, true);
-            }
-        });
-
         $scope.$on("viewer_manage:open", function(event, item, inEditor, type){
             loadItemInViewer(item, inEditor, type);
         });
-        
-        // [TO REMOVE : begin]
-            $scope.$on("article:open", function(event, article, inEditor){
-                var category = sliceBy(event.name, ":", 0);
-                loadItemInViewer(article, inEditor, category);
-            });
-
-            $scope.$on("author:open", function(event, author, inEditor){
-                var category = sliceBy(event.name, ":", 0);
-                loadItemInViewer(author, inEditor, category);
-            });
-
-            $scope.$on("note:open", function(event, note, inEditor){
-                var category = sliceBy(event.name, ":", 0);
-                loadItemInViewer(note, inEditor, category);
-            });
-
-            $scope.$on("question:open", function(event, question, inEditor){
-                var category = sliceBy(event.name, ":", 0);
-                loadItemInViewer(question, inEditor, category);
-            });
-        // [TO REMOVE : end]
 
         $scope.$on("select:articles", function(event){
             var category = sliceBy(event.name, ":");
