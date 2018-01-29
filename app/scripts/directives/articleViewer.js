@@ -23,7 +23,7 @@ function articleViewerDirective() {
   };  
 }
 
-function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Articles, textToolbar, Selector, ngDialog, DataCollect) {
+function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageService, Articles, textToolbar, Selector, ngDialog, DataCollect) {
 
   var ctrl = this;
 
@@ -153,7 +153,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      * @memberOf Directives.articleViewer
      */
     function loadArticle(article) {
-
+      
       // Main informations
       if(!_.isEmpty(_.trim(article.problematic)) && !_.isEmpty(_.trim(article.problematic))){
         ctrl.showProbSoluce = true;
@@ -238,7 +238,8 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
     function turnEditMode() {
       var clonedArticle = _.cloneDeep(ctrl.article);
       ctrl.articleTmp = _.pick(clonedArticle, ctrl.articleFields);
-
+      ctrl.articleTmp.publishedDate = new Date(ctrl.articleTmp.publishedDate);
+      
       ctrl.textToolbar = textToolbar.getSimpleToolbar();
 
       ctrl.keywordsSelectize = {
