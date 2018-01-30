@@ -115,6 +115,16 @@
                         border-top-color: #d4d7e4;
                     }
                 }
+                &.--no-selectable {
+                    border-color:  #b11e1e;
+                    // pointer-events: none;
+                    cursor: not-allowed;
+
+                    &:before, &:after {
+                        border-right-color: #b11e1e;
+                        border-top-color: #b11e1e;
+                    }
+                }
 
                 &.--selected {
                     border-color: $primary;

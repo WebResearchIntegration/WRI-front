@@ -1,9 +1,9 @@
 <div class="wri_manage-select__item wri_item-list__article --wri_interactive mdl-shadow--4dp" 
-    ng-class="{'--selectable': manageCtrl.selectMode, '--selected': article.isSelected, '--active': article._id == manageCtrl.viewer.itemToShow._id}" 
+    ng-class="{'--no-selectable': manageCtrl.selectMode && article._id == manageCtrl.viewer.itemToShow._id, '--selectable': manageCtrl.selectMode, '--selected': article.isSelected, '--active': article._id == manageCtrl.viewer.itemToShow._id}" 
     ng-repeat="article in articlesCtrl.articles | filter : filter | orderBy : order" 
-    ng-click="manageCtrl.selectItem(article)" 
-    ng-if="manageCtrl.selectMode && article._id != manageCtrl.viewer.itemToShow._id || !manageCtrl.selectMode">
-    <i class="material-icons wri_item-list__validator" ng-if="manageCtrl.selectMode"> {{article.isSelected? "check" : "add"}}</i>
+    ng-click="manageCtrl.selectMode && article._id == manageCtrl.viewer.itemToShow._id? null : manageCtrl.selectItem(article)">
+    <i class="material-icons wri_item-list__validator" ng-if="manageCtrl.selectMode && article._id != manageCtrl.viewer.itemToShow._id">{{article.isSelected? "check" : "add"}}</i>
+    <i class="material-icons wri_item-list__validator" ng-if="manageCtrl.selectMode && article._id == manageCtrl.viewer.itemToShow._id">block</i>
     <div class="wri_item-list__article__published-date">
         <div class="wri_item-list__article__published-date__day">{{article.publishedDate | date:'dd'}}</div>
         <div class="wri_item-list__article__published-date__month">{{article.publishedDate | date:'MMMM'}}</div>
