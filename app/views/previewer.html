@@ -1,4 +1,4 @@
-<div class="wri_previewer wri_grid__col-4 --wri_full-height">
+<div class="wri_previewer wri_grid__col-4" ng-class="{'--wri_full-height' : ngDialogData.fullEditor}">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row --wri_background--contrast">
@@ -16,7 +16,7 @@
             </div> -->
         </header>
         <main class="mdl-layout__content --wri_scrollY-area --edit-mode">
-            <section class="wri_article__main-informations">
+            <section class="wri_article__main-informations --wri_text-center">
                 <div class="wri_form__textfield mdl-textfield mdl-js-textfield">
                     <input class="mdl-textfield__input" type="text" id="field" ng-model="ngDialogData.field" placeholder="{{ngDialogData.placeholder}}" required>
                     <label class="mdl-textfield__label" for="field"></label>
@@ -25,10 +25,10 @@
         </main>
         <footer>
             <div class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="articleViewer.cancelEdition()">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="closeThisDialog()">
                     Cancel
                 </button>
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect --wri_background--contrast mdl-color-text--white wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': articleViewer.articleTmp.name == null || articleViewer.articleTmp.name == ''}" ng-disabled="articleViewer.articleTmp.name == null || articleViewer.articleTmp.name == ''" ng-click="articleViewer.createArticle()">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect --wri_background--contrast mdl-color-text--white wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': ngDialogData.field == null || ngDialogData.field == ''}" ng-disabled="ngDialogData.field == null || ngDialogData.field == ''" ng-click="previewer.createItem()">
                     Create
                 </button>
             </div>

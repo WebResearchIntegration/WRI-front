@@ -203,37 +203,48 @@
         }
         
         /**
-         * @name loadIteminPreviewer
+         * @name loadItemInPreviewer
          * @desc load item into previewer
          * @param {Object}  item    item to load in viewer
          * @param {Boolean}  inEditor    true if we want to load the item in editor
          * @memberOf Controllers.manage
          */
-        function loadIteminPreviewer(item, inEditor, type) {
+        function loadItemInPreviewer(item, inEditor, type) {
+            var previewParams = {};
+
+            switch(type.toLowerCase()){
+                case "article":
+                    previewParams = {
+                        type: type,
+                        title: "New Reference",
+                        fullEditor: false,
+                        placeholder: "Title...",
+                        field: ""
+                    };
+                    break;
+
+                default:
+                    previewParams = {
+                        type: type,
+                        title: "Previewer",
+                        fullEditor: false,
+                        placeholder: "Default...",
+                        field: ""
+                    };
+                    break;
+            }
+            
             ngDialog.open({
                 template: "views/previewer.html",
                 className: "viewer",
                 showClose: false,
-                closeByNavigation: false,
+                closeByDocument: false,
                 closeByEscape: false,
                 controller: 'previewerCtrl',
                 controllerAs: 'previewer',
-                data: {
-                    title: "Previewer",
-                    placeholder: "Default",
-                    field: ""
-                }
+                scope: $scope,
+                data: previewParams
             });
-
-            // ctrl.viewer.editMode = inEditor || false;
-            // if (type) {
-            //     ctrl.viewer.itemToShowType = type;
-            // }
-            // else {
-            //     ctrl.viewer.itemToShowType = getType();
-            // }
-            // ctrl.viewer.itemToShow = item;
-            // openViewerSafely();
         }
 
         /**
@@ -300,8 +311,7 @@
                 $scope.$broadcast("manage:load-while-editing", emptyModel, true, type);
             }
             else if (ctrl.selectMode){
-                // not implemented yet
-                loadIteminPreviewer(emptyModel, true, type);
+                loadItemInPreviewer(emptyModel, true, type);
             }
             else {
                 loadItemInViewer(emptyModel, true, type);
@@ -318,6 +328,12 @@
             $timeout(function(){
                 ctrl.selectionSize = Selector.getSelectionSize();
             });
+        });
+
+        $scope.$on("previewer_manage:push-to-selection", function(event, element){
+            element.isSelected = true;
+            Selector.toggleInList(element);
+            ctrl.selectionSize = Selector.getSelectionSize();
         });
 
         // [WATCHERS]
