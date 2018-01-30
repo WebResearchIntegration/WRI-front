@@ -9,7 +9,7 @@
  */
 angular.module('wriApp')
     .controller('articlesCtrl', function ($rootScope, $scope, $q, Articles, Selector, DataCollect) {
-        
+
         var ctrl = this;
 
         var needToReinitList;
@@ -30,7 +30,7 @@ angular.module('wriApp')
             /**
              * @name init
              * @desc will load data directly from database
-             * @return {void} 
+             * @return {void}
              */
             function init() {
                 Articles.getAll().then(function(articles) {
@@ -41,8 +41,7 @@ angular.module('wriApp')
                         reinitSelection();
                     }
 
-                    if (needToSetList){
-                        needToSetList = false;
+                    if (Selector.isEnabled && Selector.itemsAlreadySelectedSize != 0){
                         setSelection();
                     }
 
@@ -57,7 +56,7 @@ angular.module('wriApp')
             /**
              * @name addArticle
              * @desc Send event to create a new article in viewer
-             * @return {void} 
+             * @return {void}
              */
             function addArticle() {
                 var newArticle = {
@@ -81,7 +80,7 @@ angular.module('wriApp')
                 $scope.$emit('items-list_manage:new', "article", newArticle);
             }
         // [METHODS: end]
-        
+
         // [PRIVATE METHODS: begin]
             /**
              * @name reinitSelection()
@@ -143,7 +142,7 @@ angular.module('wriApp')
         // [FILTER / ORDER]
         $rootScope.$on('sendFilters', function(event, data) {
             if(data === 'reset'){
-                $scope.filter = {};  
+                $scope.filter = {};
                 $scope.order = {};
             } else {
                 $scope.filter = data;
