@@ -11,6 +11,10 @@
     cursor: pointer;
 }
 
+.--wri_text-center {
+    text-align: center;
+}
+
 .--wri_text-right {
     text-align: right;
 }
@@ -20,6 +24,7 @@
     cursor: not-allowed;
     pointer-events: none;
 }
+
 
 // COLORS
 .--wri_background--primary-dark {
