@@ -8,6 +8,6 @@
     <div class="wri_item-list__note__content" ng-bind-html="note.text"></div>
     <div class="wri_item-list__note__created-at">{{note.createdAt}}</div>
 </div>
-<button class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab --wri_background--contrast mdl-color-text--white mdl-shadow--8dp" ng-click="notesCtrl.addNote()">
+<button ng-if="!manageCtrl.selectMode" class="wri_manage-select__add-btn mdl-button mdl-js-button mdl-button--fab --wri_background--contrast mdl-color-text--white mdl-shadow--8dp" ng-click="notesCtrl.addNote()">
     <i class="material-icons">add</i>
 </button>
