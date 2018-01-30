@@ -223,6 +223,16 @@
                     };
                     break;
 
+                case "author":
+                    previewParams = {
+                        type: type,
+                        title: "New Author",
+                        fullEditor: false,
+                        placeholder: "Name...",
+                        field: ""
+                    };
+                    break;
+
                 default:
                     previewParams = {
                         type: type,

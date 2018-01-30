@@ -48,15 +48,28 @@
              * @memberOf Controllers.previewer
              */
             function createItem() {
+                var sendingElement;
                 switch(ctrl.type){
                     case "article":
-                        var sendingElement = {
+                        sendingElement = {
                             user: localStorageService.get("user").id,
                             article: {name: $scope.ngDialogData.field}
                         };
                         Articles.create(sendingElement).then(function(articleAdded){
-                            $scope.$emit("articles:refresh", true);
+                            $scope.$emit("articles:refresh"); // add a param to ask to set selection ?
                             $scope.$emit("previewer_manage:push-to-selection", articleAdded);
+                            $scope.closeThisDialog();
+                        });
+                        break;
+
+                    case "author":
+                        sendingElement = {
+                            user: localStorageService.get("user").id,
+                            author: {name: $scope.ngDialogData.field}
+                        };
+                        Authors.create(sendingElement).then(function(authorAdded){
+                            $scope.$emit("authors:refresh");
+                            $scope.$emit("previewer_manage:push-to-selection", authorAdded);
                             $scope.closeThisDialog();
                         });
                         break;
