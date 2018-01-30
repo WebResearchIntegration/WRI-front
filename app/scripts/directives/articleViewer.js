@@ -350,6 +350,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
     function insertDataInto() {
       var itemsSelected = Selector.getSelection();
       var obj;
+      ctrl.articleTmp[selectedProperty] = [];
       _.forEach(itemsSelected, function(item){
         obj = {};
         obj = _.pick(item, ["_id"]);

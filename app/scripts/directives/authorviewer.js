@@ -210,6 +210,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
     function insertDataInto() {
       var itemsSelected = Selector.getSelection();
       var obj;
+      ctrl.authorTmp.articles = [];
       _.forEach(itemsSelected, function(article){
         obj = {};
         obj = _.pick(article, ["_id"]);
