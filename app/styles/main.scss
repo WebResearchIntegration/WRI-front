@@ -65,7 +65,11 @@
     background: white;
 }
 
-@import "_variables.scss";
+@import "modules/_variables.scss";
+@import "modules/_mixins.scss";
+@import "modules/_animations.scss";
+@import "modules/_functions.scss";
+
 @import "globals/_main-rules.scss";
 @import "globals/_icons.scss";
 @import "globals/_dialogs.scss";
@@ -73,12 +77,11 @@
 @import "globals/_global-classes.scss";
 @import "globals/_grid-structure.scss";
 
-// @import "_header.scss";
-
 @import "pages/_manage.scss";
 @import "pages/_login.scss";
 
 @import "directives/_viewer-drawer.scss";
 @import "directives/_article-viewer.scss";
 @import "directives/_element-filter.scss";
+
 @import "formulaEditor.scss";

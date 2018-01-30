@@ -1,0 +1,7 @@
+/// @name   calc-width-for
+/// @description    shortcut of the get-in function applied to the palette
+/// @param  $name   keyname to get the color corresponding
+/// @param  $shade  keyname to get the shade of correponding color
+@function calc-width-for($width, $max: 12){
+    @return (100% / $max) * $width;
+}
