@@ -48,6 +48,10 @@
                 &.--little-padding {
                     padding-top: 10px;
                 }
+
+                &.--no-padding {
+                    padding-top: 0;
+                }
             }
 
             ::-webkit-input-placeholder {
@@ -799,3 +803,34 @@
         }
     }
 // [TEXT ANGULAR EDITOR IN VIEWERS : end]
+
+// [PREVIEWER : begin]
+.ngdialog.viewer {
+    overflow: hidden;
+
+        &.ngdialog-closing .ngdialog-content .wri_previewer {
+            @include animation(slideout-to-bottom 0.3s ease-in 0s forwards);
+        }
+        .ngdialog-content .wri_previewer {
+            @include animation(slidein-from-bottom 0.3s ease-out);
+        }
+    }
+
+    .wri_previewer{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        max-height: calc(100% - 200px); // 200px : to be able to see item title/name
+
+        @for $width from 1 through 12 {
+            &.wri_grid__col-#{$width} {
+                $col-width : calc-width-for($width);
+                max-width: calc(#{$col-width} - 29px); // 29px : 24px for font icon + 5px for margin
+            }
+        }
+
+        .mdl-layout {
+            background: white;
+        }
+    }
+// [PREVIEWER : end]

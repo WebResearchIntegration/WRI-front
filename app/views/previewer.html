@@ -1,0 +1,37 @@
+<div class="wri_previewer wri_grid__col-4 --wri_full-height">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row --wri_background--contrast">
+                <div class="wri_article-title">
+                    <span class="mdl-layout__title --no-padding">{{ngDialogData.title}}</span>
+                </div>
+            </div>
+            <!-- <div class="mdl-layout__header-row --wri_background--contrast-dark interactive-row" ng-class="{'wri_editor__text-toolbar': articleViewer.editMode}">
+                <text-angular-toolbar 
+                    class="wri_text-toolbar" 
+                    ng-if="articleViewer.editMode" 
+                    ta-toolbar="articleViewer.textToolbar"
+                    name="article-toolbar">
+                </text-angular-toolbar> 
+            </div> -->
+        </header>
+        <main class="mdl-layout__content --wri_scrollY-area --edit-mode">
+            <section class="wri_article__main-informations">
+                <div class="wri_form__textfield mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="field" ng-model="ngDialogData.field" placeholder="{{ngDialogData.placeholder}}" required>
+                    <label class="mdl-textfield__label" for="field"></label>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div class="wri_article-viewer__footer__actions --creating mdl-shadow--8dp">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect wri_article-viewer__footer__actions__action" ng-click="articleViewer.cancelEdition()">
+                    Cancel
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect --wri_background--contrast mdl-color-text--white wri_article-viewer__footer__actions__action --create" ng-class="{'--wri_disabled': articleViewer.articleTmp.name == null || articleViewer.articleTmp.name == ''}" ng-disabled="articleViewer.articleTmp.name == null || articleViewer.articleTmp.name == ''" ng-click="articleViewer.createArticle()">
+                    Create
+                </button>
+            </div>
+        </footer>
+    </div>
+</div>

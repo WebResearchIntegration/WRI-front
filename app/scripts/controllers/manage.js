@@ -15,7 +15,7 @@
    * @desc Controller of the manage page
    * @memberOf Controllers
    */
-  function manageController($scope, $timeout, Selector) {
+  function manageController($scope, $timeout, Selector, ngDialog) {
       
       var ctrl = this;
 
@@ -203,6 +203,40 @@
         }
         
         /**
+         * @name loadIteminPreviewer
+         * @desc load item into previewer
+         * @param {Object}  item    item to load in viewer
+         * @param {Boolean}  inEditor    true if we want to load the item in editor
+         * @memberOf Controllers.manage
+         */
+        function loadIteminPreviewer(item, inEditor, type) {
+            ngDialog.open({
+                template: "views/previewer.html",
+                className: "viewer",
+                showClose: false,
+                closeByNavigation: false,
+                closeByEscape: false,
+                controller: 'previewerCtrl',
+                controllerAs: 'previewer',
+                data: {
+                    title: "Previewer",
+                    placeholder: "Default",
+                    field: ""
+                }
+            });
+
+            // ctrl.viewer.editMode = inEditor || false;
+            // if (type) {
+            //     ctrl.viewer.itemToShowType = type;
+            // }
+            // else {
+            //     ctrl.viewer.itemToShowType = getType();
+            // }
+            // ctrl.viewer.itemToShow = item;
+            // openViewerSafely();
+        }
+
+        /**
          * @name loadItemInViewer
          * @desc load item into viewer
          * @param {Object}  item    item to load in viewer
@@ -267,6 +301,7 @@
             }
             else if (ctrl.selectMode){
                 // not implemented yet
+                loadIteminPreviewer(emptyModel, true, type);
             }
             else {
                 loadItemInViewer(emptyModel, true, type);
