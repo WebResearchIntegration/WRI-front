@@ -224,11 +224,9 @@
                 </div>
                 <div class="wri_article__notes__content" ng-if="!articleViewer.editMode">
                     <ul class="wri_article__notes__list" ng-if="articleViewer.article.notes.length > 0">
-                        <article ng-repeat="note in articleViewer.article.notes | limitTo: 5" class="mdl-card mdl-shadow--4dp wri_article_notes_list_note"> 
-                            <div 
-                                class="mdl-card__supporting-text"
-                                ng-bind-html="note.text">
-                            </div>
+                        <article ng-repeat="note in articleViewer.article.notes | limitTo: 5" class="mdl-card mdl-shadow--4dp wri_article_notes_list_note wri_item-list__note"> 
+                            <div class="wri_item-list__note__content" ng-bind-html="note.text"></div>
+                            <div class="wri_item-list__note__created-at">{{note.createdAt}}</div>       
                         </article>
                     </ul>
                 </div>
@@ -260,10 +258,9 @@
                 </div>
                 <div class="wri_article__questions__content" ng-if="!articleViewer.editMode">
                     <ul class="wri_article__questions__list" ng-if="articleViewer.article.questions.length > 0">
-                        <article ng-repeat="question in articleViewer.article.questions | limitTo: 5" class="mdl-card mdl-shadow--4dp wri_article_questions_list_question"> 
-                            <div class="mdl-card__supporting-text">
-                                {{question.problematic}}
-                            </div>
+                        <article ng-repeat="question in articleViewer.article.questions | limitTo: 5" class="mdl-shadow--4dp wri_article_questions_list_question wri_item-list__note"> 
+                            <div class="wri_item-list__note__content --red" ng-bind-html="question.problematic"></div>
+                            <div class="wri_item-list__note__content --green" ng-bind-html="question.answer"></div>
                         </article>
                     </ul>
                 </div>
