@@ -14,6 +14,16 @@
                     name="note-toolbar">
                 </text-angular-toolbar> 
             </div>
+
+            <div 
+                ng-if="ngDialogData.fullEditor && ngDialogData.type == 'question'" 
+                class="mdl-layout__header-row --wri_background--contrast-dark interactive-row wri_editor__text-toolbar">
+                <text-angular-toolbar 
+                    class="wri_text-toolbar"
+                    ta-toolbar="ngDialogData.toolbar" 
+                    name="question-toolbar">
+                </text-angular-toolbar> 
+            </div>
         </header>
         <main class="mdl-layout__content --wri_scrollY-area --edit-mode">
             <section 
@@ -33,7 +43,36 @@
                             <text-angular 
                                 ta-target-toolbars="note-toolbar" 
                                 ta-focussed-class="no-style"
-                                ng-model="ngDialogData.field">
+                                ng-model="ngDialogData.field.text">
+                            </text-angular>
+                        </div>
+                    </div>
+
+                    <div
+                        ng-if="ngDialogData.type == 'question'" 
+                        class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-problematic">
+                        <div class="wri_article__main-informations__inside">
+                            <div class="wri_article__main-informations__title">
+                                <span>Question</span>
+                            </div>
+                            <text-angular 
+                                ta-target-toolbars="question-toolbar" 
+                                ta-focussed-class="no-style"
+                                ng-model="ngDialogData.field.problematic">
+                            </text-angular>
+                        </div>
+                    </div>
+                    <div
+                        ng-if="ngDialogData.type == 'question'" 
+                        class="wri_article__main-informations__category mdl-shadow--4dp --wri_article-solution">
+                        <div class="wri_article__main-informations__inside">
+                            <div class="wri_article__main-informations__title">
+                                <span>Answer</span>
+                            </div>
+                            <text-angular 
+                                ta-target-toolbars="question-toolbar" 
+                                ta-focussed-class="no-style" 
+                                ng-model="ngDialogData.field.answer">
                             </text-angular>
                         </div>
                     </div>

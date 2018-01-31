@@ -47,6 +47,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
     ctrl.cancelEdition = cancelEdition;
     ctrl.createArticle = createArticle;
     ctrl.createNoteFor = createNoteFor;
+    ctrl.createQuestionFor = createQuestionFor;
     ctrl.deleteArticle = deleteArticle;
     ctrl.loadArticle = loadArticle;
     ctrl.openAuthorProfile = openAuthorProfile;
@@ -108,6 +109,19 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
         text: ""
       };
       loadItemInPreviewer(emptyNote, "note");
+    }
+
+    /**
+     * @name createQuestionFor
+     * @desc Will load questions view and question editor. It will bind the new question with current article
+     * @memberOf Directives.articleViewer
+     */
+    function createQuestionFor(){
+      var emptyQuestion = {
+        problematic: "",
+        answer: ""
+      };
+      loadItemInPreviewer(emptyQuestion, "question");
     }
 
     /**
@@ -370,37 +384,25 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
      * @memberOf Controllers.manage
      */
     function loadItemInPreviewer(item, type) {
-      var previewParams = {};
+      var previewParams = {
+        type: type,
+        fullEditor: true,
+        field: item
+      };
 
       switch(type){
           case "note":
-              previewParams = {
-                  type: type,
-                  title: "New Note for " + ctrl.article.name,
-                  fullEditor: true,
-                  field: ""
-              };
-              break;
+            previewParams.title = "New Note for " + ctrl.article.name;
+          break;
 
-          case "author":
-              previewParams = {
-                  type: type,
-                  title: "New Author",
-                  fullEditor: false,
-                  placeholder: "Name...",
-                  field: ""
-              };
-              break;
+          case "question":
+            previewParams.title = "New Question for " + ctrl.article.name;
+            previewParams.toolbar = textToolbar.getAdvancedToolbar();
+          break;
 
           default:
-              previewParams = {
-                  type: type,
-                  title: "Previewer",
-                  fullEditor: false,
-                  placeholder: "Default...",
-                  field: ""
-              };
-              break;
+            previewParams.title = "Previewer";
+          break;
       }
       
       ngDialog.open({
@@ -438,7 +440,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
         break;
 
         default: 
-        console.error("type unknown to save in article");
+          console.error("type unknown to save in article");
         break;
       }
     }

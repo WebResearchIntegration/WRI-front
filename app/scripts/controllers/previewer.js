@@ -77,10 +77,24 @@
                     case "note":
                         sendingElement = {
                             user: localStorageService.get("user").id,
-                            note: {text: $scope.ngDialogData.field}
+                            note: {text: $scope.ngDialogData.field.text}
                         };
                         Notes.create(sendingElement).then(function(noteAdded){
                             $scope.$emit("previewer_viewer:push-to", noteAdded, "note");
+                            $scope.closeThisDialog();
+                        });
+                        break;
+
+                    case "question":
+                        sendingElement = {
+                            user: localStorageService.get("user").id,
+                            question: {
+                                problematic: $scope.ngDialogData.field.problematic,
+                                answer: $scope.ngDialogData.field.answer
+                            }
+                        };
+                        Questions.create(sendingElement).then(function(questionAdded){
+                            $scope.$emit("previewer_viewer:push-to", questionAdded, "question");
                             $scope.closeThisDialog();
                         });
                         break;

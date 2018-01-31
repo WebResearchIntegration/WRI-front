@@ -432,10 +432,19 @@
                     margin: 10px 0;
                     min-height: 50px;
                     width: 100%;
+                }
+            }
+        }
 
-                    .mdl-card__supporting-text {
-                        padding-bottom: 30px;
-                    }
+        .wri_article__questions {
+            .wri_article__questions__list {
+                list-style: none;
+
+                .wri_article_questions_list_question {
+                    display: block;
+                    margin: 10px 0;
+                    min-height: 50px;
+                    width: 100%;
                 }
             }
         }

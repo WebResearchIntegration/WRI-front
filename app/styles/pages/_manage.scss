@@ -466,6 +466,10 @@
         + .wri_item-list__note__content {
             margin-top: 10px;
         }
+
+        a {
+            color: $primary-light;
+        }
     }
 
     .wri_item-list__note__created-at {
