@@ -9,16 +9,16 @@
  */
 angular.module('wriApp')
   .controller('DatavizCtrl', function ($scope) {
-    var color = d3.scale.category20()
+    var color = d3.scale.category20();
 
     $scope.options = {
       chart: {
           type: 'forceDirectedGraph',
-          height: nv.utils.windowSize().height,
-           width: (function(){ return nv.utils.windowSize().width  })(),
+          height: nv.utils.windowSize().height - 100,
+          width: (function(){ return nv.utils.windowSize().width  })(),
           margin:{top: 20, right: 20, bottom: 20, left: 20},
           color: function(d){
-              return color(d.name)
+              return color(d.type)
           },
           nodeExtras: function(node) {
               node && node
@@ -31,15 +31,19 @@ angular.module('wriApp')
       }
   };
 
+  $scope.delete = function() {
+      $scope.data.links = [];
+  }
+
   $scope.data = {
       "nodes":[
-          {"name":"Myriel","group":1},
-          {"name":"Napoleon","group":1},
-          {"name":"Mlle.Baptistine","group":1},
-          {"name":"Mme.Magloire","group":1},
-          {"name":"CountessdeLo","group":1},
-          {"name":"Geborand","group":1},
-          {"name":"Champtercier","group":1},
+          {"name":"Myriel","group":1, "type":"article"},
+          {"name":"Napoleon","group":1, "type":"article"},
+          {"name":"Mlle.Baptistine","group":1, "type":"article"},
+          {"name":"Mme.Magloire","group":1, "type":"article"},
+          {"name":"CountessdeLo","group":1, "type":"article"},
+          {"name":"Geborand","group":1, "type":"article"},
+          {"name":"Champtercier","group":1, "type":"article"},
           {"name":"Cravatte","group":1},
           {"name":"Count","group":1},
           {"name":"OldMan","group":1},
@@ -367,5 +371,5 @@ angular.module('wriApp')
           {"source":76,"target":48,"value":1},
           {"source":76,"target":58,"value":1}
       ]
-  }
-  });
+  } 
+});
