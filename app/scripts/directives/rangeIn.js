@@ -25,10 +25,10 @@ angular.module('wriApp')
           maxLength = range[1].toString().length;
           
           if (maxLength > 1 || minLength > 1){
-            regEx = "^?[0-9]$";
+            regEx = "^[0-9]$";
           }
           else {
-            regEx = "^?["+ range[0] + "-" + range[1] +"]$";
+            regEx = "^["+ range[0] + "-" + range[1] +"]$";
           }
           rangeRegEx = new RegExp(regEx);
       
