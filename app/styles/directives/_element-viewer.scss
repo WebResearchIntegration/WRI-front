@@ -649,6 +649,10 @@
                 padding: 15px;
                 background: white;
 
+                a {
+                    color: $primary-light;
+                }
+
                 textarea {
                     border-bottom: white;
                     min-height: 50px;
