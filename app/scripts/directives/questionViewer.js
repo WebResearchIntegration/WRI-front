@@ -91,7 +91,7 @@
             message: "Are you sure you want to delete this question ?"
           }
         }).then(function(){
-          var questionID = ctrl.question._sid;
+          var questionID = ctrl.question._id;
           Questions.delete(questionID).then(function(){
               $scope.$emit("questions:refresh");
               ctrl.question = null;
