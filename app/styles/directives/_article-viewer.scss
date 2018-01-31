@@ -172,6 +172,13 @@
             }
             .wri_article__section__action {
                 text-align: right;
+
+                &.--show-all {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    text-align: initial;
+                }
             }
         }
 
@@ -763,6 +770,25 @@
                     }
                 }
             }
+
+            &.--wri_background--contrast-dark {
+                .wri_text-toolbar {
+                    .btn {
+                        border:1px solid $contrast-dark;
+    
+                        &:not([name="separator"]):not(:disabled) {
+                            &:hover {
+                                color: white;
+                                background: darken($contrast-dark, 15%);
+                            }
+                            &.active {
+                                color:$contrast-dark;
+                                background: white;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -800,6 +826,12 @@
         &:before {
             content: '|';
             color: rgba(0,0,0,0.6);
+        }
+    }
+
+    .--wri_background--contrast-dark {
+        .ta-separator:before {
+            color: darken($contrast-dark, 15%);
         }
     }
 // [TEXT ANGULAR EDITOR IN VIEWERS : end]
