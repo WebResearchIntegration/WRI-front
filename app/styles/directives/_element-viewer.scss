@@ -67,7 +67,9 @@
                 @extend %flex-row-between-center;
                 flex:9;
             }
-    
+            #article-score {
+                min-width: 5em;
+            }
             .wri_article-score {
                 display: flex;
                 align-items: center;

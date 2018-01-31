@@ -26,7 +26,7 @@
                     <div ng-if="!articleViewer.editMode" class="wri_article-score"><i class="material-icons">star</i>{{articleViewer.article.score}}</div>
                     <div ng-if="articleViewer.editMode" class="wri_article-score"><i class="material-icons">star</i>
                         <span ng-if="articleViewer.editMode" class="wri_form__numberfield --no-focus mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="number" id="article-score" ng-model="articleViewer.articleTmp.score" placeholder="Score...">
+                            <input class="mdl-textfield__input" type="number" range-in min="0" max="5"  id="article-score" ng-model="articleViewer.articleTmp.score" placeholder="Score...">
                             <label class="mdl-textfield__label" for="article-score"></label>
                         </span>
                     </div>
