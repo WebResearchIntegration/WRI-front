@@ -15,7 +15,7 @@
    * @desc Controller of the manage page
    * @memberOf Controllers
    */
-  function manageController($scope, $timeout, Selector) {
+  function manageController($scope, $timeout, Selector, ngDialog) {
       
       var ctrl = this;
 
@@ -103,14 +103,18 @@
 
         /**
          * @name selectItem
-         * @desc Two cases are available for this method.
-         * Will send the item to the viewer.
+         * @desc Three cases are available for this method.
+         * Will send the item to the viewer (if not in edit mode)
+         * Will send the item to the viewer after confirm (if in edit mode)
          * Will add the item to the list of selected items if selection mode is on.
          * @param {Object} item   item from the list got from the database.
          * @param {Boolean}  inEditor    true if we want to load the item in editor
          */
         function selectItem(item, inEditor) {
-            if(ctrl.selectMode) {
+            if (ctrl.viewer.editMode && !ctrl.selectMode){
+                $scope.$broadcast("manage:load-while-editing", item, inEditor);
+            }
+            else if(ctrl.selectMode) {
                 item.isSelected = !item.isSelected;
                 Selector.toggleInList(item);
                 ctrl.selectionSize = Selector.getSelectionSize();
@@ -199,6 +203,61 @@
         }
         
         /**
+         * @name loadItemInPreviewer
+         * @desc load item into previewer
+         * @param {Object}  item    item to load in viewer
+         * @param {Boolean}  inEditor    true if we want to load the item in editor
+         * @memberOf Controllers.manage
+         */
+        function loadItemInPreviewer(item, inEditor, type) {
+            var previewParams = {};
+
+            switch(type.toLowerCase()){
+                case "article":
+                    previewParams = {
+                        type: type,
+                        title: "New Reference",
+                        fullEditor: false,
+                        placeholder: "Title...",
+                        field: ""
+                    };
+                    break;
+
+                case "author":
+                    previewParams = {
+                        type: type,
+                        title: "New Author",
+                        fullEditor: false,
+                        placeholder: "Name...",
+                        field: ""
+                    };
+                    break;
+
+                default:
+                    previewParams = {
+                        type: type,
+                        title: "Previewer",
+                        fullEditor: false,
+                        placeholder: "Default...",
+                        field: ""
+                    };
+                    break;
+            }
+            
+            ngDialog.open({
+                template: "views/previewer.html",
+                className: "viewer",
+                showClose: false,
+                closeByDocument: false,
+                closeByEscape: false,
+                controller: 'previewerCtrl',
+                controllerAs: 'previewer',
+                scope: $scope,
+                data: previewParams
+            });
+        }
+
+        /**
          * @name loadItemInViewer
          * @desc load item into viewer
          * @param {Object}  item    item to load in viewer
@@ -257,65 +316,34 @@
         // [PRIVATE FUNCTIONS : end]
 
         // [EVENTS]
-        $scope.$on("articles:new", function(event, emptyArticle){
-            loadItemInViewer(emptyArticle, true);
+        $scope.$on("items-list_manage:new", function(event, type, emptyModel){
+            if (ctrl.viewer.editMode && !ctrl.selectMode){
+                $scope.$broadcast("manage:load-while-editing", emptyModel, true, type);
+            }
+            else if (ctrl.selectMode){
+                loadItemInPreviewer(emptyModel, true, type);
+            }
+            else {
+                loadItemInViewer(emptyModel, true, type);
+            }
         });
 
-        $scope.$on("authors:new", function(event, emptyAuthor){
-            loadItemInViewer(emptyAuthor, true);
-        });
-        
-        $scope.$on("notes:new", function(event, emptyNote){
-            loadItemInViewer(emptyNote, true);
+        $scope.$on("viewer_manage:open", function(event, item, inEditor, type){
+            loadItemInViewer(item, inEditor, type);
         });
 
-        $scope.$on("questions:new", function(event, emptyQuestion){
-            loadItemInViewer(emptyQuestion, true);
-        });
-
-        $scope.$on("reference:open", function(event, article){
-            loadItemInViewer(article, false, "article");
-        });
-
-        $scope.$on("author:open", function(event, author){
-            var category = sliceBy(event.name, ":", 0);
-            loadItemInViewer(author, false, category);
-        });
-
-        $scope.$on("select:articles", function(event){
-            var category = sliceBy(event.name, ":");
-            showCategory(category);
-            Selector.enable("articles");
+        $scope.$on("viewer_manage:select", function(event, type){
+            showCategory(type);
+            Selector.enable(type);
             $timeout(function(){
                 ctrl.selectionSize = Selector.getSelectionSize();
             });
         });
 
-        $scope.$on("select:authors", function(event){
-            var category = sliceBy(event.name, ":");
-            showCategory(category);
-            Selector.enable("authors");
-            $timeout(function(){
-                ctrl.selectionSize = Selector.getSelectionSize();
-            });
-        });
-
-        $scope.$on("select:notes", function(event){
-            var category = sliceBy(event.name, ":");
-            showCategory(category);
-            Selector.enable("notes");
-            $timeout(function(){
-                ctrl.selectionSize = Selector.getSelectionSize();
-            });
-        });
-
-        $scope.$on("select:questions", function(event){
-            var category = sliceBy(event.name, ":");
-            showCategory(category);
-            Selector.enable("questions");
-            $timeout(function(){
-                ctrl.selectionSize = Selector.getSelectionSize();
-            });
+        $scope.$on("previewer_manage:push-to-selection", function(event, element){
+            element.isSelected = true;
+            Selector.toggleInList(element);
+            ctrl.selectionSize = Selector.getSelectionSize();
         });
 
         // [WATCHERS]

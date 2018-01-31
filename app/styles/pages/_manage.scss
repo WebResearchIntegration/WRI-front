@@ -68,7 +68,7 @@
 
             .wri_manage-select__item {
                 border-radius: 2px;
-                margin: 15px 0;
+                margin: 15px 10px;
                 background: white;
                 border: 3px solid transparent;
                 color: #757575;
@@ -115,6 +115,16 @@
                         border-top-color: #d4d7e4;
                     }
                 }
+                &.--no-selectable {
+                    border-color:  #b11e1e;
+                    // pointer-events: none;
+                    cursor: not-allowed;
+
+                    &:before, &:after {
+                        border-right-color: #b11e1e;
+                        border-top-color: #b11e1e;
+                    }
+                }
 
                 &.--selected {
                     border-color: $primary;
@@ -150,13 +160,12 @@
                 .wri_item-list__article__main-informations {
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
+                    justify-content: space-around;
                     flex-grow: 1;
                     padding: 0 20px;
 
                     .wri_item-list__article__title {
-                        margin-top: 10px;
-                        line-height: 26px;
+                        line-height: 25px;
                         font-size: 20px;
                     }
 
@@ -167,6 +176,7 @@
 
                 .wri_item-list__article__statuses {
                     display: flex;
+                    flex: 0;
                     justify-content: center;
                     flex-direction: column;
                     width: 60px;
@@ -354,7 +364,7 @@
                             margin-top: 10px;
                         }
                     }
-                    @each $category, $color in (problematic: #b11e1e, solution: #109510, abstract: #3374c8) {
+                    @each $category, $color in (problematic: #ce1818, solution: #199219, abstract: #2f64aa) {
                         &.--wri_article-#{$category} {
                             &:before {
                                 border-left: 1px solid $color;
@@ -434,5 +444,38 @@
                 }
             }
         }
+    }
+}
+
+.wri_item-list__note {
+    padding: 10px;
+
+    .wri_item-list__note__content {
+        border: 1px solid #d0cece;
+        padding: 15px;
+        max-height: 350px;
+        overflow: hidden;
+
+        &.--red  {
+            border-color: #b11e1e;
+        }
+
+        &.--green {
+            border-color: #0A9518;
+        }
+
+        + .wri_item-list__note__content {
+            margin-top: 10px;
+        }
+
+        a {
+            color: $primary-light;
+        }
+    }
+
+    .wri_item-list__note__created-at {
+        margin-top: 10px;
+        font-size: 14px;
+        font-style: italic;
     }
 }

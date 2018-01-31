@@ -33,7 +33,7 @@ angular.module('wriApp')
              * @desc will load data directly from database
              * @return {void} 
              */
-            function init() {
+            function init(callback) {
                 Authors.getAll().then(function(authors) {
                     ctrl.authors = authors;
 
@@ -41,8 +41,8 @@ angular.module('wriApp')
                         needToReinitList = false;
                         reinitSelection();
                     }
-                    if (needToSetList){
-                        needToSetList = false;
+                    
+                    if (Selector.isEnabled && Selector.itemsAlreadySelectedSize != 0){
                         setSelection();
                     }
                 });
@@ -65,7 +65,7 @@ angular.module('wriApp')
                     description : "",
                     articles : []
                 };
-                $scope.$emit('authors:new', newAuthor);
+                $scope.$emit('items-list_manage:new', "author", newAuthor);
             }
         // [METHODS: end]
         

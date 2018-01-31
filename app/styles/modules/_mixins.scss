@@ -1,0 +1,349 @@
+/// @name   keyframes
+/// @description    keyframes shorthand with all specific browsers properties
+/// @param   $animation-name     name of the animation
+/// @content   steps of the animation to write directly
+@mixin keyframes($animation_name) {
+    @-moz-keyframes  #{$animation-name} {
+        @content;
+    }
+
+    @-o-keyframes  #{$animation-name} {
+        @content;
+    }
+
+    @-ms-keyframes  #{$animation-name} {
+        @content;
+    }
+
+    @-webkit-keyframes  #{$animation-name} {
+        @content;
+    }
+
+    @keyframes  #{$animation-name} {
+        @content;
+    }
+}
+
+/// @name   animation
+/// @description    animation shorthand for the six animation propeties, with all specific browsers properties
+/// @param  $animations     block of animation properties (possibility to call severals animations in once) 
+@mixin animation($animations...) {
+    -moz-animation:     $animations;
+    -o-animation:       $animations;
+    -ms-animation:      $animations;
+    -webkit-animation:  $animations;
+    animation:          $animations;
+}
+
+/// @name   animation-name
+/// @description    animation-name shorthand with all specific browsers properties
+/// @param  $name     names of the animation
+@mixin animation-name($names...) {
+    -moz-animation-name:    $names;
+    -o-animation-name:      $names;
+    -ms-animation-name:     $names;
+    -webkit-animation-name: $names;
+    animation-name:         $names;
+}
+
+/// @name   animation-duration
+/// @description    animation-duration shorthand with all specific browsers properties
+/// @param  $duration     duration of the animation
+@mixin animation-duration($duration...) {
+    -o-animation-duration:      $duration;
+    -moz-animation-duration:    $duration;
+    -ms-animation-duration:     $duration;
+    -webkit-animation-duration: $duration;
+    animation-duration:         $duration;
+}
+
+/// @name   animation-timing-function
+/// @description    animation-timing-function shorthand with all specific browsers properties
+/// @param  $func   block of animation-timing-function property 
+@mixin animation-timing-function($func...) {
+    -o-animation-timing-function:      $func;
+    -moz-animation-timing-function:    $func;
+    -ms-animation-timing-function:     $func;
+    -webkit-animation-timing-function: $func;
+    animation-timing-function:         $func;
+}
+
+/// @name   animation-delay
+/// @description    animation-delay shorthand with all specific browsers properties
+/// @param  $delay     delay to wait before start animation
+@mixin animation-delay($delay...) {
+    -o-animation-delay:      $delay;
+    -moz-animation-delay:    $delay;
+    -ms-animation-delay:     $delay;
+    -webkit-animation-delay: $delay;
+    animation-delay:         $delay;
+}
+
+/// @name   animation-iteration-count
+/// @description    animation-iteration-count shorthand with all specific browsers properties
+/// @param  $number     number of iterations [0, infinite[
+@mixin animation-iteration-count($number...) {
+    -o-animation-iteration-count:      $number;
+    -moz-animation-iteration-count:    $number;
+    -ms-animation-iteration-count:     $number;
+    -webkit-animation-iteration-count: $number;
+    animation-iteration-count:         $number;
+}
+
+/// @name   animation-direction
+/// @description    animation-direction shorthand with all specific browsers properties
+/// @param  $direction     specifies whether an animation should play forwards, backwards, or alternating back and forth
+@mixin animation-direction($direction...) {
+    -o-animation-direction:      $direction;
+    -moz-animation-direction:    $direction;
+    -ms-animation-direction:     $direction;
+    -webkit-animation-direction: $direction;
+    animation-direction:         $direction;
+}
+
+/// @name   animation-fill-mode
+/// @description    animation-fill-mode shorthand with all specific browsers properties
+/// @param  $mode     mode to apply after the animation (keeping result of animation or not)
+@mixin animation-fill-mode($mode...) {
+    -o-animation-fill-mode:      $mode;
+    -moz-animation-fill-mode:    $mode;
+    -ms-animation-fill-mode:     $mode;
+    -webkit-animation-fill-mode: $mode;
+    animation-fill-mode:         $mode;
+}
+
+/// @name   animation-play-state
+/// @description    animation-play-state shorthand with all specific browsers properties
+/// @param  $state     to run or paused the animation
+@mixin animation-play-state($state...) {
+    -o-animation-play-state:      $state;
+    -moz-animation-play-state:    $state;
+    -ms-animation-play-state:     $state;
+    -webkit-animation-play-state: $state;
+    animation-play-state:         $state;
+}
+
+/* [TRANSFORM FUNCTIONS] */
+
+    /// @name   transform
+    /// @description    transform shorthand with all specific browsers properties
+    /// @param  $transformations     block of transformations properties  
+    @mixin transform($transformations...) {
+        -moz-transform:     $transformations;
+        -o-transform:       $transformations;
+        -ms-transform:      $transformations;
+        -webkit-transform:  $transformations;
+        transform:          $transformations;
+    }
+
+    /// @name   transform-origin
+    /// @description    transform-origin shorthand with all specific browsers properties
+    /// @param  $origin     block of origin properties  
+    @mixin transform-origin ($origin...) {
+        -moz-transform-origin:      $origin;
+        -o-transform-origin:        $origin;
+        -ms-transform-origin:       $origin;
+        -webkit-transform-origin:   $origin;
+        transform-origin:           $origin;
+    }
+
+/* [ROTATE FUNCTIONS] */
+
+    /// @name   rotate
+    /// @description    rotate transform-function with all specific browsers properties
+    /// @param  $deg    value of angle in deg
+    @mixin rotate($deg) {
+        @include transform(rotate(#{$deg}deg));
+    }
+
+    /// @name   rotateX
+    /// @description    rotateX transform-function with all specific browsers properties
+    /// @param  $deg    value of angle in deg
+    @mixin rotateX($deg) {
+        @include transform(rotateX(#{$deg}deg));
+    }
+
+    /// @name   rotateY
+    /// @description    rotateY transform-function with all specific browsers properties
+    /// @param  $deg    value of angle in deg
+    @mixin rotateY($deg) {
+        @include transform(rotateY(#{$deg}deg));
+    }
+
+    /// @name   rotateZ
+    /// @description    rotateZ transform-function with all specific browsers properties
+    /// @param  $deg    value of angle in deg
+    @mixin rotateZ($deg) {
+        @include transform(rotateZ(#{$deg}deg));
+    }
+
+    /// @name   rotate3d
+    /// @description    rotate3d transform-function with all specific browsers properties
+    /// @param  $x    value of x
+    /// @param  $y    value of y
+    /// @param  $z    value of z
+    /// @param  $deg    value of angle in deg
+    @mixin rotate3d($x, $y, $z, $deg) {
+        @include transform(rotate3d(#{$x}, #{$y}, #{$z}, #{$deg}deg));
+    }
+
+/* [SCALE FUNCTIONS] */
+
+    /// @name   scale
+    /// @description    scale transform-function with all specific browsers properties
+    /// @param  $x    value of x
+    /// @param  $y    value of y
+    @mixin scale($x, $y) {
+        @include transform(scale(#{$x}, #{$y}));
+    }
+
+    /// @name   scaleX
+    /// @description    scaleX transform-function with all specific browsers properties
+    /// @param  $x    value of x
+    @mixin scaleX($x) {
+        @include transform(scaleX(#{$x}));
+    }
+
+    /// @name   scaleY
+    /// @description    scaleY transform-function with all specific browsers properties
+    /// @param  $y    value of y
+    @mixin scaleY($y) {
+        @include transform(scaleY(#{$y}));
+    }
+
+    /// @name   scaleZ
+    /// @description    scaleZ transform-function with all specific browsers properties
+    /// @param  $z    value of z
+    @mixin scaleZ($z) {
+        @include transform(scaleZ(#{$z}));
+    }
+
+    /// @name   scale3d
+    /// @description    scale3d transform-function with all specific browsers properties
+    /// @param  $x    value of x
+    /// @param  $y    value of y
+    /// @param  $z    value of z
+    @mixin scale3d($x, $y, $z) {
+        @include transform(scale3d(#{$x}, #{$y}, #{$z}));
+    }
+
+/* [SKEW FUNCTIONS] */
+
+    /// @name   skew
+    /// @description    skew transform-function with all specific browsers properties
+    /// @param  $x-deg    value of angle in deg from X axis
+    /// @param  $y-deg    value of angle in deg from Y axis
+    @mixin skew($x-deg, $y-deg) {
+        @include transform(skew(#{$x-deg}deg, #{$y-deg}deg));
+    }
+
+    /// @name   skewX
+    /// @description    skewX transform-function with all specific browsers properties
+    /// @param  $deg    value of angle in deg
+    @mixin skewX($deg) {
+        @include transform(skewX(#{$deg}deg));
+    }
+
+    /// @name   skewY
+    /// @description    skewY transform-function with all specific browsers properties
+    /// @param  $deg    value of angle in deg
+    @mixin skewY($deg) {
+        @include transform(skewY(#{$deg}deg));
+    }
+
+/* [TRANSLATE FUNCTIONS] */
+
+    /// @name   translate
+    /// @description    translate transform-function with all specific browsers properties
+    /// @param  $x    value of x
+    /// @param  $y    value of y
+    @mixin translate($x, $y) {
+        @include transform(translate(#{$x}, #{$y}));
+    }
+
+    /// @name   translateX
+    /// @description    translateX transform-function with all specific browsers properties
+    /// @param  $x    value of x
+    @mixin translateX($x) {
+        @include transform(translateX(#{$x}));
+    }
+
+    /// @name   translateY
+    /// @description    translateY transform-function with all specific browsers properties
+    /// @param  $y    value of y
+    @mixin translateY($y) {
+        @include transform(translateY(#{$y}));
+    }
+
+    /// @name   translateZ
+    /// @description    translateZ transform-function with all specific browsers properties
+    /// @param  $z    value of z
+    @mixin translateZ($z) {
+        @include transform(translateZ(#{$z}));
+    }
+
+    /// @name   translate3d
+    /// @description    translate3d transform-function with all specific browsers properties
+    /// @param  $x    value of x
+    /// @param  $y    value of y
+    /// @param  $z    value of z
+    @mixin translate3d($x, $y, $z) {
+        @include transform(translate3d(#{$x}, #{$y}, #{$z}));
+    }
+
+// [TRANSITIONS]
+
+/// @name   transition
+/// @description    transition shorthand with all specific browsers properties
+/// @param  $transition     block of transition properties (property, duration, timing-function, delay,  
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -ms-transition:     $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+/// @name   transition-property
+/// @description    transition-property with all specific browsers properties
+/// @param  $property     block of transition-property
+@mixin transition-property($property...) {
+    -moz-transition-property:    $property;
+    -o-transition-property:      $property;
+    -ms-transition-property:     $property;
+    -webkit-transition-property: $property;
+    transition-property:         $property;
+}
+
+/// @name   transition-duration
+/// @description    transition-duration with all specific browsers properties
+/// @param  $duration     block of transition-duration property
+@mixin transition-duration($duration...) {
+    -moz-transition-property:    $duration;
+    -o-transition-property:      $duration;
+    -ms-transition-property:     $duration;
+    -webkit-transition-property: $duration;
+    transition-property:         $duration;
+}
+
+/// @name   transition-timing-function
+/// @description    transition-timing-function with all specific browsers properties
+/// @param  $timing     block of transition-timing-function property
+@mixin transition-timing-function($timing...) {
+    -moz-transition-timing-function:    $timing;
+    -o-transition-timing-function:      $timing;
+    -ms-transition-timing-function:     $timing;
+    -webkit-transition-timing-function: $timing;
+    transition-timing-function:         $timing;
+}
+
+/// @name   transition-delay
+/// @description    transition-delay with all specific browsers properties
+/// @param  $delay     block of transition-delay property
+@mixin transition-delay($delay...) {
+    -moz-transition-delay:    $delay;
+    -o-transition-delay:      $delay;
+    -ms-transition-delay:     $delay;
+    -webkit-transition-delay: $delay;
+    transition-delay:         $delay;
+}

@@ -53,11 +53,11 @@
             <!-- VIEWER / EDITOR -->
             <div class="wri_manage-viewer mdl-cell wri_grid__col-4 --wri_full-height">
                 <div class="wri_manage-viewer__closer --wri_full-height">
-                    <div class="wri_manage-viewer__closer__container  --wri__interactive " ng-click="manageCtrl.toggleViewer()">
+                    <div class="wri_manage-viewer__closer__container --wri_interactive " ng-click="manageCtrl.toggleViewer()">
                         <i class="material-icons">{{manageCtrl.viewer.closerIcon}}</i>
                     </div>
                 </div>
-                <viewer-drawer class="--wri_full-height ng-hide" ng-class="{'--unaccessible': manageCtrl.selectMode && manageCtrl.viewer.itemToShow._id != null}" ng-hide="manageCtrl.viewer.isClosed" type="manageCtrl.viewer.itemToShowType" element="manageCtrl.viewer.itemToShow" edit-mode="manageCtrl.viewer.editMode" closed="manageCtrl.viewer.isClosed"></viewer-drawer>
+                <viewer-drawer class="--wri_full-height ng-hide" ng-class="{'--unaccessible': manageCtrl.selectMode}" ng-hide="manageCtrl.viewer.isClosed" type="manageCtrl.viewer.itemToShowType" element="manageCtrl.viewer.itemToShow" edit-mode="manageCtrl.viewer.editMode" closed="manageCtrl.viewer.isClosed"></viewer-drawer>
             </div>
         </div> 
     

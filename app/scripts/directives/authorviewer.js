@@ -99,14 +99,14 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
       appendClassName: "wri_dialog",
       showClose:false,
       data: {
-        action: "delete",
-        itemType: "author"
+        message: "Are you sure you want to delete this author ?"
       }
     }).then(function(){
-      var authorID = ctrl.author.id;
+      var authorID = ctrl.author._id;
       Authors.delete(authorID).then(function(){
           $scope.$emit("authors:refresh");
           ctrl.author = null;
+          ctrl.editMode = false;
       });
     });
   }
@@ -136,7 +136,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    * @memberOf Directives.authorViewer
    */
   function selectArticles() {
-    $scope.$emit('select:articles');
+    $scope.$emit('viewer_manage:select', "articles");
     Selector.loadSelection(ctrl.authorTmp.articles);
   }
 
@@ -155,8 +155,9 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
    * @memberOf Directives.authorViewer
    */
   function turnEditMode() {
+    var clonedAuthor = _.cloneDeep(ctrl.author);
+    ctrl.authorTmp = _.pick(clonedAuthor, ctrl.authorFields);
     ctrl.textToolbar = textToolbar.getSimpleToolbar();
-    ctrl.authorTmp = _.pick(ctrl.author, ctrl.authorFields);
     ctrl.editMode = true;
   }
 
@@ -172,14 +173,44 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
 
   // [PRIVATE FUNCTIONS : begin]
     /**
+     * @name  confirmBeforeSwitch
+     * @desc  Will open a confirm box to ask user to confirm choice before load another item in viewer, if currently was being edited
+     * @param   item  item to load in viewer
+     * @param   inEditor  to know if we need to turn edit mode or not
+     * @return  {Event} 'viewer_manage:open'   if confirmed 
+     */
+    function confirmBeforeSwitch(item, inEditor, type){
+      inEditor = inEditor || false;
+      var originalData = _.pick(ctrl.author, ctrl.authorFields);
+
+      if (!_.isEqual(ctrl.authorTmp, originalData)){
+        ngDialog.openConfirm({
+          template: "views/_confirm.html",
+          appendClassName: "wri_dialog",
+          showClose:false,
+          data: {
+            message: "Are you sure you want to quit current author without saving ?"
+          }
+        }).then(function(){
+          $scope.$emit("viewer_manage:open", item, inEditor, type);
+        }).catch(function(){
+          console.log("continue current edition");
+        });
+      } 
+      else {
+        $scope.$emit("viewer_manage:open", item, inEditor, type);
+      }
+    }
+
+    /**
      * @name insertDataInto
      * @desc Will update author property passed as param into an array
-     * @param {Boolean}  onlyObject   check if the current property has to be an object
      * @memberOf Directives.authorViewer
      */
     function insertDataInto() {
       var itemsSelected = Selector.getSelection();
       var obj;
+      ctrl.authorTmp.articles = [];
       _.forEach(itemsSelected, function(article){
         obj = {};
         obj = _.pick(article, ["_id"]);
@@ -189,7 +220,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
     }
 
 
-      /**
+    /**
      * @name transformIntoArr
      * @desc Will update author property passed as param into an array
      * @param {Object}  property   property to transform into an array
@@ -229,6 +260,11 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
+  $scope.$on("manage:load-while-editing", function(event, item, inEditor, type){
+      confirmBeforeSwitch(item, inEditor, type);
+  });
+
+  // [WATCHERS]
   $scope.$watch(function () {
     return ctrl.author;
   }, function (newAuthor, previousAuthor) {

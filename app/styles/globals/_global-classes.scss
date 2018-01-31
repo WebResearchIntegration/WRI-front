@@ -11,6 +11,10 @@
     cursor: pointer;
 }
 
+.--wri_text-center {
+    text-align: center;
+}
+
 .--wri_text-right {
     text-align: right;
 }
@@ -19,4 +23,44 @@
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+
+// COLORS
+.--wri_background--primary-dark {
+    background: $primary-dark;
+}
+.--wri_background--primary {
+    background: $primary;
+}
+.--wri_background--primary-light {
+    background: $primary-light;
+}
+.--wri_background--contrast-dark {
+    background: $contrast-dark;
+}
+.--wri_background--contrast-light {
+    background: $contrast-light;
+}
+.--wri_background--contrast {
+    background: $contrast;
+}
+
+.--wri_foreground--primary-dark {
+    color: $primary-dark;
+}
+.--wri_foreground--primary {
+    color: $primary;
+}
+.--wri_foreground--primary-light {
+    color: $primary-light;
+}
+.--wri_foreground--contrast-dark {
+    color: $contrast-dark;
+}
+.--wri_foreground--contrast-light {
+    color: $contrast-light;
+}
+.--wri_foreground--contrast {
+    color: $contrast;
 }

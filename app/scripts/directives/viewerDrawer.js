@@ -67,4 +67,9 @@ function viewerDrawerCtrl($scope, $compile){
     // [PRIVATE METHODS : end]
 
     // [EVENT]
+    $scope.$watch(function(){
+        return ctrl.editMode;
+    }, function(){
+        console.log("viewer-edit :", ctrl.editMode);
+    });
 }

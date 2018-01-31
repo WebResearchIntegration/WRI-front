@@ -103,9 +103,7 @@ angular
       }
     });
   }).run(function ($http, localStorageService, $location) {
-    console.log('here');
     if(localStorageService.get("token")) {
-      console.log(localStorageService.get("token"))
       var token = localStorageService.get("token");
       $http.defaults.headers.common['Authorization'] = token;
     } else {

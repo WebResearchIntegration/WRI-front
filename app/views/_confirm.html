@@ -2,11 +2,11 @@
     <h4 class="mdl-dialog__title">Confirm</h4>
     <div class="mdl-dialog__content">
         <p>
-        Are you sure you want to {{ngDialogData.action}} {{ngDialogData.itemType}} ?
+        {{ngDialogData.message}}
         </p>
     </div>
     <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button mdl-js-button mdl-button--primary" ng-click="confirm(1)">Agree</button>
-        <button type="button" class="mdl-button close" ng-click="closeThisDialog(0)">Disagree</button>
+        <button type="button" class="mdl-button mdl-js-button --wri_foreground--primary-light" ng-click="confirm(1)">Agree</button>
+        <button type="button" class="mdl-button close" ng-click="closeThisDialog()">Disagree</button>
     </div>
 </div>

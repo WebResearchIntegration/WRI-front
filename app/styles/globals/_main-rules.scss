@@ -22,10 +22,13 @@ body {
     padding: 0;
 }
 
+.mdl-layout__container{
+    position: relative;
+}
 
 a {
     cursor: pointer;
-    
+    color: $contrast;
     &:hover {
         color :  $contrast-dark;
     }
@@ -34,8 +37,15 @@ a {
     }
 }
 
+.mdl-button--fab.--wri_background--contrast, .mdl-button.--wri_background--contrast{
+    &:hover, &:active, &:focus {
+        background: $contrast;
+    }
+}
+
 p {
     margin: 0;
+    font-size: 15px;
 }
 
 .mdl-textfield__input {
@@ -66,3 +76,10 @@ p {
 //     background-image: url("../assets/icons/expand.svg");
 //     cursor: se-resize;
 // }
+#loading-bar .bar {
+    background: $contrast;
+}
+#loading-bar-spinner .spinner-icon {
+    border-top-color: $contrast;
+    border-left-color: $contrast;
+}

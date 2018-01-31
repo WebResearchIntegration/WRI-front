@@ -1,5 +1,5 @@
 @for $col-width from 1 through 12 {
     .wri_grid__col-#{$col-width} {
-        width: (100% / 12) * $col-width;
+        width: calc-width-for($col-width);
     }
 }

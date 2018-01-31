@@ -138,8 +138,8 @@ angular.module('wriApp')
       function setSelectionInCtrl(collection){
         var tmp;
         _.forEach(selectedItems, function(itemToSelect){
-          // tmp = _.find(collection, ['_id', itemToSelect]);
-          tmp = _.find(collection, ['_id', itemToSelect]); // to bind current back...
+          tmp = _.find(collection, ['_id', itemToSelect._id]);
+          // tmp = _.find(collection, ['_id', itemToSelect]); // to bind current back...
           if (tmp != undefined){
               tmp.isSelected = true;
           }
@@ -159,9 +159,11 @@ angular.module('wriApp')
           selectedItems.push(item);
         }
         else {
-          _.remove(selectedItems, item);
+          _.remove(selectedItems, function(selectedItem){
+            return selectedItem._id == item._id;
+          });
         }
-        return lengthBefore == selectedItems.length;
+        return lengthBefore != selectedItems.length;
       }
       
       /**

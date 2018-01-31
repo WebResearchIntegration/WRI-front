@@ -88,14 +88,14 @@
           appendClassName: "wri_dialog",
           showClose:false,
           data: {
-            action: "delete",
-            itemType: "question"
+            message: "Are you sure you want to delete this question ?"
           }
         }).then(function(){
-          var questionID = ctrl.question.id;
+          var questionID = ctrl.question._sid;
           Questions.delete(questionID).then(function(){
               $scope.$emit("questions:refresh");
               ctrl.question = null;
+              ctrl.editMode = false;
           });
         });
       }
@@ -113,6 +113,37 @@
     // [METHODS : end]
   
     // [PRIVATE FUNCTIONS : begin]
+
+      /**
+       * @name  confirmBeforeSwitch
+       * @desc  Will open a confirm box to ask user to confirm choice before load another item in viewer, if currently was being edited
+       * @param   item  item to load in viewer
+       * @param   inEditor  to know if we need to turn edit mode or not
+       * @return  {Event} 'viewer_manage:open'   if confirmed 
+       */
+      function confirmBeforeSwitch(question, inEditor, type){
+        inEditor = inEditor || false;
+        var originalData = _.pick(ctrl.question, ctrl.questionFields);
+        
+        if (!_.isEqual(ctrl.questionTmp, originalData)){
+          ngDialog.openConfirm({
+            template: "views/_confirm.html",
+            appendClassName: "wri_dialog",
+            showClose:false,
+            data: {
+              message: "Are you sure you want to quit current question without saving ?"
+            }
+          }).then(function(){
+            $scope.$emit("viewer_manage:open", question, inEditor, type);
+          }).catch(function(){
+            console.log("continue current edition");
+          });
+        } 
+        else {
+          $scope.$emit("question:open", question, inEditor);
+        }
+      }
+
       /**
        * @name loadQuestion
        * @desc Will load question in viewer
@@ -146,6 +177,11 @@
     // [PRIVATE FUNCTIONS : end]
   
     // [EVENTS]
+    $scope.$on("manage:load-while-editing", function(event, item, inEditor){
+      confirmBeforeSwitch(item, inEditor);
+    });
+    
+    // [WATCHERS]
       $scope.$watch( function(){
         return ctrl.question;
       }, function(){

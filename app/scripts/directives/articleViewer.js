@@ -23,7 +23,7 @@ function articleViewerDirective() {
   };  
 }
 
-function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Articles, textToolbar, Selector, ngDialog) {
+function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageService, Articles, textToolbar, Selector, ngDialog, DataCollect) {
 
   var ctrl = this;
 
@@ -47,6 +47,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
     ctrl.cancelEdition = cancelEdition;
     ctrl.createArticle = createArticle;
     ctrl.createNoteFor = createNoteFor;
+    ctrl.createQuestionFor = createQuestionFor;
     ctrl.deleteArticle = deleteArticle;
     ctrl.loadArticle = loadArticle;
     ctrl.openAuthorProfile = openAuthorProfile;
@@ -104,7 +105,23 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      * @memberOf Directives.articleViewer
      */
     function createNoteFor(){
-      console.log("add a note for article #", ctrl.article._id);
+      var emptyNote = {
+        text: ""
+      };
+      loadItemInPreviewer(emptyNote, "note");
+    }
+
+    /**
+     * @name createQuestionFor
+     * @desc Will load questions view and question editor. It will bind the new question with current article
+     * @memberOf Directives.articleViewer
+     */
+    function createQuestionFor(){
+      var emptyQuestion = {
+        problematic: "",
+        answer: ""
+      };
+      loadItemInPreviewer(emptyQuestion, "question");
     }
 
     /**
@@ -131,8 +148,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
         appendClassName: "wri_dialog",
         showClose:false,
         data: {
-          action: "delete",
-          itemType: "article"
+          message: "Are you sure you want to delete this article ?"
         }
       }).then(function(){
         var articleID = ctrl.article._id;
@@ -140,7 +156,10 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
         Articles.delete(articleID).then(function(){
             $scope.$emit("articles:refresh");
             ctrl.article = null;
+            ctrl.editMode = false;
         });
+      }).catch(function(){
+        console.log("cancel delete ");
       });
     }
 
@@ -151,7 +170,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      * @memberOf Directives.articleViewer
      */
     function loadArticle(article) {
-
+      
       // Main informations
       if(!_.isEmpty(_.trim(article.problematic)) && !_.isEmpty(_.trim(article.problematic))){
         ctrl.showProbSoluce = true;
@@ -196,7 +215,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      * @memberOf Directives.articleViewer
      */
     function openAuthorProfile(author) {
-      $scope.$emit("author:open", author);
+      $scope.$emit("viewer_manage:open", author, false, "author");
     } 
 
     /**
@@ -206,7 +225,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      * @memberOf Directives.articleViewer
      */
     function openReference(article) {
-      $scope.$emit("reference:open", article);
+      $scope.$emit("viewer_manage:open", article, false, "article");
     }
     
     /**
@@ -234,9 +253,12 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      * @memberOf Directives.articleViewer
      */
     function turnEditMode() {
-      ctrl.articleTmp = _.pick(ctrl.article, ctrl.articleFields);
-
+      var clonedArticle = _.cloneDeep(ctrl.article);
+      ctrl.articleTmp = _.pick(clonedArticle, ctrl.articleFields);
+      ctrl.articleTmp.publishedDate = new Date(ctrl.articleTmp.publishedDate);
+      
       ctrl.textToolbar = textToolbar.getSimpleToolbar();
+
       ctrl.keywordsSelectize = {
         config: {
           create: true,
@@ -253,7 +275,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
             }
           }
         },
-        options: [{id:1, text: "interest"}] // get all keywords from database
+        options: DataCollect.getKeywordsAsOptions() // get all keywords from database
       };
 
       ctrl.editMode = true;
@@ -266,7 +288,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      */
     function selectAuthors() {
       selectedProperty = "authors";
-      $scope.$emit('select:authors');
+      $scope.$emit('viewer_manage:select', selectedProperty);
       Selector.loadSelection(ctrl.articleTmp.authors);
     }
 
@@ -277,7 +299,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      */
     function selectNotes() {
       selectedProperty = "notes";
-      $scope.$emit('select:notes');
+      $scope.$emit('viewer_manage:select', selectedProperty);
       Selector.loadSelection(ctrl.articleTmp.notes);
     }
 
@@ -288,7 +310,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      */
     function selectQuestions() {
       selectedProperty = "questions";
-      $scope.$emit('select:questions');
+      $scope.$emit('viewer_manage:select', selectedProperty);
       Selector.loadSelection(ctrl.articleTmp.questions);
     }
 
@@ -299,12 +321,42 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
      */
     function selectReferences() {
       selectedProperty = "references";
-      $scope.$emit('select:articles');
+      $scope.$emit('viewer_manage:select', "articles");
       Selector.loadSelection(ctrl.articleTmp.references);
     }
   // [METHODS : end]
 
   // [PRIVATE FUNCTIONS : begin]
+    /**
+     * @name  confirmBeforeSwitch
+     * @desc  Will open a confirm box to ask user to confirm choice before load another item in viewer, if currently was being edited
+     * @param   item  item to load in viewer
+     * @param   inEditor  to know if we need to turn edit mode or not
+     * @return  {Event} 'viewer_manage:open'   if confirmed 
+     */
+    function confirmBeforeSwitch(item, inEditor, type){
+      inEditor = inEditor || false;
+      var originalData = _.pick(ctrl.article, ctrl.articleFields);
+
+      if (!_.isEqual(ctrl.articleTmp, originalData)){
+        ngDialog.openConfirm({
+          template: "views/_confirm.html",
+          appendClassName: "wri_dialog",
+          showClose:false,
+          data: {
+            message: "Are you sure you want to quit current article without saving ?"
+          }
+        }).then(function(){
+          $scope.$emit("viewer_manage:open", item, inEditor, type);
+        }).catch(function(){
+          console.log("continue current edition");
+        });
+      } 
+      else {
+        $scope.$emit("viewer_manage:open", item, inEditor, type);
+      }
+    }
+
     /**
      * @name insertDataInto
      * @desc Will update article property passed as param into an array
@@ -315,13 +367,82 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
     function insertDataInto() {
       var itemsSelected = Selector.getSelection();
       var obj;
+      ctrl.articleTmp[selectedProperty] = [];
       _.forEach(itemsSelected, function(item){
         obj = {};
         obj = _.pick(item, ["_id"]);
         ctrl.articleTmp[selectedProperty].push(obj);
       });
-      console.log(ctrl.articleTmp[selectedProperty]);
       Selector.disable();
+    }
+
+    /**
+     * @name loadItemInPreviewer
+     * @desc load item into previewer
+     * @param {Object}  item    item to load in viewer
+     * @param {Boolean}  inEditor    true if we want to load the item in editor
+     * @memberOf Controllers.manage
+     */
+    function loadItemInPreviewer(item, type) {
+      var previewParams = {
+        type: type,
+        fullEditor: true,
+        field: item
+      };
+
+      switch(type){
+          case "note":
+            previewParams.title = "New Note for " + ctrl.article.name;
+          break;
+
+          case "question":
+            previewParams.title = "New Question for " + ctrl.article.name;
+            previewParams.toolbar = textToolbar.getAdvancedToolbar();
+          break;
+
+          default:
+            previewParams.title = "Previewer";
+          break;
+      }
+      
+      ngDialog.open({
+          template: "views/previewer.html",
+          className: "viewer",
+          showClose: false,
+          closeByDocument: false,
+          closeByEscape: false,
+          controller: 'previewerCtrl',
+          controllerAs: 'previewer',
+          scope: $scope,
+          data: previewParams
+      });
+    }
+
+    /**
+     * @name pushElementIntoArticle
+     * @desc Will push new note / question into article
+     * @param {Object}  item   item to push into article property
+     * @param {String}  type   to determinate which article property collection need to be updated
+     * @memberOf Directives.articleViewer
+     */
+    function pushElementIntoArticle(item, type){
+      switch(type){
+        case "note":
+          ctrl.articleTmp = _.pick(ctrl.article, ["_id", "notes"]);
+          ctrl.articleTmp.notes.push(item);
+          updateArticle();
+        break;
+
+        case "question":
+          ctrl.articleTmp = _.pick(ctrl.article, ["_id", "questions"]);
+          ctrl.articleTmp.questions.push(item);
+          updateArticle();
+        break;
+
+        default: 
+          console.error("type unknown to save in article");
+        break;
+      }
     }
 
     /**
@@ -356,12 +477,26 @@ function articleViewerCtrl($rootScope, $scope, $timeout, localStorageService, Ar
       Articles.updateById(articleEdited._id, articleEdited).then(function(articleUpdated){
           ctrl.editMode = false;
           // TODO : sync viewer with last version from database
-          loadArticle(articleUpdated);
+          // console.log("new article" , articleUpdated);
+          Articles.getById(articleUpdated._id).then(function(updatedArticle){
+              DataCollect.extractKeywordsOf(updatedArticle);
+              loadArticle(updatedArticle);
+            }
+          );
       });
     }
   // [PRIVATE FUNCTIONS : end]
 
   // [EVENTS]
+    $scope.$on("manage:load-while-editing", function(event, item, inEditor, type){
+      confirmBeforeSwitch(item, inEditor, type);
+    });
+
+    $scope.$on("previewer_viewer:push-to", function(event, item, type){
+      pushElementIntoArticle(item, type);
+    });
+
+  // [WATCHERS]
     $scope.$watch( function(){
       return ctrl.article;
     }, function(newArticle, previousArticle){

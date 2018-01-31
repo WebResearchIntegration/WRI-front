@@ -2,70 +2,11 @@
 @import "font-awesome/scss/font-awesome.scss";
 // endbower
 
+@import "modules/_variables.scss";
+@import "modules/_mixins.scss";
+@import "modules/_animations.scss";
+@import "modules/_functions.scss";
 
-.item {
-    height: 50px;
-    background: #fff;
-    margin: 15px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid transparent;
-    box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
-
-    &:hover {
-        cursor: pointer;
-    }
-
-    &.selected-mode-item {
-        justify-content: space-between;
-        border: 1px solid transparent;
-        transition:.7s;
-    }
-
-    &.selected-item {
-        box-shadow: 0 6px 7px 0 rgba(0,0,0,.15), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
-    }
-
-    .selected-item-validator {
-        height: 100%;
-        align-self: flex-end;
-        position: relative;
-        width: 10%;
-        color: white;
-        font-size: 1.6em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #3F50B4;
-    }
-
-    .selected-item-validator-disabled {
-        height: 100%;
-        align-self: flex-end;
-        position: relative;
-        width: 10%;
-        color: grey;
-        font-size: 1.6em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
-
-.selected-mode-background {
-    background: white;
-}
-
-.mdl-layout__container {
-    position:relative;
-}
-
-.content-wri-app-background {
-    background: white;
-}
-
-@import "_variables.scss";
 @import "globals/_main-rules.scss";
 @import "globals/_icons.scss";
 @import "globals/_dialogs.scss";
@@ -73,12 +14,11 @@
 @import "globals/_global-classes.scss";
 @import "globals/_grid-structure.scss";
 
-// @import "_header.scss";
-
 @import "pages/_manage.scss";
 @import "pages/_login.scss";
 
 @import "directives/_viewer-drawer.scss";
-@import "directives/_article-viewer.scss";
+@import "directives/_element-viewer.scss";
 @import "directives/_element-filter.scss";
+
 @import "formulaEditor.scss";

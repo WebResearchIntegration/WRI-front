@@ -1,0 +1,69 @@
+/// @name   avoid-overflow-jump
+/// @description   
+/// When an element, which is very big, has a animation and its parent has 'overflow : auto', it can seems that the element jumps. 
+/// This visual effect became from the scrollbar +/- thumb , which is visible only when the element is bigger than its parent container.
+/// To avoid this visual effect, we are temporary setting the parent controller with : 'overflow: hidden'
+@include keyframes('avoid-overflow-jump') {
+    from {
+        overflow: hidden;
+    }
+    to {
+        overflow: auto;
+    }
+}
+
+/// @name   slidein-from-#{$side}
+/// @description    
+/// The element is mixing an effect of fadein and come from the $side of the window
+@each $side, $value in (top:-100%, right: 100%, bottom: 100%, left: -100%) {
+    @include keyframes('slidein-from-#{$side}') {
+        from {
+            visibility: hidden;
+            opacity: 0;
+            @if $side == top or $side == bottom {
+                @include translateY($value); 
+            }
+            @else {
+                @include translateX($value); 
+            }
+        }
+        to {
+            @if $side == top or $side == bottom {
+                @include translateY(0); 
+            }
+            @else {
+                @include translateX(0); 
+            }
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+/// @name   slideout-to-#{$side}
+/// @description    
+/// The element is mixing an effect of fadeout and go to the $side of the window
+@each $side, $value in (top:-100%, right: 100%, bottom: 100%, left: -100%) {
+    @include keyframes('slideout-to-#{$side}') {
+        from {
+            visibility: visible;
+            opacity: 1;
+            @if $side == top or $side == bottom {
+                @include translateY(0); 
+            }
+            @else {
+                @include translateX(0); 
+            }
+        }
+        to {
+            @if $side == top or $side == bottom {
+                @include translateY($value); 
+            }
+            @else {
+                @include translateX($value); 
+            } 
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+}
