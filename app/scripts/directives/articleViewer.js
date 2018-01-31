@@ -104,7 +104,10 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
      * @memberOf Directives.articleViewer
      */
     function createNoteFor(){
-      console.log("add a note for article #", ctrl.article._id);
+      var emptyNote = {
+        text: ""
+      };
+      loadItemInPreviewer(emptyNote, "note");
     }
 
     /**
@@ -360,6 +363,87 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
     }
 
     /**
+     * @name loadItemInPreviewer
+     * @desc load item into previewer
+     * @param {Object}  item    item to load in viewer
+     * @param {Boolean}  inEditor    true if we want to load the item in editor
+     * @memberOf Controllers.manage
+     */
+    function loadItemInPreviewer(item, type) {
+      var previewParams = {};
+
+      switch(type){
+          case "note":
+              previewParams = {
+                  type: type,
+                  title: "New Note for " + ctrl.article.name,
+                  fullEditor: true,
+                  field: ""
+              };
+              break;
+
+          case "author":
+              previewParams = {
+                  type: type,
+                  title: "New Author",
+                  fullEditor: false,
+                  placeholder: "Name...",
+                  field: ""
+              };
+              break;
+
+          default:
+              previewParams = {
+                  type: type,
+                  title: "Previewer",
+                  fullEditor: false,
+                  placeholder: "Default...",
+                  field: ""
+              };
+              break;
+      }
+      
+      ngDialog.open({
+          template: "views/previewer.html",
+          className: "viewer",
+          showClose: false,
+          closeByDocument: false,
+          closeByEscape: false,
+          controller: 'previewerCtrl',
+          controllerAs: 'previewer',
+          scope: $scope,
+          data: previewParams
+      });
+    }
+
+    /**
+     * @name pushElementIntoArticle
+     * @desc Will push new note / question into article
+     * @param {Object}  item   item to push into article property
+     * @param {String}  type   to determinate which article property collection need to be updated
+     * @memberOf Directives.articleViewer
+     */
+    function pushElementIntoArticle(item, type){
+      switch(type){
+        case "note":
+          ctrl.articleTmp = _.pick(ctrl.article, ["_id", "notes"]);
+          ctrl.articleTmp.notes.push(item);
+          updateArticle();
+        break;
+
+        case "question":
+          ctrl.articleTmp = _.pick(ctrl.article, ["_id", "questions"]);
+          ctrl.articleTmp.questions.push(item);
+          updateArticle();
+        break;
+
+        default: 
+        console.error("type unknown to save in article");
+        break;
+      }
+    }
+
+    /**
      * @name transformIntoArr
      * @desc Will update article property passed as param into an array
      * @param {Object}  property   property to transform into an array
@@ -404,6 +488,10 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
   // [EVENTS]
     $scope.$on("manage:load-while-editing", function(event, item, inEditor, type){
       confirmBeforeSwitch(item, inEditor, type);
+    });
+
+    $scope.$on("previewer_viewer:push-to", function(event, item, type){
+      pushElementIntoArticle(item, type);
     });
 
   // [WATCHERS]

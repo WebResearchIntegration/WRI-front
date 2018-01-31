@@ -6,21 +6,37 @@
                     <span class="mdl-layout__title --no-padding">{{ngDialogData.title}}</span>
                 </div>
             </div>
-            <!-- <div class="mdl-layout__header-row --wri_background--contrast-dark interactive-row" ng-class="{'wri_editor__text-toolbar': articleViewer.editMode}">
+            <div 
+                ng-if="ngDialogData.fullEditor && ngDialogData.type == 'note'" 
+                class="mdl-layout__header-row --wri_background--contrast-dark interactive-row wri_editor__text-toolbar">
                 <text-angular-toolbar 
                     class="wri_text-toolbar" 
-                    ng-if="articleViewer.editMode" 
-                    ta-toolbar="articleViewer.textToolbar"
-                    name="article-toolbar">
+                    name="note-toolbar">
                 </text-angular-toolbar> 
-            </div> -->
+            </div>
         </header>
         <main class="mdl-layout__content --wri_scrollY-area --edit-mode">
-            <section class="wri_article__main-informations --wri_text-center">
-                <div class="wri_form__textfield mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="field" ng-model="ngDialogData.field" placeholder="{{ngDialogData.placeholder}}" required>
-                    <label class="mdl-textfield__label" for="field"></label>
-                </div>
+            <section 
+                class="wri_article__main-informations" 
+                ng-class="{'--wri_text-center': !ngDialogData.fullEditor}">
+                    <div 
+                        ng-if="!ngDialogData.fullEditor"
+                        class="wri_form__textfield mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="field" ng-model="ngDialogData.field" placeholder="{{ngDialogData.placeholder}}" required>
+                        <label class="mdl-textfield__label" for="field"></label>
+                    </div>
+
+                    <div
+                        ng-if="ngDialogData.type == 'note'" 
+                        class="wri_article__main-informations__category mdl-shadow--4dp">
+                        <div class="wri_article__main-informations__inside">
+                            <text-angular 
+                                ta-target-toolbars="note-toolbar" 
+                                ta-focussed-class="no-style"
+                                ng-model="ngDialogData.field">
+                            </text-angular>
+                        </div>
+                    </div>
             </section>
         </main>
         <footer>

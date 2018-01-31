@@ -74,6 +74,17 @@
                         });
                         break;
 
+                    case "note":
+                        sendingElement = {
+                            user: localStorageService.get("user").id,
+                            note: {text: $scope.ngDialogData.field}
+                        };
+                        Notes.create(sendingElement).then(function(noteAdded){
+                            $scope.$emit("previewer_viewer:push-to", noteAdded, "note");
+                            $scope.closeThisDialog();
+                        });
+                        break;
+
                     default:
                         console.error("no type");
                         break;
