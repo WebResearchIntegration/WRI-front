@@ -176,6 +176,7 @@
 
                 .wri_item-list__article__statuses {
                     display: flex;
+                    flex: 0;
                     justify-content: center;
                     flex-direction: column;
                     width: 60px;
