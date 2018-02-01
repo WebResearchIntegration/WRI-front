@@ -16,7 +16,7 @@ angular.module('wriApp')
             element: '='
         },
         controller: function($scope, $rootScope, Articles) {
-            $rootScope.order = 'id';
+            $rootScope.order = '_id';
             // [PARAMETERS]
             var types = ["article", "author", "note", "question"];
             $scope.orderValue = {};

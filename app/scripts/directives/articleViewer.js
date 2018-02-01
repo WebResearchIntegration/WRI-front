@@ -95,7 +95,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
       Articles.create(sendingElement).then(function(articleAdded){
         ctrl.article = articleAdded;
         ctrl.editMode = false;
-        $scope.$emit("articles:refresh");
+        $scope.$emit("viewer_items-list:insert", "articles", articleAdded._id);
       });
     }
 
@@ -154,7 +154,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
         var articleID = ctrl.article._id;
         // check article.id (because of RESTangular)
         Articles.delete(articleID).then(function(){
-            $scope.$emit("articles:refresh");
+            $scope.$emit("viewer_items-list:remove", "articles", articleID);
             ctrl.article = null;
             ctrl.editMode = false;
         });
@@ -477,7 +477,7 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
       Articles.updateById(articleEdited._id, articleEdited).then(function(articleUpdated){
           ctrl.editMode = false;
           // TODO : sync viewer with last version from database
-          // console.log("new article" , articleUpdated);
+          $scope.$emit("viewer_items-list:refresh", "articles", articleUpdated._id);
           Articles.getById(articleUpdated._id).then(function(updatedArticle){
               DataCollect.extractKeywordsOf(updatedArticle);
               loadArticle(updatedArticle);

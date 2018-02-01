@@ -169,9 +169,12 @@
         var questionEdited = _.assignIn(ctrl.question, ctrl.questionTmp);
 
         Questions.updateById(questionEdited._id,questionEdited).then(function(questionUpdated){
+            $scope.$emit("questions:refresh");
             ctrl.editMode = false;
             // TODO : sync viewer with last version from database
-            loadQuestion(questionUpdated);
+            Questions.getById(questionUpdated._id).then(function (questionToReload){
+              loadQuestion(questionToReload);
+            });
         });
       }
     // [PRIVATE FUNCTIONS : end]

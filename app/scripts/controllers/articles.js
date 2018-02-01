@@ -109,6 +109,33 @@ angular.module('wriApp')
             init();
         });
 
+        $rootScope.$on("viewer_items-list:insert", function(event, type, articleId){
+            if (type == "articles") {
+                Articles.getById(articleId).then(function(articleToInsert){
+                    ctrl.articles.push(articleToInsert);
+                });
+            }
+        });
+
+        $rootScope.$on("viewer_items-list:remove", function(event, type, articleId){
+            if (type == "articles") {
+                _.remove(ctrl.articles, function(article){
+                    return article._id == articleId;
+                });
+            }
+        });
+
+        $rootScope.$on("viewer_items-list:refresh", function(event, type, articleId){
+            if (type == "articles") {
+                Articles.getById(articleId).then(function(articleToInsert){
+                    _.remove(ctrl.articles, function(article){
+                        return article._id == articleId;
+                    });
+                    ctrl.articles.push(articleToInsert);
+                });
+            }
+        });
+
         $scope.$on("manage:reset-list", function(event){
             reinitSelection();
         });

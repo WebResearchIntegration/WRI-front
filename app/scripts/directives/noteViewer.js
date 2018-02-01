@@ -167,8 +167,11 @@ function noteViewerCtrl($rootScope, $scope, Notes, ngDialog, localStorageService
 
       Notes.updateById(noteEdited._id, noteEdited).then(function (noteUpdated) {
         ctrl.editMode = false;
+        $scope.$emit("notes:refresh");
         // TODO : sync viewer with last version from database
-        loadNote(noteUpdated);
+        Notes.getById(noteUpdated._id).then(function (noteToReload){
+          loadNote(noteToReload);
+        });
       });
     }
   // [PRIVATE FUNCTIONS : end]

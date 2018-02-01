@@ -71,7 +71,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
     Authors.create(sendingElement).then(function (authorAdded) {
       ctrl.author = authorAdded;
       ctrl.editMode = false;
-      $rootScope.$emit("authors:refresh");
+      $scope.$emit("viewer_items-list:insert", "authors", authorAdded._id);
     });
   }
 
@@ -104,7 +104,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
     }).then(function(){
       var authorID = ctrl.author._id;
       Authors.delete(authorID).then(function(){
-          $scope.$emit("authors:refresh");
+          $scope.$emit("viewer_items-list:remove", "authors", authorID);
           ctrl.author = null;
           ctrl.editMode = false;
       });
@@ -253,8 +253,11 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
 
     Authors.updateById(authorEdited._id, authorEdited).then(function (authorUpdated) {
       ctrl.editMode = false;
-      // TODO: update article viewer with last version from database
-      loadAuthor(authorUpdated);
+      $scope.$emit("viewer_items-list:refresh", "authors", authorUpdated._id);
+
+      Authors.getById(authorUpdated._id).then(function (authorToReload){
+        loadAuthor(authorToReload);
+      });
     });
   }
   // [PRIVATE FUNCTIONS : end]
