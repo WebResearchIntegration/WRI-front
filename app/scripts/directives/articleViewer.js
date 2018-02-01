@@ -23,7 +23,7 @@ function articleViewerDirective() {
   };  
 }
 
-function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageService, Articles, textToolbar, Selector, ngDialog, DataCollect) {
+function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageService, Articles, Authors, textToolbar, Selector, ngDialog, DataCollect) {
 
   var ctrl = this;
 
@@ -215,7 +215,9 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
      * @memberOf Directives.articleViewer
      */
     function openAuthorProfile(author) {
-      $scope.$emit("viewer_manage:open", author, false, "author");
+      Authors.getById(author._id).then(function (authorToOpen){
+        $scope.$emit("viewer_manage:open", authorToOpen, false, "author");
+      });
     } 
 
     /**
@@ -225,7 +227,9 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
      * @memberOf Directives.articleViewer
      */
     function openReference(article) {
-      $scope.$emit("viewer_manage:open", article, false, "article");
+      Articles.getById(article._id).then(function (referenceToOpen){
+        $scope.$emit("viewer_manage:open", referenceToOpen, false, "article");
+      });
     }
     
     /**

@@ -41,6 +41,7 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
   ctrl.createAuthor = createAuthor;
   ctrl.cancelEdition = cancelEdition;
   ctrl.deleteAuthor = deleteAuthor;
+  ctrl.openArticle = openArticle;
   ctrl.selectArticles = selectArticles;
   ctrl.showAllArticles = showAllArticles;
   ctrl.toggleContact = toggleContact;
@@ -128,6 +129,18 @@ function authorViewerCtrl($rootScope, $scope, $q, Authors, Articles, Selector, t
     if(ctrl.editMode){
       turnEditMode();
     }
+  }
+
+  /**
+   * @name openArticle
+   * @desc Will load article in viewer
+   * @param {Object}  article   article to load in article viewer
+   * @memberOf Directives.authorViewer
+   */
+  function openArticle(article) {
+    Articles.getById(article._id).then(function (referenceToOpen){
+      $scope.$emit("viewer_manage:open", referenceToOpen, false, "article");
+    });
   }
 
   /**
