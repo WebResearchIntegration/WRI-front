@@ -80,6 +80,8 @@ function articleViewerCtrl($rootScope, $scope, $timeout, $filter, localStorageSe
      */
     function applyKeywordFilter(keyword){
       console.log('apply filter keywords on articles : ', keyword);
+      $scope.$emit('setSearchArticle', {keywords: keyword});
+      $scope.$emit('sendFilters', {keywords: keyword});
     }
 
     /**

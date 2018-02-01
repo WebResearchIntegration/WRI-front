@@ -73,6 +73,11 @@ angular.module('wriApp')
                 $scope.$emit('sendOrderBy', order);
             }
 
+            $rootScope.$on("setSearchArticle", function(event, filterObj){
+                console.log("set filter...");   
+                $scope.searchArticle = filterObj;
+            });
+
         },
 
         link: function(scope, element, attrs) {
