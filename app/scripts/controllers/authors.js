@@ -98,6 +98,33 @@ angular.module('wriApp')
             init();
         });
 
+        $rootScope.$on("viewer_items-list:insert", function(event, type, authorId){
+            if (type == "authors") {
+                Authors.getById(authorId).then(function(authorToInsert){
+                    ctrl.authors.push(authorToInsert);
+                });
+            }
+        });
+
+        $rootScope.$on("viewer_items-list:remove", function(event, type, authorId){
+            if (type == "authors") {
+                _.remove(ctrl.authors, function(author){
+                    return author._id == authorId;
+                });
+            }
+        });
+
+        $rootScope.$on("viewer_items-list:refresh", function(event, type, authorId){
+            if (type == "authors") {
+                Authors.getById(authorId).then(function(authorToInsert){
+                    _.remove(ctrl.authors, function(author){
+                        return author._id == authorId;
+                    });
+                    ctrl.authors.push(authorToInsert);
+                });
+            }
+        });
+
         $scope.$on("manage:reset-list", function(event){
             reinitSelection();
         });

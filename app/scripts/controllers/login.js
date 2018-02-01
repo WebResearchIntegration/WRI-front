@@ -25,15 +25,12 @@ angular.module('wriApp')
      * @memberOf Controllers.LoginCtrl
      */
     ctrl.handleRequest = function (event) {
-      console.log(event);
       Auth.signIn(ctrl.email, ctrl.password, function (err, authenticatedUser) {
         if (err) {
-          console.log(ctrl.notifError);
           ctrl.notifError = true;
         } else {
-          console.log(authenticatedUser);
           UserFactory.currentUser = authenticatedUser;
-          $location.path('/');
+          $location.path('/manage');
           ctrl.notifError = false;
         }
       });
